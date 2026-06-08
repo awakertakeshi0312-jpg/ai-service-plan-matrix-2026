@@ -454,6 +454,225 @@
       text-align: right;
     }
 
+    .graph-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+      gap: 12px;
+    }
+
+    .graph-card {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .graph-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .graph-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .graph-head h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 950;
+    }
+
+    .graph-head p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .price-chart {
+      display: grid;
+      gap: 11px;
+    }
+
+    .price-row {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr) 82px;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .price-name {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .price-track {
+      height: 12px;
+      border-radius: 999px;
+      background: #e6ecef;
+      overflow: hidden;
+    }
+
+    .price-track i {
+      display: block;
+      width: var(--value);
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .price-value {
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 950;
+      text-align: right;
+    }
+
+    .price-note {
+      margin-top: 18px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: #f4fbfb;
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 800;
+    }
+
+    .price-note strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .position-map {
+      position: relative;
+      min-height: 300px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, transparent calc(50% - 0.5px), #dbe4e6 calc(50% - 0.5px), #dbe4e6 calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+        linear-gradient(0deg, transparent calc(50% - 0.5px), #dbe4e6 calc(50% - 0.5px), #dbe4e6 calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+        #fbfcfc;
+      overflow: hidden;
+    }
+
+    .axis-label {
+      position: absolute;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
+      line-height: 1.2;
+      pointer-events: none;
+    }
+
+    .axis-label.top { top: 12px; left: 50%; transform: translateX(-50%); }
+    .axis-label.bottom { bottom: 12px; left: 50%; transform: translateX(-50%); }
+    .axis-label.left { left: 12px; top: 50%; transform: translateY(-50%); }
+    .axis-label.right { right: 12px; top: 50%; transform: translateY(-50%); }
+
+    .map-dot {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 11px;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, #ffffff);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 950;
+      box-shadow: 0 9px 20px rgba(15, 23, 42, 0.11);
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+
+    .map-dot::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .heatmap-scroll {
+      overflow-x: auto;
+    }
+
+    .heatmap {
+      display: grid;
+      gap: 8px;
+      min-width: 760px;
+    }
+
+    .heat-row {
+      display: grid;
+      grid-template-columns: 130px repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .heat-label,
+    .heat-cell {
+      min-height: 38px;
+      padding: 8px 9px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 900;
+    }
+
+    .heat-label {
+      display: flex;
+      align-items: center;
+      background: #f6f9f8;
+      color: var(--ink);
+    }
+
+    .heat-head {
+      min-height: 30px;
+      background: #eef4f2;
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .heat-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--ink);
+      background: color-mix(in srgb, var(--accent) var(--mix), #ffffff);
+      border-color: color-mix(in srgb, var(--accent) 22%, #d9e2e2);
+    }
+
+    .heat-cell span:last-child {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
     .dossier-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -748,6 +967,7 @@
     @media (max-width: 1180px) {
       .hero,
       .editorial,
+      .graph-grid,
       .sources {
         grid-template-columns: 1fr;
       }
@@ -802,6 +1022,64 @@
 
       .section-heading p {
         text-align: left;
+      }
+
+      .graph-head {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .graph-head p {
+        text-align: left;
+      }
+
+      .price-row {
+        grid-template-columns: 78px minmax(0, 1fr) 70px;
+        gap: 9px;
+      }
+
+      .position-map {
+        min-height: 340px;
+      }
+
+      .map-dot {
+        padding: 0 9px;
+        font-size: 11px;
+      }
+
+      .heatmap {
+        min-width: 0;
+        gap: 6px;
+      }
+
+      .heat-row {
+        grid-template-columns: 86px repeat(4, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      .heat-label,
+      .heat-cell {
+        min-height: 42px;
+        padding: 7px 6px;
+        font-size: 10.5px;
+      }
+
+      .heat-head {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 10px;
+      }
+
+      .heat-cell {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 1px;
+      }
+
+      .heat-cell span:last-child {
+        font-size: 10px;
       }
 
       .editorial-main,
@@ -871,6 +1149,22 @@
       .scoreboard,
       .dossier-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .graph-grid {
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+
+      .graph-card {
+        padding: 10px;
+      }
+
+      .position-map {
+        min-height: 210px;
+      }
+
+      .heatmap {
+        min-width: 680px;
       }
 
       .editorial,
@@ -1068,6 +1362,125 @@
             <span>開発CLI適性</span><div class="meter"><i></i></div><span class="score">6.2</span>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section-band" aria-labelledby="graphs-title">
+      <div class="section-heading">
+        <h2 id="graphs-title">比較グラフ</h2>
+        <p>表を読む前に、料金感、用途適性、サービスの位置づけを視覚で確認できます。</p>
+      </div>
+
+      <div class="graph-grid">
+        <article class="graph-card">
+          <div class="graph-head">
+            <h3>推奨プラン料金</h3>
+            <p>月額の目安。GensparkはPlus、主要3社はPro/Plus相当までで比較。</p>
+          </div>
+          <div class="price-chart" aria-label="推奨プラン料金比較">
+            <div class="price-row" style="--accent: var(--green); --value: 80%;">
+              <span class="price-name">ChatGPT</span>
+              <div class="price-track"><i></i></div>
+              <span class="price-value">$20</span>
+            </div>
+            <div class="price-row" style="--accent: var(--amber); --value: 80%;">
+              <span class="price-name">Claude</span>
+              <div class="price-track"><i></i></div>
+              <span class="price-value">$20</span>
+            </div>
+            <div class="price-row" style="--accent: var(--blue); --value: 80%;">
+              <span class="price-name">Gemini</span>
+              <div class="price-track"><i></i></div>
+              <span class="price-value">$19.99</span>
+            </div>
+            <div class="price-row" style="--accent: var(--cyan); --value: 100%;">
+              <span class="price-name">Genspark</span>
+              <div class="price-track"><i></i></div>
+              <span class="price-value">$24.99</span>
+            </div>
+          </div>
+          <p class="price-note">
+            <strong>料金の見方</strong>
+            主要3社は約$20帯で横並び。Gensparkは少し高い分、調査・資料・画像・動画など制作統合の価値で見ると判断しやすい。
+          </p>
+        </article>
+
+        <article class="graph-card">
+          <div class="graph-head">
+            <h3>ポジショニングマップ</h3>
+            <p>横軸は品質・推論、縦軸は量・連携・周辺ツールの充実度。</p>
+          </div>
+          <div class="position-map" aria-label="AIサービスの位置づけ">
+            <span class="axis-label top">量・連携・周辺ツール</span>
+            <span class="axis-label bottom">単体AI寄り</span>
+            <span class="axis-label left">制作・調査補助</span>
+            <span class="axis-label right">品質・推論</span>
+            <span class="map-dot" style="--accent: var(--green); --x: 72%; --y: 36%;">ChatGPT</span>
+            <span class="map-dot" style="--accent: var(--amber); --x: 82%; --y: 62%;">Claude</span>
+            <span class="map-dot" style="--accent: var(--blue); --x: 58%; --y: 22%;">Gemini</span>
+            <span class="map-dot" style="--accent: var(--cyan); --x: 37%; --y: 30%;">Genspark</span>
+          </div>
+        </article>
+
+        <article class="graph-card wide">
+          <div class="graph-head">
+            <h3>用途別適性ヒートマップ</h3>
+            <p>濃いほど、その用途の第一候補に近い見立てです。</p>
+          </div>
+          <div class="heatmap-scroll">
+            <div class="heatmap" aria-label="用途別適性ヒートマップ">
+              <div class="heat-row">
+                <div class="heat-label heat-head">用途</div>
+                <div class="heat-label heat-head">ChatGPT</div>
+                <div class="heat-label heat-head">Claude</div>
+                <div class="heat-label heat-head">Gemini</div>
+                <div class="heat-label heat-head">Genspark</div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">アプリ制作</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 26%;"><span>最有力</span><span>9.5</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 20%;"><span>強い</span><span>8.7</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 16%;"><span>補助</span><span>7.6</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 12%;"><span>限定的</span><span>6.4</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">文章・分析</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 20%;"><span>万能</span><span>8.8</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 26%;"><span>最有力</span><span>9.5</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 16%;"><span>実用</span><span>7.8</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 14%;"><span>補助</span><span>7.1</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">Google連携</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 14%;"><span>可</span><span>7.2</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 10%;"><span>限定的</span><span>6.3</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 28%;"><span>最有力</span><span>9.6</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 14%;"><span>補助</span><span>7.0</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">リサーチ</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 20%;"><span>強い</span><span>8.7</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 18%;"><span>強い</span><span>8.4</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 22%;"><span>強い</span><span>8.8</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 26%;"><span>最有力</span><span>9.0</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">制作物作成</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 20%;"><span>強い</span><span>8.5</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 12%;"><span>補助</span><span>6.8</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 18%;"><span>実用</span><span>8.0</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 26%;"><span>最有力</span><span>8.8</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">CLI開発</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 26%;"><span>最有力</span><span>9.0</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 22%;"><span>強い</span><span>8.6</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 18%;"><span>実用</span><span>7.8</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 10%;"><span>限定的</span><span>6.2</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
