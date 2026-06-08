@@ -1,0 +1,1225 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>主要AIサービス比較マトリクス 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Shippori+Mincho+B1:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Anthropic / Claude — warm editorial system */
+      --bg: #f1ede4;
+      --bg-2: #ece6d9;
+      --paper: #fdfbf6;
+      --paper-2: #f8f4ea;
+      --ink: #1b1813;
+      --ink-2: #423d34;
+      --text: #4c473d;
+      --muted: #837c6c;
+      --faint: #aaa292;
+      --line: #e1dac9;
+      --line-soft: #ebe5d6;
+      --rule: #d8cfba;
+
+      --clay: #bd5a37;
+      --clay-deep: #9a4527;
+      --clay-bright: #cf6a42;
+      --clay-soft: #f6eae1;
+      --clay-line: #e6c6b3;
+
+      --chatgpt: #1f7a5e;
+      --claude: #bd5a37;
+      --gemini: #3a64a8;
+      --genspark: #1c818d;
+
+      --soft-green: #e9f2ec;
+      --soft-blue: #e9eef7;
+      --soft-clay: #f6eae1;
+      --soft-cyan: #e5f0f1;
+
+      --shadow: 0 30px 70px -34px rgba(60, 38, 20, 0.34);
+      --shadow-soft: 0 14px 38px -22px rgba(60, 38, 20, 0.26);
+      --shadow-card: 0 1px 2px rgba(60, 38, 20, 0.05), 0 18px 40px -28px rgba(60, 38, 20, 0.32);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --radius-pill: 999px;
+
+      --serif: "Newsreader", "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+      --mincho: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+      --sans: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(120% 60% at 8% -10%, rgba(189, 90, 55, 0.10), transparent 46%),
+        radial-gradient(90% 50% at 96% 0%, rgba(189, 90, 55, 0.05), transparent 40%),
+        linear-gradient(180deg, #faf7f0 0%, var(--bg) 560px, var(--bg) 100%);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.78;
+      letter-spacing: 0.004em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* page spine */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: 4px;
+      z-index: 50;
+      background: linear-gradient(90deg, var(--clay-deep), var(--clay), var(--clay-bright));
+    }
+
+    h1, h2, h3, p, th, td, li, .service-card { overflow-wrap: break-word; }
+
+    a { color: inherit; text-decoration-color: rgba(189, 90, 55, 0.4); text-underline-offset: 3px; }
+    a:hover { color: var(--clay-deep); text-decoration-color: var(--clay); }
+
+    .smallcaps {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+    }
+
+    .page {
+      width: min(1340px, calc(100% - 44px));
+      margin: 0 auto;
+      padding: 34px 0 80px;
+    }
+
+    /* ---------- Masthead ---------- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 52px;
+      padding-bottom: 20px;
+      margin-bottom: 44px;
+      border-bottom: 3px double var(--rule);
+    }
+
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+
+    .brand-mark {
+      display: grid;
+      width: 44px; height: 44px;
+      place-items: center;
+      border-radius: 13px;
+      background: radial-gradient(120% 120% at 30% 20%, #cb6a42, var(--clay-deep));
+      color: #fbf3ed;
+      box-shadow: 0 10px 22px -10px rgba(154, 69, 39, 0.8), inset 0 1px 0 rgba(255,255,255,0.25);
+      flex: 0 0 auto;
+    }
+    .brand-mark svg { width: 23px; height: 23px; }
+
+    .brand-text { min-width: 0; }
+    .brand-title {
+      margin: 0;
+      font-size: 14px;
+      color: var(--ink);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .brand-meta {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 42px; padding: 0 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: var(--paper);
+      color: var(--ink);
+      font: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(60, 38, 20, 0.05);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .button:hover { border-color: var(--clay-line); background: #fff; transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+    .button.primary {
+      border-color: transparent;
+      background: linear-gradient(150deg, var(--clay-bright), var(--clay-deep));
+      color: #fbf3ed;
+      box-shadow: 0 12px 24px -12px rgba(154, 69, 39, 0.8);
+    }
+    .button.primary:hover { color: #fff; filter: brightness(1.04); }
+    .button svg, .section-title svg { width: 17px; height: 17px; stroke-width: 2; }
+
+    /* ---------- Hero ---------- */
+    header { margin-bottom: 40px; }
+
+    .kicker {
+      display: flex; align-items: center; gap: 14px;
+      margin: 0 0 22px;
+      color: var(--clay-deep);
+      font-size: 11.5px;
+    }
+    .kicker::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+
+    h1 {
+      margin: 0;
+      max-width: 16ch;
+      font-family: var(--serif);
+      font-weight: 600;
+      color: var(--ink);
+      font-size: clamp(42px, 6.4vw, 82px);
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+    }
+    h1 .accent { color: var(--clay); }
+    h1 .year {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--clay);
+    }
+
+    .lead {
+      margin: 26px 0 0;
+      max-width: 50ch;
+      color: var(--text);
+      font-size: 16.5px;
+      line-height: 1.95;
+    }
+
+    /* ---------- Editorial summary ---------- */
+    .editorial-summary {
+      margin: 40px 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .editorial-head {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;
+      min-width: 0;
+      padding: 26px 30px 20px;
+    }
+    .editorial-kicker {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin: 0 0 12px;
+      color: var(--clay-deep);
+      font-size: 11.5px;
+    }
+    .editorial-kicker::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: var(--clay); }
+
+    .editorial-title {
+      margin: 0;
+      font-family: var(--mincho);
+      color: var(--ink);
+      font-size: 27px;
+      font-weight: 700;
+      line-height: 1.42;
+      letter-spacing: 0.005em;
+      overflow-wrap: anywhere;
+    }
+    .editorial-date {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 11.5px;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    .editorial-quote {
+      position: relative;
+      margin: 0;
+      padding: 26px 30px 26px 64px;
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, var(--clay-soft), #faf0e9);
+      color: var(--clay-deep);
+      font-family: var(--mincho);
+      font-size: 23px;
+      font-weight: 600;
+      line-height: 1.62;
+      letter-spacing: 0.01em;
+      overflow-wrap: anywhere;
+    }
+    .editorial-quote::before {
+      content: "“";
+      position: absolute;
+      left: 26px; top: 18px;
+      font-family: var(--serif);
+      font-size: 52px;
+      line-height: 1;
+      color: var(--clay);
+      opacity: 0.5;
+    }
+
+    .editorial-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0;
+      min-width: 0;
+    }
+    .editorial-block {
+      min-width: 0;
+      padding: 24px 30px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .editorial-block:nth-child(odd) { border-right: 1px solid var(--line-soft); }
+
+    .editorial-block h2 {
+      display: flex; gap: 12px; align-items: baseline;
+      margin: 0 0 11px;
+      font-family: var(--mincho);
+      color: var(--ink);
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.6;
+      letter-spacing: 0.005em;
+      overflow-wrap: anywhere;
+    }
+    .editorial-block h2 .idx {
+      flex: 0 0 auto;
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--clay);
+    }
+    .editorial-block p {
+      margin: 0;
+      color: var(--text);
+      font-size: 13.5px;
+      line-height: 1.96;
+      overflow-wrap: anywhere;
+    }
+
+    .editorial-note {
+      margin: 0;
+      padding: 18px 30px 22px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.82;
+      overflow-wrap: anywhere;
+    }
+
+    /* ---------- Section eyebrow ---------- */
+    .section-eyebrow {
+      display: flex; align-items: baseline; gap: 16px;
+      margin: 52px 0 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section-eyebrow h2 {
+      margin: 0;
+      font-family: var(--mincho);
+      font-size: 25px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+    .section-eyebrow span { color: var(--muted); font-size: 12.5px; }
+
+    /* ---------- Summary cards ---------- */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card {
+      position: relative;
+      display: flex; flex-direction: column;
+      min-width: 0; min-height: 244px;
+      padding: 24px 24px 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
+      box-shadow: 0 28px 50px -26px color-mix(in srgb, var(--accent) 55%, rgba(60,38,20,0.45));
+    }
+    .service-card::before {
+      content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--accent);
+    }
+    .service-card.chatgpt { --accent: var(--chatgpt); }
+    .service-card.claude { --accent: var(--claude); }
+    .service-card.gemini { --accent: var(--gemini); }
+    .service-card.genspark { --accent: var(--genspark); }
+
+    .service-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .service-name {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 23px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+    .service-icon {
+      display: grid; width: 46px; height: 46px; place-items: center;
+      border-radius: 13px;
+      border: 1px solid color-mix(in srgb, var(--accent) 26%, #ffffff);
+      background: color-mix(in srgb, var(--accent) 10%, #ffffff);
+      color: var(--accent);
+      flex: 0 0 auto;
+    }
+    .brand-icon { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.9; }
+    .brand-icon .fill-mark { fill: currentColor; stroke: none; }
+
+    .plan-chip {
+      display: inline-flex; align-self: flex-start; align-items: center;
+      min-height: 27px; padding: 0 13px;
+      border-radius: var(--radius-pill);
+      background: color-mix(in srgb, var(--accent) 12%, #ffffff);
+      color: color-mix(in srgb, var(--accent) 80%, #1b1813);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .price {
+      margin: 15px 0 0;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: -0.01em;
+    }
+    .price small { color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 600; }
+
+    .card-rule { height: 1px; margin: 16px 0 0; background: var(--line-soft); }
+
+    .service-copy { margin: 14px 0 0; color: var(--text); font-size: 13px; line-height: 1.82; }
+
+    /* ---------- Matrix section ---------- */
+    .section {
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fdfbf6, var(--paper-2));
+    }
+    .section-title {
+      display: flex; align-items: center; gap: 13px; margin: 0;
+      color: var(--ink);
+      font-family: var(--mincho);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .section-title svg { color: var(--clay); }
+    .section-note { margin: 0; color: var(--muted); font-size: 12px; text-align: right; }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      background:
+        linear-gradient(90deg, var(--paper) 30%, rgba(253, 251, 246, 0)),
+        linear-gradient(90deg, rgba(253, 251, 246, 0), var(--paper) 70%) 100% 0,
+        radial-gradient(farthest-side at 0 50%, rgba(60, 38, 20, 0.14), rgba(60, 38, 20, 0)),
+        radial-gradient(farthest-side at 100% 50%, rgba(60, 38, 20, 0.14), rgba(60, 38, 20, 0)) 100% 0;
+      background-repeat: no-repeat;
+      background-size: 44px 100%, 44px 100%, 16px 100%, 16px 100%;
+      background-attachment: local, local, scroll, scroll;
+    }
+
+    table {
+      width: 100%; min-width: 1080px;
+      border-collapse: separate; border-spacing: 0;
+      table-layout: fixed;
+      background: var(--paper);
+    }
+
+    th, td {
+      border-right: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      padding: 18px 19px;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    th:last-child, td:last-child { border-right: 0; }
+
+    tbody tr:nth-child(even) td,
+    tbody tr:nth-child(even) .row-head { background: #faf6ee; }
+
+    /* subtle Claude column emphasis */
+    thead th:nth-child(3),
+    tbody td:nth-child(3) { background: linear-gradient(180deg, rgba(189,90,55,0.05), rgba(189,90,55,0.025)); }
+    tbody tr:nth-child(even) td:nth-child(3) { background: linear-gradient(180deg, rgba(189,90,55,0.07), rgba(189,90,55,0.045)); }
+
+    thead th {
+      position: sticky; top: 0; z-index: 2;
+      background: #f3ecdd;
+      color: var(--ink);
+      font-size: 14px; font-weight: 700; text-align: left;
+      border-bottom: 1px solid var(--rule);
+    }
+    thead th:nth-child(3) { background: #f3e3d8; }
+
+    .row-head {
+      width: 188px;
+      background: #f3ecdd;
+      color: var(--ink-2);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .product-head { min-height: 60px; }
+    .product-label { display: flex; align-items: center; gap: 12px; font-family: var(--serif); font-size: 17px; font-weight: 600; }
+    .product-mark {
+      display: grid; width: 35px; height: 35px; place-items: center;
+      border-radius: 11px; color: #fff; flex: 0 0 auto;
+      box-shadow: 0 6px 14px -7px currentColor;
+    }
+    .product-mark .brand-icon { width: 21px; height: 21px; stroke-width: 2.1; }
+    .mark-chatgpt { background: var(--chatgpt); }
+    .mark-claude { background: var(--claude); }
+    .mark-gemini { background: var(--gemini); }
+    .mark-genspark { background: var(--genspark); }
+
+    .cell-title { margin: 0 0 8px; color: var(--ink); font-size: 14px; font-weight: 700; }
+    .cell-text { margin: 0; color: var(--text); font-size: 13px; line-height: 1.8; }
+
+    .mini-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .mini-list li { position: relative; padding-left: 17px; color: var(--text); font-size: 13px; line-height: 1.7; }
+    .mini-list li::before {
+      content: ""; position: absolute; top: 0.64em; left: 0;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--clay); opacity: 0.6;
+    }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      display: inline-flex; align-items: center; min-height: 26px; padding: 0 11px;
+      border: 1px solid var(--line); border-radius: var(--radius-pill);
+      background: #fff; color: var(--text);
+      font-size: 12px; font-weight: 600; white-space: nowrap;
+    }
+    .tag.free { background: var(--paper-2); color: var(--muted); }
+    .tag.paid { background: var(--soft-blue); border-color: #ccd8ef; color: #2c4c8f; }
+    .tag.pro { background: var(--soft-green); border-color: #c5e0d3; color: #1a6850; }
+    .tag.warn { background: var(--soft-clay); border-color: var(--clay-line); color: var(--clay-deep); }
+    .tag.mix { background: var(--soft-cyan); border-color: #c3dfe1; color: #146570; }
+
+    .rating {
+      display: inline-flex; align-items: center; gap: 2px; margin: 0 0 8px;
+      color: var(--clay); font-size: 17px; line-height: 1; letter-spacing: 2px; white-space: nowrap;
+    }
+
+    /* ---------- Sources ---------- */
+    .sources { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: start; padding: 26px 28px; }
+    .sources p { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+    .source-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; max-width: 660px; }
+    .source-links a {
+      display: inline-flex; align-items: center; min-height: 30px; padding: 0 13px;
+      border: 1px solid var(--line); border-radius: var(--radius-pill);
+      background: #fff; color: var(--text);
+      font-size: 12px; font-weight: 600; text-decoration: none;
+      transition: border-color .15s ease, color .15s ease, transform .15s ease;
+    }
+    .source-links a:hover { border-color: var(--clay-line); color: var(--clay-deep); transform: translateY(-1px); }
+
+    .footer-mark {
+      display: flex; align-items: center; gap: 10px;
+      margin: 36px 2px 0; padding-top: 22px;
+      border-top: 3px double var(--rule);
+      color: var(--faint); font-size: 12px; letter-spacing: 0.06em;
+    }
+    .footer-mark .spark { width: 15px; height: 15px; color: var(--clay); opacity: 0.75; }
+
+    .print-note { display: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px) {
+      .summary-cards, .editorial-body { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sources { grid-template-columns: 1fr; }
+      .source-links { justify-content: flex-start; }
+    }
+    @media (max-width: 680px) {
+      .page { width: auto; margin-right: 15px; margin-left: 15px; padding-top: 22px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .actions { width: 100%; justify-content: flex-start; }
+      h1 { font-size: 40px; }
+      .lead { font-size: 15px; }
+      .summary-cards, .editorial-body { grid-template-columns: 1fr; }
+      .editorial-head { flex-direction: column; gap: 8px; padding: 22px 18px 16px; }
+      .editorial-date { white-space: normal; }
+      .editorial-quote { padding: 22px 18px 22px 44px; font-size: 19px; }
+      .editorial-quote::before { left: 14px; font-size: 40px; }
+      .editorial-block { padding: 20px 18px; }
+      .editorial-block:nth-child(odd) { border-right: 0; }
+      .editorial-note { padding: 16px 18px 20px; }
+      .section-header { align-items: flex-start; flex-direction: column; }
+      .section-note { text-align: left; }
+      header, .section, .summary-cards, .service-card { min-width: 0; max-width: 100%; }
+    }
+
+    @page { size: A4 landscape; margin: 8mm; }
+    @media print {
+      html, body { background: #ffffff; overflow: visible; }
+      body::before { display: none; }
+      body { font-size: 10.5px; line-height: 1.45; }
+      .page { width: 100%; padding: 0; margin: 0; }
+      .topbar, .actions, .footer-mark { display: none; }
+      header { margin-bottom: 10px; }
+      .kicker { margin-bottom: 8px; font-size: 9.5px; }
+      h1 { font-size: 34px; line-height: 1.05; }
+      .lead { max-width: none; margin-top: 9px; font-size: 10.5px; line-height: 1.55; }
+      .editorial-summary { margin: 10px 0; break-inside: avoid; box-shadow: none; }
+      .editorial-head { padding: 10px 12px 8px; }
+      .editorial-kicker, .editorial-date { font-size: 9px; }
+      .editorial-title { font-size: 16px; }
+      .editorial-quote { padding: 10px 12px 10px 34px; font-size: 14px; line-height: 1.45; }
+      .editorial-quote::before { left: 10px; top: 6px; font-size: 32px; }
+      .editorial-body { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .editorial-block { padding: 10px 12px; }
+      .editorial-block h2 { font-size: 11.5px; margin-bottom: 4px; }
+      .editorial-block p { font-size: 9.5px; line-height: 1.52; }
+      .editorial-note { padding: 8px 12px 10px; font-size: 9px; }
+      .section-eyebrow { margin: 12px 0 8px; padding-bottom: 6px; }
+      .section-eyebrow h2 { font-size: 17px; }
+      .summary-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+      .service-card { min-height: 0; padding: 12px; box-shadow: none; }
+      .service-icon { width: 32px; height: 32px; }
+      .service-name { font-size: 17px; }
+      .plan-chip { min-height: 22px; padding: 0 9px; font-size: 9px; }
+      .price { margin: 9px 0 0; font-size: 25px; }
+      .card-rule { margin: 9px 0 0; }
+      .service-copy { margin: 9px 0 0; font-size: 9.5px; line-height: 1.5; }
+      header, .summary-cards, .editorial-summary, .service-card { break-inside: avoid; }
+      .section { margin-top: 10px; box-shadow: none; }
+      .section-header { padding: 10px 12px; }
+      .section-title { font-size: 16px; }
+      .section-title svg { width: 14px; height: 14px; }
+      .section-note { font-size: 9.5px; }
+      .table-wrap { overflow: visible; background: #ffffff; }
+      table { width: 100%; min-width: 0; font-size: 8.8px; table-layout: fixed; }
+      th, td { padding: 6px; }
+      thead th:nth-child(3), tbody td:nth-child(3) { background: rgba(189,90,55,0.06) !important; }
+      .row-head { width: 116px; font-size: 8.8px; }
+      .product-label { font-size: 11px; }
+      .product-mark { width: 24px; height: 24px; box-shadow: none; }
+      .product-mark .brand-icon { width: 15px; height: 15px; }
+      .cell-title { font-size: 9.5px; margin-bottom: 4px; }
+      .cell-text, .mini-list li { font-size: 8.8px; line-height: 1.42; }
+      .mini-list { gap: 3px; }
+      .mini-list li { padding-left: 11px; }
+      .tag { min-height: 19px; padding: 0 7px; font-size: 8.5px; }
+      .sources { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 10px 12px; }
+      .sources p, .source-links a { font-size: 9px; }
+      .print-note { display: block; color: var(--muted); font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round">
+            <line x1="50" y1="11" x2="50" y2="89"></line>
+            <line x1="11" y1="50" x2="89" y2="50"></line>
+            <line x1="22" y1="22" x2="78" y2="78"></line>
+            <line x1="78" y1="22" x2="22" y2="78"></line>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <p class="brand-title smallcaps">AI Plan Matrix</p>
+          <p class="brand-meta">確認日 2026.06.08</p>
+        </div>
+      </div>
+      <div class="actions" aria-label="ページ操作">
+        <a class="button" href="#matrix" title="比較表へ移動">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path>
+          </svg>
+          表を見る
+        </a>
+        <button class="button primary" type="button" onclick="window.print()" title="PDF保存や印刷に使えます">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M6 9V2h12v7"></path>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <path d="M6 14h12v8H6z"></path>
+          </svg>
+          印刷 / PDF
+        </button>
+      </div>
+    </div>
+
+    <header>
+      <p class="kicker smallcaps">初心者向け・商用比較レポート</p>
+      <h1>主要AIサービス<br><span class="accent">比較マトリクス</span> <span class="year">2026</span></h1>
+      <p class="lead">
+        ChatGPT、Claude、Gemini、Gensparkを、料金プラン・フラグシップモデル・強み・弱み・おすすめ用途で比較します。
+        ChatGPT、Claude、GeminiはProまで、GensparkはPlusまでに絞った見やすい版です。
+      </p>
+    </header>
+
+    <section class="editorial-summary" aria-labelledby="seo-review-title">
+      <div class="editorial-head">
+        <div>
+          <p class="editorial-kicker smallcaps">瀬尾くんの総評</p>
+          <h2 class="editorial-title" id="seo-review-title">課金するなら、目的で選ぶのが一番分かりやすい</h2>
+        </div>
+        <p class="editorial-date smallcaps">見立て 2026.06.08 時点</p>
+      </div>
+      <p class="editorial-quote">質のOpenAIとClaude 対 量と周辺ツールが充実しているGoogle。</p>
+      <div class="editorial-body">
+        <div class="editorial-block">
+          <h2><span class="idx">01</span>アプリ制作や開発ならChatGPT / Codexが有力</h2>
+          <p>
+            OpenAIのChatGPTとAnthropicのClaudeは、どちらも世界トップ級の主要LLMです。
+            一般公開前のClaude Mythosを除外すると、GPT-5.5とClaude Opus 4.8は現時点でNo.1級モデルという見立てです。
+            特にOpenAIのCodexは、CLI初心者にも実用的で使いやすく、期間限定キャンペーンや対象条件によってはFreeでも少し試せる点が大きな魅力です。
+          </p>
+        </div>
+        <div class="editorial-block">
+          <h2><span class="idx">02</span>Claudeは高品質だが、有料前提になりやすい</h2>
+          <p>
+            ClaudeもCoworkとClaude Codeが使いやすく、文章整理やコード相談では非常に強い選択肢です。
+            ただし本格的に使うには有料プランが前提になりやすい点が少しネックです。
+            Mythosが一般公開されるとClaudeが再び一強に戻る可能性はありますが、現時点でアプリを作ってみる用途なら、Codexをまず試しやすいChatGPTプランがおすすめです。
+          </p>
+        </div>
+        <div class="editorial-block">
+          <h2><span class="idx">03</span>GeminiはAIをこれから広く試したい人向け</h2>
+          <p>
+            GoogleのGeminiは、AI自体をこれから触る人に向いています。
+            Gemini 3.1 ProはOpenAIやClaudeの最上位モデルにはやや劣る見立てですが、その代わり利用上限が高く、たくさん試せるのが特徴です。
+            まず色々やってみたい人には分かりやすい選択肢です。
+          </p>
+        </div>
+        <div class="editorial-block">
+          <h2><span class="idx">04</span>Google連携まで含めるならGemini課金は強い</h2>
+          <p>
+            スプレッドシート、スライド、ドキュメント、Gmail、Googleカレンダーなどとの連携が簡単なのは圧倒的に便利です。
+            さらにNotebookLMまで使えるため、AIで何ができるのかを幅広く体験したいなら、課金先としてGeminiを強くおすすめします。
+          </p>
+        </div>
+      </div>
+      <p class="editorial-note">
+        この総評は瀬尾くん視点の判断メモです。正式な契約前には、各社の最新プラン、提供地域、利用上限、期間限定キャンペーンを必ず確認してください。
+      </p>
+    </section>
+
+    <div class="section-eyebrow">
+      <h2>おすすめプラン概要</h2>
+      <span>各サービスの「まずここから」プラン</span>
+    </div>
+
+    <section class="summary-cards" aria-label="おすすめプラン概要">
+      <article class="service-card chatgpt">
+        <div class="service-head">
+          <h2 class="service-name">ChatGPT</h2>
+          <div class="service-icon" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 24 24">
+              <path d="M12 3.6a4.5 4.5 0 0 1 4.4 3.4 4.55 4.55 0 0 1 3.1 7.6 4.5 4.5 0 0 1-5.2 5.4A4.5 4.5 0 0 1 7.6 17a4.55 4.55 0 0 1-3.1-7.6A4.5 4.5 0 0 1 9.7 4 4.4 4.4 0 0 1 12 3.6Z"></path>
+              <path d="M8.2 8.3 15.8 15.7"></path>
+              <path d="M15.8 8.3 8.2 15.7"></path>
+              <path d="M12 6.7v10.6"></path>
+            </svg>
+          </div>
+        </div>
+        <span class="plan-chip">おすすめ Plus</span>
+        <p class="price">$20 <small>/ 月</small></p>
+        <div class="card-rule"></div>
+        <p class="service-copy">会話、調査、画像、資料作成、コードまで幅広い。初心者が最初に選ぶAIとして最も無難です。</p>
+      </article>
+
+      <article class="service-card claude">
+        <div class="service-head">
+          <h2 class="service-name">Claude</h2>
+          <div class="service-icon" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 24 24">
+              <path d="M7 4h7l4 4v12H7z"></path>
+              <path d="M14 4v4h4"></path>
+              <path d="M9.5 11h5"></path>
+              <path d="M9.5 14h4"></path>
+              <path d="M9.5 17h6"></path>
+            </svg>
+          </div>
+        </div>
+        <span class="plan-chip">おすすめ Pro</span>
+        <p class="price">$20 <small>/ 月</small></p>
+        <div class="card-rule"></div>
+        <p class="service-copy">自然な文章、長文整理、分析、コード相談が得意。丁寧に考えてほしい用途に向きます。</p>
+      </article>
+
+      <article class="service-card gemini">
+        <div class="service-head">
+          <h2 class="service-name">Gemini</h2>
+          <div class="service-icon" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 24 24">
+              <path d="M12 3.5 13.8 8.7 19 10.5 13.8 12.3 12 17.5 10.2 12.3 5 10.5 10.2 8.7z"></path>
+              <path d="M18.5 4.5v3"></path>
+              <path d="M20 6h-3"></path>
+              <path d="M5.5 16.5v2.5"></path>
+              <path d="M6.8 17.8H4.2"></path>
+            </svg>
+          </div>
+        </div>
+        <span class="plan-chip">おすすめ AI Pro</span>
+        <p class="price">$19.99 <small>/ 月</small></p>
+        <div class="card-rule"></div>
+        <p class="service-copy">Google検索、Gmail、Docs、Drive、NotebookLMなどGoogle環境との相性が高いAIです。</p>
+      </article>
+
+      <article class="service-card genspark">
+        <div class="service-head">
+          <h2 class="service-name">Genspark</h2>
+          <div class="service-icon" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 24 24">
+              <rect x="4" y="5" width="7" height="7" rx="2"></rect>
+              <rect x="13" y="12" width="7" height="7" rx="2"></rect>
+              <path d="M14.5 4.5 16 8l3.5 1.5L16 11l-1.5 3.5L13 11 9.5 9.5 13 8z"></path>
+            </svg>
+          </div>
+        </div>
+        <span class="plan-chip">おすすめ Plus</span>
+        <p class="price">$24.99 <small>/ 月</small></p>
+        <div class="card-rule"></div>
+        <p class="service-copy">複数AI、スライド、文書、画像、動画など制作系の作業を1つにまとめやすいサービスです。</p>
+      </article>
+    </section>
+
+    <section class="section" id="matrix">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M3 3h18v18H3z"></path><path d="M3 9h18"></path><path d="M9 3v18"></path>
+          </svg>
+          比較マトリクス
+        </h2>
+        <p class="section-note">料金は主に米国表示。地域・税・キャンペーンで変動します。</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="row-head">比較項目</th>
+              <th class="product-head">
+                <div class="product-label">
+                  <span class="product-mark mark-chatgpt" aria-hidden="true">
+                    <svg class="brand-icon" viewBox="0 0 24 24">
+                      <path d="M12 3.6a4.5 4.5 0 0 1 4.4 3.4 4.55 4.55 0 0 1 3.1 7.6 4.5 4.5 0 0 1-5.2 5.4A4.5 4.5 0 0 1 7.6 17a4.55 4.55 0 0 1-3.1-7.6A4.5 4.5 0 0 1 9.7 4 4.4 4.4 0 0 1 12 3.6Z"></path>
+                      <path d="M8.2 8.3 15.8 15.7"></path>
+                      <path d="M15.8 8.3 8.2 15.7"></path>
+                      <path d="M12 6.7v10.6"></path>
+                    </svg>
+                  </span>
+                  ChatGPT
+                </div>
+              </th>
+              <th class="product-head">
+                <div class="product-label">
+                  <span class="product-mark mark-claude" aria-hidden="true">
+                    <svg class="brand-icon" viewBox="0 0 24 24">
+                      <path d="M7 4h7l4 4v12H7z"></path>
+                      <path d="M14 4v4h4"></path>
+                      <path d="M9.5 11h5"></path>
+                      <path d="M9.5 14h4"></path>
+                      <path d="M9.5 17h6"></path>
+                    </svg>
+                  </span>
+                  Claude
+                </div>
+              </th>
+              <th class="product-head">
+                <div class="product-label">
+                  <span class="product-mark mark-gemini" aria-hidden="true">
+                    <svg class="brand-icon" viewBox="0 0 24 24">
+                      <path d="M12 3.5 13.8 8.7 19 10.5 13.8 12.3 12 17.5 10.2 12.3 5 10.5 10.2 8.7z"></path>
+                      <path d="M18.5 4.5v3"></path>
+                      <path d="M20 6h-3"></path>
+                      <path d="M5.5 16.5v2.5"></path>
+                      <path d="M6.8 17.8H4.2"></path>
+                    </svg>
+                  </span>
+                  Gemini
+                </div>
+              </th>
+              <th class="product-head">
+                <div class="product-label">
+                  <span class="product-mark mark-genspark" aria-hidden="true">
+                    <svg class="brand-icon" viewBox="0 0 24 24">
+                      <rect x="4" y="5" width="7" height="7" rx="2"></rect>
+                      <rect x="13" y="12" width="7" height="7" rx="2"></rect>
+                      <path d="M14.5 4.5 16 8l3.5 1.5L16 11l-1.5 3.5L13 11 9.5 9.5 13 8z"></path>
+                    </svg>
+                  </span>
+                  Genspark
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="row-head">特徴</th>
+              <td>
+                <p class="cell-title">万能型AIアシスタント</p>
+                <p class="cell-text">会話、調査、資料作成、画像、コードまで幅広く使える。迷った時の標準候補。</p>
+              </td>
+              <td>
+                <p class="cell-title">文章・分析に強いAI</p>
+                <p class="cell-text">自然な文章、長文読解、深い分析、コード作業に強い。落ち着いた相談役として使いやすい。</p>
+              </td>
+              <td>
+                <p class="cell-title">Google連携型AI</p>
+                <p class="cell-text">Google検索やWorkspace、NotebookLMとの相性が高い。Google中心の人ほど便利。</p>
+              </td>
+              <td>
+                <p class="cell-title">制作系AIワークスペース</p>
+                <p class="cell-text">複数AIモデルや生成機能をまとめて使う発想。資料、画像、動画、音声の制作向き。</p>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">表示プラン</th>
+              <td>
+                <div class="tag-row">
+                  <span class="tag free">Free</span>
+                  <span class="tag paid">Go</span>
+                  <span class="tag paid">Plus</span>
+                  <span class="tag pro">Pro</span>
+                </div>
+              </td>
+              <td>
+                <div class="tag-row">
+                  <span class="tag free">Free</span>
+                  <span class="tag pro">Pro</span>
+                </div>
+              </td>
+              <td>
+                <div class="tag-row">
+                  <span class="tag free">Free</span>
+                  <span class="tag paid">Google AI Plus</span>
+                  <span class="tag pro">Google AI Pro</span>
+                </div>
+              </td>
+              <td>
+                <div class="tag-row">
+                  <span class="tag free">Free</span>
+                  <span class="tag paid">Plus</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">プラン別料金</th>
+              <td>
+                <ul class="mini-list">
+                  <li>Free: $0</li>
+                  <li>Go: $8/月</li>
+                  <li>Plus: $20/月</li>
+                  <li>Pro: $100または$200/月</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Free: $0</li>
+                  <li>Pro: $20/月</li>
+                  <li>Pro年払い: 年$200</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Free: $0</li>
+                  <li>Google AI Plus: $7.99/月</li>
+                  <li>Google AI Pro: $19.99/月</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Free: $0</li>
+                  <li>Plus: $24.99/月</li>
+                  <li>年払い: 実質$19.99/月</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">フラグシップモデル</th>
+              <td>
+                <p class="cell-title">GPT-5.5系</p>
+                <p class="cell-text">Proではより高度な推論モデルや高い利用枠を使いやすい。</p>
+              </td>
+              <td>
+                <p class="cell-title">Claude Opus 4.8</p>
+                <p class="cell-text">高度な推論、長文、コーディング、複雑な分析に強い上位モデル。</p>
+              </td>
+              <td>
+                <p class="cell-title">Gemini 3.1 Pro</p>
+                <p class="cell-text">検索、マルチモーダル、Google連携を含む広い用途で使う中心モデル。</p>
+              </td>
+              <td>
+                <p class="cell-title">Mixture-of-Agents</p>
+                <p class="cell-text">GPT、Claude、Geminiなど複数モデルを組み合わせる運用が特徴。</p>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">強み</th>
+              <td>
+                <ul class="mini-list">
+                  <li>できることが広く、最初の1本に選びやすい</li>
+                  <li>質問、下書き、要約、画像、コード相談を1つで試せる</li>
+                  <li>使い方の情報が多く、困った時に調べやすい</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>文章が読みやすく、丁寧な説明が得意</li>
+                  <li>長い資料や議事録を整理するのに向いている</li>
+                  <li>企画書、レポート、コード相談を落ち着いて進めやすい</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Gmail、Docs、DriveなどGoogle利用者には入りやすい</li>
+                  <li>検索や資料確認と合わせて使いやすい</li>
+                  <li>NotebookLMと組み合わせると学習や調査に便利</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>いろいろなAIをまとめて使える</li>
+                  <li>スライド、資料、画像、動画など制作物を作りやすい</li>
+                  <li>1つの画面で制作を進めたい人に向いている</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">弱み・注意点</th>
+              <td>
+                <ul class="mini-list">
+                  <li>高度な機能やたくさん使う場合は上位プランが必要になりやすい</li>
+                  <li>モデル名や利用回数のルールが変わることがある</li>
+                  <li>何でもできる分、最初はどの機能を使うか迷いやすい</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>画像や動画を作る用途はChatGPTやGensparkほど中心ではない</li>
+                  <li>たくさん使う人はProでも上限を意識する必要がある</li>
+                  <li>Google連携を重視するならGeminiの方が分かりやすい</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>プラン名や使える機能の違いが少し分かりにくい</li>
+                  <li>地域や言語で使える機能が違うことがある</li>
+                  <li>Google以外の仕事では便利さを感じにくい場合がある</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>どのAIを使っているか初心者には分かりにくいことがある</li>
+                  <li>クレジット制なので使いすぎに注意が必要</li>
+                  <li>普通のチャットだけなら機能が多すぎる場合がある</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">初心者向け評価</th>
+              <td>
+                <p class="rating" aria-label="5点満点中5点">★★★★★</p>
+                <p class="cell-text">最初の1本として最も無難。Plusから始めやすい。</p>
+              </td>
+              <td>
+                <p class="rating" aria-label="5点満点中4点">★★★★☆</p>
+                <p class="cell-text">文章や分析中心なら非常におすすめ。</p>
+              </td>
+              <td>
+                <p class="rating" aria-label="5点満点中4点">★★★★☆</p>
+                <p class="cell-text">Googleサービスをよく使う人には強い。</p>
+              </td>
+              <td>
+                <p class="rating" aria-label="5点満点中4点">★★★★☆</p>
+                <p class="cell-text">制作物を多く作る人には費用対効果が出やすい。</p>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">おすすめ用途</th>
+              <td>
+                <p class="cell-text">仕事、学習、調査、文章、画像、コードを幅広く使いたい人。</p>
+              </td>
+              <td>
+                <p class="cell-text">企画書、レポート、長文整理、分析、コード相談を丁寧に進めたい人。</p>
+              </td>
+              <td>
+                <p class="cell-text">Gmail、Docs、Drive、検索、NotebookLMを日常的に使う人。</p>
+              </td>
+              <td>
+                <p class="cell-text">複数AI比較、スライド作成、画像・動画・音声制作をまとめたい人。</p>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">CLI名・コマンド</th>
+              <td>
+                <p class="cell-title">Codex CLI</p>
+                <div class="tag-row">
+                  <span class="tag free">Free</span>
+                  <span class="tag paid">Go</span>
+                  <span class="tag paid">Plus</span>
+                  <span class="tag pro">Pro</span>
+                  <span class="tag warn">API Key</span>
+                </div>
+                <p class="cell-text">主なコマンドは <strong>codex</strong>。OpenAI API操作用CLIは <strong>openai</strong>。</p>
+              </td>
+              <td>
+                <p class="cell-title">Claude Code</p>
+                <div class="tag-row">
+                  <span class="tag pro">Pro</span>
+                  <span class="tag warn">Console/API</span>
+                </div>
+                <p class="cell-text">主なコマンドは <strong>claude</strong>。有料サブスクまたはAnthropic Console系の利用が中心。</p>
+              </td>
+              <td>
+                <p class="cell-title">Gemini CLI</p>
+                <div class="tag-row">
+                  <span class="tag free">Individual</span>
+                  <span class="tag pro">Google AI Pro</span>
+                  <span class="tag warn">API Key</span>
+                </div>
+                <p class="cell-text">主なコマンドは <strong>gemini</strong>。GoogleはAntigravity CLIへの移行案内あり。</p>
+              </td>
+              <td>
+                <p class="cell-title">同等CLIは未確認</p>
+                <div class="tag-row">
+                  <span class="tag warn">該当なし</span>
+                </div>
+                <p class="cell-text">公式の汎用CLIコマンドは未確認。近いものはGenspark Clawのブラウザ内TerminalやDesktop App。</p>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">CLIの強み</th>
+              <td>
+                <ul class="mini-list">
+                  <li>自分のPC上のコードを見ながら修正や確認を頼める</li>
+                  <li>テスト実行やファイル確認をまとめて任せやすい</li>
+                  <li>ChatGPTプランまたはAPIキーで始められる</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>ターミナルでコード修正を相談しながら進めやすい</li>
+                  <li>ログやエラーを貼って原因調査を頼みやすい</li>
+                  <li>Gitや外部ツールとの連携に向いている</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Geminiをターミナルから直接使える</li>
+                  <li>Google CloudやCloud Shellを使う人には相性が良い</li>
+                  <li>APIキーで小さく試しやすい</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>コマンド操作ではなく画面で進められるので入り口が分かりやすい</li>
+                  <li>ClawではTerminal/Filesをブラウザ内で扱える</li>
+                  <li>制作と開発を同じ画面で見ながら進めやすい</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th class="row-head">CLIの弱み・注意点</th>
+              <td>
+                <ul class="mini-list">
+                  <li>ターミナル操作とGitの基本は必要</li>
+                  <li>長い作業は利用回数やAPI料金を消費しやすい</li>
+                  <li>どこまで操作を許可するか理解して使う必要がある</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>本格利用は有料プランやAPI利用が前提になりやすい</li>
+                  <li>PC環境やShell設定でつまずくことがある</li>
+                  <li>ファイル操作の許可設定は慎重に見る必要がある</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>個人向けCLIはAntigravityへの移行案内があり、名前や提供条件が変わりやすい</li>
+                  <li>Google系の開発環境に慣れていないと分かりにくい</li>
+                  <li>料金や利用枠はAPI設定も確認が必要</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Codex/Claude/Geminiのような公式CLIは未確認</li>
+                  <li>自動化やCIに組み込む用途には向きにくい</li>
+                  <li>開発作業はGensparkの画面内機能に依存しやすい</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" aria-label="出典と注意">
+      <div class="sources">
+        <div>
+          <p>
+            この表は初心者向けの判断材料として、公式料金ページと公開情報をもとに要約しています。
+            実際の契約前には、各サービスの公式ページで最新料金、対象地域、利用制限、キャンペーン条件を確認してください。
+          </p>
+          <p class="print-note">印刷時は横向きまたはPDF保存を推奨します。</p>
+        </div>
+        <nav class="source-links" aria-label="公式情報リンク">
+          <a href="https://chatgpt.com/pricing" target="_blank" rel="noreferrer">ChatGPT Pricing</a>
+          <a href="https://developers.openai.com/cookbook/examples/codex/secure_quality_gitlab#what-is-codex-cli" target="_blank" rel="noreferrer">Codex CLI</a>
+          <a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans" target="_blank" rel="noreferrer">ChatGPT Pro</a>
+          <a href="https://claude.com/pricing" target="_blank" rel="noreferrer">Claude Pricing</a>
+          <a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">Claude Code</a>
+          <a href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noreferrer">Claude Code CLI</a>
+          <a href="https://gemini.google/subscriptions/" target="_blank" rel="noreferrer">Gemini Plans</a>
+          <a href="https://developers.google.com/gemini-code-assist/docs/set-up-gemini" target="_blank" rel="noreferrer">Gemini Migration</a>
+          <a href="https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli" target="_blank" rel="noreferrer">Gemini CLI</a>
+          <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">Gemini Models</a>
+          <a href="https://www.genspark.ai/helpcenter/genspark-claw" target="_blank" rel="noreferrer">Genspark Claw</a>
+          <a href="https://www.genspark.ai/helpcenter?doc=general_Membership_Plans" target="_blank" rel="noreferrer">Genspark Plans</a>
+        </nav>
+      </div>
+    </section>
+
+    <div class="footer-mark">
+      <svg class="spark" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" aria-hidden="true">
+        <line x1="50" y1="11" x2="50" y2="89"></line>
+        <line x1="11" y1="50" x2="89" y2="50"></line>
+        <line x1="22" y1="22" x2="78" y2="78"></line>
+        <line x1="78" y1="22" x2="22" y2="78"></line>
+      </svg>
+      AI Plan Matrix 2026 — 初心者向け比較レポート
+    </div>
+  </main>
+</body>
+</html>
