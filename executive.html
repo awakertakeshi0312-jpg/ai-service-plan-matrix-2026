@@ -736,6 +736,7 @@
       grid-template-columns: 1fr;
       gap: 1px;
       align-self: end;
+      counter-reset: snapshot;
       border: 1px solid rgba(18, 23, 34, 0.12);
       border-radius: var(--radius);
       background: rgba(18, 23, 34, 0.12);
@@ -744,13 +745,26 @@
     }
 
     .snapshot-item {
+      position: relative;
       display: grid;
       grid-template-columns: 110px 1fr;
       gap: 14px;
       align-items: start;
       min-height: 74px;
-      padding: 15px 16px;
+      padding: 15px 16px 15px 48px;
       background: rgba(255, 255, 255, 0.94);
+    }
+
+    .snapshot-item::before {
+      counter-increment: snapshot;
+      content: "0" counter(snapshot);
+      position: absolute;
+      top: 17px;
+      left: 16px;
+      color: #087c89;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0;
     }
 
     .snapshot-label {
@@ -794,6 +808,8 @@
     }
 
     .service-card {
+      display: flex;
+      flex-direction: column;
       min-height: 190px;
       box-shadow: none;
       border-color: rgba(18, 23, 34, 0.12);
@@ -801,6 +817,26 @@
 
     .service-card::before {
       height: 5px;
+    }
+
+    .service-card .plan-chip {
+      align-self: flex-start;
+    }
+
+    .service-verdict {
+      margin: 0 0 12px;
+      padding: 10px 11px;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: color-mix(in srgb, var(--accent) 9%, #ffffff);
+      color: color-mix(in srgb, var(--accent) 84%, #111827);
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.55;
+    }
+
+    .service-copy {
+      margin-top: auto;
     }
 
     .section {
@@ -826,7 +862,36 @@
     }
 
     .row-head {
+      position: sticky;
+      left: 0;
+      z-index: 1;
       background: #f6f8f7;
+    }
+
+    thead .row-head {
+      z-index: 3;
+      background: #eef4f2;
+    }
+
+    tbody tr:nth-child(odd) td {
+      background: #fcfdfc;
+    }
+
+    tbody tr:nth-child(even) td {
+      background: #ffffff;
+    }
+
+    tbody tr:nth-child(odd) .row-head {
+      background: #f2f6f5;
+    }
+
+    tbody tr:nth-child(even) .row-head {
+      background: #f7f9f8;
+    }
+
+    tbody tr:hover td,
+    tbody tr:hover .row-head {
+      background: #edf7f6;
     }
 
     th,
@@ -895,6 +960,7 @@
         grid-template-columns: 1fr;
         gap: 4px;
         min-height: 0;
+        padding: 15px 14px 15px 46px;
       }
 
       .summary-cards,
@@ -1100,6 +1166,13 @@
         line-height: 1.5;
       }
 
+      .service-verdict {
+        margin-bottom: 7px;
+        padding: 7px 8px;
+        font-size: 8.8px;
+        line-height: 1.35;
+      }
+
       header,
       .summary-cards,
       .editorial-summary,
@@ -1151,6 +1224,7 @@
       }
 
       .row-head {
+        position: static;
         width: 116px;
         font-size: 8.8px;
       }
@@ -1331,6 +1405,7 @@
         </div>
         <span class="plan-chip">おすすめ: Plus</span>
         <p class="price">$20 <small>/ 月</small></p>
+        <p class="service-verdict">最初の1本、開発入口、Codex試用をまとめて見たい人向け。</p>
         <p class="service-copy">会話、調査、画像、資料作成、コードまで幅広い。初心者が最初に選ぶAIとして最も無難です。</p>
       </article>
 
@@ -1349,6 +1424,7 @@
         </div>
         <span class="plan-chip">おすすめ: Pro</span>
         <p class="price">$20 <small>/ 月</small></p>
+        <p class="service-verdict">文章品質、分析、長文整理を重視する人向け。</p>
         <p class="service-copy">自然な文章、長文整理、分析、コード相談が得意。丁寧に考えてほしい用途に向きます。</p>
       </article>
 
@@ -1367,6 +1443,7 @@
         </div>
         <span class="plan-chip">おすすめ: AI Pro</span>
         <p class="price">$19.99 <small>/ 月</small></p>
+        <p class="service-verdict">Google連携、利用量、AI体験の幅を重視する人向け。</p>
         <p class="service-copy">Google検索、Gmail、Docs、Drive、NotebookLMなどGoogle環境との相性が高いAIです。</p>
       </article>
 
@@ -1383,6 +1460,7 @@
         </div>
         <span class="plan-chip">おすすめ: Plus</span>
         <p class="price">$24.99 <small>/ 月</small></p>
+        <p class="service-verdict">資料、画像、動画など制作物をまとめて作りたい人向け。</p>
         <p class="service-copy">複数AI、スライド、文書、画像、動画など制作系の作業を1つにまとめやすいサービスです。</p>
       </article>
     </section>
