@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Architecture Selection Report - Takeshi Seo</title>
+  <style>
+    :root {
+      /* Minimalist Monochrome Palette */
+      --ink: #000000;
+      --text: #1a1a1a;
+      --muted: #666666;
+      --subtle: #f4f4f4;
+      --paper: #ffffff;
+      --line: #e0e0e0;
+      --line-strong: #000000;
+      
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+      --radius: 4px;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", sans-serif;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+    }
+
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .page {
+      width: min(1560px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 28px 0 64px;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      transition: var(--transition);
+    }
+
+    a:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 0 24px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      background: var(--ink);
+      color: var(--paper);
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+    }
+
+    .brand-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 20px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .action:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(420px, 0.8fr);
+      gap: 40px;
+      align-items: center;
+      padding: 60px 0 40px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 0 20px;
+      padding: 4px 12px;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 54px;
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      max-width: 900px;
+      margin: 24px 0 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      background: var(--subtle);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Verdict Panel */
+    .verdict-panel {
+      border: 2px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 8px 8px 0px var(--line);
+    }
+
+    .verdict-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 2px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .verdict-title p {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .verdict-title strong {
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .verdict-item {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 16px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .verdict-item:last-child {
+      border-bottom: 0;
+    }
+
+    .rank {
+      display: flex;
+      align-items: flex-start;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 900;
+      font-family: monospace;
+    }
+
+    .verdict-item h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    .verdict-item p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Sections */
+    .section-band {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      margin-bottom: 32px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+
+    .section-heading p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 700px;
+    }
+
+    /* Editorial / Review */
+    .editorial {
+      display: grid;
+      grid-template-columns: 340px minmax(0, 1fr);
+      border: 1px solid var(--ink);
+      background: var(--paper);
+    }
+
+    .editorial-side {
+      padding: 32px;
+      border-right: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .editorial-kicker {
+      margin: 0 0 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .editorial-side h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    .editorial-side p:last-child {
+      margin: 20px 0 0;
+      font-size: 13px;
+      color: #a0a0a0;
+      line-height: 1.6;
+    }
+
+    .editorial-main {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .editorial-point {
+      padding: 28px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .editorial-point:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .editorial-point:last-child,
+    .editorial-point:nth-last-child(2):nth-child(odd) {
+      border-bottom: 0;
+    }
+
+    .editorial-point h3 {
+      margin: 0 0 12px;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .editorial-point p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* Scoreboard */
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .score-block {
+      border: 1px solid var(--ink);
+      background: var(--paper);
+    }
+
+    .score-block h3 {
+      margin: 0;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 16px;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    .score-row {
+      display: grid;
+      grid-template-columns: 100px minmax(0, 1fr) 32px;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .score-row:last-child {
+      border-bottom: 0;
+    }
+
+    .score-row span:first-child {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .meter {
+      height: 6px;
+      background: var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .meter i {
+      display: block;
+      width: var(--value);
+      height: 100%;
+      background: var(--ink);
+    }
+
+    .score {
+      font-size: 12px;
+      font-weight: 800;
+      text-align: right;
+      font-family: monospace;
+    }
+
+    /* Graph Grid */
+    .graph-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      gap: 20px;
+    }
+
+    .graph-card {
+      padding: 24px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+    }
+
+    .graph-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .graph-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .graph-head h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .graph-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 400px;
+      text-align: right;
+    }
+
+    /* Position Map */
+    .position-map {
+      position: relative;
+      min-height: 320px;
+      border: 1px solid var(--line);
+      background: var(--subtle);
+      background-image: 
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: center center;
+    }
+
+    .position-map::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; right: 0; height: 1px; background: var(--muted);
+    }
+    .position-map::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 50%; width: 1px; background: var(--muted);
+    }
+
+    .axis-label {
+      position: absolute;
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      background: var(--subtle);
+      padding: 2px 6px;
+      z-index: 1;
+    }
+
+    .axis-label.top { top: 12px; left: 50%; transform: translateX(-50%); }
+    .axis-label.bottom { bottom: 12px; left: 50%; transform: translateX(-50%); }
+    .axis-label.left { left: 12px; top: 50%; transform: translateY(-50%); }
+    .axis-label.right { right: 12px; top: 50%; transform: translateY(-50%); }
+
+    .map-dot {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 32px;
+      padding: 0 16px;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 12px;
+      font-weight: 800;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+    .map-dot:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    /* Heatmap */
+    .heatmap-scroll {
+      overflow-x: auto;
+    }
+    
+    .heatmap {
+      display: grid;
+      gap: 2px;
+      min-width: 800px;
+      background: var(--line);
+      border: 1px solid var(--ink);
+    }
+
+    .heat-row {
+      display: grid;
+      grid-template-columns: 140px repeat(4, minmax(0, 1fr));
+      gap: 2px;
+    }
+
+    .heat-label, .heat-cell {
+      padding: 12px;
+      background: var(--paper);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+    }
+
+    .heat-label {
+      font-weight: 800;
+      background: var(--subtle);
+    }
+
+    .heat-head {
+      justify-content: center;
+      background: var(--ink);
+      color: var(--paper);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 12px;
+    }
+
+    .heat-cell {
+      justify-content: space-between;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+    
+    .heat-cell:hover {
+      opacity: 0.9;
+    }
+
+    /* High Contrast Levels */
+    .heat-cell[data-level="4"] { background: #000000; color: #ffffff; }
+    .heat-cell[data-level="3"] { background: #555555; color: #ffffff; }
+    .heat-cell[data-level="2"] { background: #eeeeee; color: #000000; }
+    .heat-cell[data-level="1"] { background: #ffffff; color: #999999; }
+    
+    .heat-cell span:last-child {
+      font-family: monospace;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .heat-legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      justify-content: flex-end;
+    }
+    .heat-legend div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .legend-box {
+      width: 16px; height: 16px;
+      border: 1px solid var(--line-strong);
+    }
+
+    /* Dossier Grid */
+    .dossier-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .dossier {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      transition: var(--transition);
+    }
+
+    .dossier:hover {
+      box-shadow: 6px 6px 0px var(--line);
+      transform: translateY(-2px);
+    }
+
+    .dossier-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .dossier h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .dossier-label {
+      margin: 4px 0 0;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .mark {
+      width: 32px; height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--ink);
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .dossier-callout {
+      margin: 0 0 20px;
+      padding-left: 12px;
+      border-left: 3px solid var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .facts {
+      margin: auto 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .facts li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .facts li:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .facts strong {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    /* Matrix */
+    .matrix-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--ink);
+    }
+
+    table {
+      width: 100%;
+      min-width: 1200px;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 24px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th:last-child, td:last-child { border-right: none; }
+    tr:last-child td, tr:last-child th { border-bottom: none; }
+
+    thead th {
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 14px;
+      font-weight: 800;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .row-head {
+      background: var(--subtle);
+      font-size: 13px;
+      font-weight: 800;
+      width: 180px;
+    }
+    
+    thead .row-head {
+      background: #222;
+      z-index: 11;
+    }
+
+    .cell-title {
+      margin: 0 0 8px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .cell-text {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .mini-list {
+      margin: 0; padding: 0; list-style: none; display: grid; gap: 8px;
+    }
+    .mini-list li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .mini-list li::before {
+      content: "■";
+      position: absolute;
+      left: 0; top: 0;
+      font-size: 8px;
+      color: var(--ink);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border: 1px solid var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tag.solid { background: var(--ink); color: var(--paper); }
+    .tag.outline { background: transparent; color: var(--ink); }
+    .tag.ghost { border-color: var(--muted); color: var(--muted); }
+
+    /* Sources */
+    .sources {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 32px;
+      padding: 32px;
+      border: 1px solid var(--ink);
+      background: var(--subtle);
+    }
+
+    .sources p {
+      margin: 0 0 12px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .source-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .source-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .source-group p {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 4px;
+    }
+
+    .source-group a {
+      font-size: 11px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      padding: 4px 0;
+    }
+    .source-group a::before {
+      content: "→ ";
+      font-family: monospace;
+    }
+
+    .print-note { display: none; }
+
+    /* Media Queries */
+    @media (max-width: 1200px) {
+      .hero, .editorial, .graph-grid, .sources { grid-template-columns: 1fr; }
+      .editorial-side { border-right: none; border-bottom: 1px solid var(--ink); }
+      .scoreboard, .dossier-grid, .source-links { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .page { width: calc(100% - 32px); padding-top: 24px; }
+      h1 { font-size: 36px; }
+      .editorial-main, .scoreboard, .dossier-grid, .source-links { grid-template-columns: 1fr; }
+      .editorial-point { border-right: none; }
+      .sources { padding: 24px; }
+    }
+
+    /* Print */
+    @media print {
+      body { background: #fff; }
+      .page { width: 100%; padding: 0; animation: none; }
+      .topbar, .actions { display: none; }
+      .verdict-panel { box-shadow: none; }
+      .dossier:hover { box-shadow: none; transform: none; }
+      .print-note { display: block; font-weight: bold; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="topbar" aria-label="レポート操作">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">AI</div>
+        <div>
+          <p class="brand-title">AI Selection Report</p>
+          <p class="brand-subtitle">Boardroom & Architecture Edition / 2026.06.09</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="action" type="button" onclick="window.print()">PRINT REPORT</button>
+        <a class="action" href="#matrix">VIEW MATRIX</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <span class="eyebrow">Strategic Evaluation</span>
+        <h1>AI Tool Selection<br />Architecture Report</h1>
+        <p class="lead">
+          主要なAIツール（ChatGPT, Claude, Gemini, Genspark）を比較・評価します。
+          本稿は、高度な開発体制、Knowledge OSの構築、およびマルチエージェントシステムの基盤選定を前提としたアーキテクチャ特化版です。
+        </p>
+        <div class="hero-meta">
+          <span class="meta-pill">Target: Development & System Research</span>
+          <span class="meta-pill">Focus: Knowledge OS / Local API</span>
+          <span class="meta-pill">Date: June 9, 2026</span>
+        </div>
+      </div>
+
+      <aside class="verdict-panel" aria-label="主要結論">
+        <div class="verdict-title">
+          <p>Executive Verdict</p>
+          <strong>結論のサマリ</strong>
+        </div>
+        <div class="verdict-item">
+          <div class="rank">01</div>
+          <div>
+            <h2>自律型チームのコア基盤は Claude Pro</h2>
+            <p>MCPネイティブサポートと推論能力により、Knowledge OSの頭脳として最適。</p>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="rank">02</div>
+          <div>
+            <h2>汎用開発・プロトタイピングは ChatGPT</h2>
+            <p>Codex CLI等を含め、初動の開発スピードと適用範囲の広さで優位。</p>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="rank">03</div>
+          <div>
+            <h2>Googleエコシステム統合は Gemini</h2>
+            <p>Workspace連携や大量データのバッチ処理基盤として高効率。</p>
+          </div>
+        </div>
+        <div class="verdict-item">
+          <div class="rank">04</div>
+          <div>
+            <h2>非同期リサーチ特化型は Genspark</h2>
+            <p>開発基盤への組み込みより、独立したリサーチ・制作ツールとして運用。</p>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <section class="section-band">
+      <div class="editorial">
+        <aside class="editorial-side">
+          <p class="editorial-kicker">Takeshi's Architectural Verdict</p>
+          <h2>Takeshi Seo の<br/>アーキテクチャ総評</h2>
+          <p>Knowledge OSの開発、及びローカル環境（Ollama等）とのハイブリッド運用を見据えた場合、単なる「チャットの賢さ」ではなく「API/MCP経由でのシステム拡張性」が最重要指標となります。</p>
+        </aside>
+        <div class="editorial-main">
+          <article class="editorial-point">
+            <h3>ローカルAIとの連携を見据えたモデル選定</h3>
+            <p>
+              ローカルで稼働させるモデル（Gemma 4 / Ollama）との連携を考慮すると、ルーティングを司る上位モデルには高度なJSON生成と関数呼び出し能力が求められます。この点において、Claude Opus 4.8 と GPT-5.5系が群を抜いています。
+            </p>
+          </article>
+          <article class="editorial-point">
+            <h3>Claudeの「MCPネイティブ」という優位性</h3>
+            <p>
+              Claude Desktopを通じたMCP（Model Context Protocol）の標準サポートは、自律型AIチーム（マルチエージェント）構築において圧倒的なアドバンテージです。Knowledge OSの中核として採用する第一候補となります。
+            </p>
+          </article>
+          <article class="editorial-point">
+            <h3>Googleエコシステムとの共存</h3>
+            <p>
+              Geminiは、Google Workspaceのデータ（Docs, Drive, Gmail）をナレッジソースとしてRAGに組み込む際のゲートウェイとして極めて強力です。日常業務のコンテキストを取り込む役割に適しています。
+            </p>
+          </article>
+          <article class="editorial-point">
+            <h3>CLIツールによる自動化ワークフロー</h3>
+            <p>
+              n8n等の自動化ツールとCLIの統合においては、Codex CLIの汎用性とClaude Codeの深いコード理解力が拮抗します。要件定義とリファクタリングにはClaude、スクリプトの量産にはChatGPTの使い分けが効率的です。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band">
+      <div class="section-heading">
+        <h2>Quantitative Scorecard</h2>
+        <p>アーキテクチャ要件（拡張性、開発連携、推論能力）に基づいた相対評価スコア。</p>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-block">
+          <h3>ChatGPT</h3>
+          <div class="score-row" style="--value: 95%;">
+            <span>汎用推論能力</span><div class="meter"><i></i></div><span class="score">9.5</span>
+          </div>
+          <div class="score-row" style="--value: 92%;">
+            <span>API拡張性</span><div class="meter"><i></i></div><span class="score">9.2</span>
+          </div>
+          <div class="score-row" style="--value: 90%;">
+            <span>CLI実用性</span><div class="meter"><i></i></div><span class="score">9.0</span>
+          </div>
+        </div>
+
+        <div class="score-block">
+          <h3>Claude</h3>
+          <div class="score-row" style="--value: 96%;">
+            <span>コード理解力</span><div class="meter"><i></i></div><span class="score">9.6</span>
+          </div>
+          <div class="score-row" style="--value: 98%;">
+            <span>MCP統合</span><div class="meter"><i></i></div><span class="score">9.8</span>
+          </div>
+          <div class="score-row" style="--value: 94%;">
+            <span>文脈保持長</span><div class="meter"><i></i></div><span class="score">9.4</span>
+          </div>
+        </div>
+
+        <div class="score-block">
+          <h3>Gemini</h3>
+          <div class="score-row" style="--value: 95%;">
+            <span>システム連携</span><div class="meter"><i></i></div><span class="score">9.5</span>
+          </div>
+          <div class="score-row" style="--value: 94%;">
+            <span>処理スループット</span><div class="meter"><i></i></div><span class="score">9.4</span>
+          </div>
+          <div class="score-row" style="--value: 80%;">
+            <span>ローカル統合</span><div class="meter"><i></i></div><span class="score">8.0</span>
+          </div>
+        </div>
+
+        <div class="score-block">
+          <h3>Genspark</h3>
+          <div class="score-row" style="--value: 92%;">
+            <span>自律リサーチ</span><div class="meter"><i></i></div><span class="score">9.2</span>
+          </div>
+          <div class="score-row" style="--value: 85%;">
+            <span>マルチモデル</span><div class="meter"><i></i></div><span class="score">8.5</span>
+          </div>
+          <div class="score-row" style="--value: 60%;">
+            <span>API・CLI連携</span><div class="meter"><i></i></div><span class="score">6.0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band">
+      <div class="section-heading">
+        <h2>Architectural Positioning</h2>
+        <p>システム開発における位置づけと、各用途への適合度（ヒートマップ）。</p>
+      </div>
+
+      <div class="graph-grid">
+        <article class="graph-card">
+          <div class="graph-head">
+            <h3>Ecosystem Mapping</h3>
+            <p>X軸: 推論の深さ / Y軸: API・周辺ツールの拡張性</p>
+          </div>
+          <div class="position-map">
+            <span class="axis-label top">HIGH EXTENSIBILITY</span>
+            <span class="axis-label bottom">STANDALONE APP</span>
+            <span class="axis-label left">BROAD / GENERAL</span>
+            <span class="axis-label right">DEEP REASONING</span>
+            <span class="map-dot" style="--x: 75%; --y: 30%;">ChatGPT</span>
+            <span class="map-dot" style="--x: 90%; --y: 20%;">Claude</span>
+            <span class="map-dot" style="--x: 60%; --y: 15%;">Gemini</span>
+            <span class="map-dot" style="--x: 40%; --y: 80%;">Genspark</span>
+          </div>
+        </article>
+
+        <article class="graph-card">
+          <div class="graph-head">
+            <h3>Capability Heatmap</h3>
+            <p>Knowledge OS構成要件に基づく適合度。</p>
+          </div>
+          <div class="heatmap-scroll">
+            <div class="heatmap">
+              <div class="heat-row">
+                <div class="heat-label heat-head">CAPABILITY</div>
+                <div class="heat-label heat-head">ChatGPT</div>
+                <div class="heat-label heat-head">Claude</div>
+                <div class="heat-label heat-head">Gemini</div>
+                <div class="heat-label heat-head">Genspark</div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">MCP / ツール呼出</div>
+                <div class="heat-cell" data-level="3"><span>Strong</span><span>8.8</span></div>
+                <div class="heat-cell" data-level="4"><span>Optimal</span><span>9.8</span></div>
+                <div class="heat-cell" data-level="2"><span>Capable</span><span>7.5</span></div>
+                <div class="heat-cell" data-level="1"><span>Limited</span><span>5.0</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">ローカルRAG統合</div>
+                <div class="heat-cell" data-level="3"><span>Strong</span><span>8.5</span></div>
+                <div class="heat-cell" data-level="4"><span>Optimal</span><span>9.5</span></div>
+                <div class="heat-cell" data-level="2"><span>Capable</span><span>7.8</span></div>
+                <div class="heat-cell" data-level="1"><span>Limited</span><span>6.0</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">自律型エージェント</div>
+                <div class="heat-cell" data-level="4"><span>Optimal</span><span>9.2</span></div>
+                <div class="heat-cell" data-level="3"><span>Strong</span><span>9.0</span></div>
+                <div class="heat-cell" data-level="2"><span>Capable</span><span>7.0</span></div>
+                <div class="heat-cell" data-level="2"><span>Capable</span><span>7.5</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">バッチ・大量データ</div>
+                <div class="heat-cell" data-level="2"><span>Capable</span><span>7.8</span></div>
+                <div class="heat-cell" data-level="3"><span>Strong</span><span>8.5</span></div>
+                <div class="heat-cell" data-level="4"><span>Optimal</span><span>9.6</span></div>
+                <div class="heat-cell" data-level="1"><span>Limited</span><span>6.5</span></div>
+              </div>
+            </div>
+            <div class="heat-legend">
+              <div><span class="legend-box" style="background: #000"></span> Optimal (最適)</div>
+              <div><span class="legend-box" style="background: #555"></span> Strong (強力)</div>
+              <div><span class="legend-box" style="background: #eee"></span> Capable (実用)</div>
+              <div><span class="legend-box" style="background: #fff"></span> Limited (限定的)</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-band">
+      <div class="section-heading">
+        <h2>Service Dossiers</h2>
+        <p>各サービスのアーキテクチャ要件サマリー。</p>
+      </div>
+
+      <div class="dossier-grid">
+        <article class="dossier">
+          <div class="dossier-top">
+            <div>
+              <h3>ChatGPT</h3>
+              <p class="dossier-label">汎用AIコントローラー</p>
+            </div>
+            <div class="mark">O</div>
+          </div>
+          <p class="dossier-callout">APIエコシステムが最も成熟しており、Ollama等のローカルフォールバック処理を組む際の標準I/Fとして機能する。</p>
+          <ul class="facts">
+            <li><strong>推奨プラン</strong>Plus ($20/mo) または API従量制</li>
+            <li><strong>コアモデル</strong>GPT-5.5 Series</li>
+            <li><strong>CLI統合</strong>Codex CLIによる堅牢な支援</li>
+          </ul>
+        </article>
+
+        <article class="dossier">
+          <div class="dossier-top">
+            <div>
+              <h3>Claude</h3>
+              <p class="dossier-label">推論・MCP中核エンジン</p>
+            </div>
+            <div class="mark">C</div>
+          </div>
+          <p class="dossier-callout">システムアーキテクチャにおける最重要モデル。MCPを通じたローカルファイル・データベースへの直接アクセス要件を満たす。</p>
+          <ul class="facts">
+            <li><strong>推奨プラン</strong>Pro ($20/mo)</li>
+            <li><strong>コアモデル</strong>Claude Opus 4.8</li>
+            <li><strong>CLI統合</strong>Claude Code (ネイティブフック対応)</li>
+          </ul>
+        </article>
+
+        <article class="dossier">
+          <div class="dossier-top">
+            <div>
+              <h3>Gemini</h3>
+              <p class="dossier-label">GCP/Workspaceゲートウェイ</p>
+            </div>
+            <div class="mark">G</div>
+          </div>
+          <p class="dossier-callout">独自のコンテキストウィンドウ長を活かし、大量のドキュメント（PDF群）のインデックス作成前の前処理機として極めて優秀。</p>
+          <ul class="facts">
+            <li><strong>推奨プラン</strong>Google AI Pro ($19.99/mo)</li>
+            <li><strong>コアモデル</strong>Gemini 3.1 Pro</li>
+            <li><strong>CLI統合</strong>Gemini CLI (GCP依存強め)</li>
+          </ul>
+        </article>
+
+        <article class="dossier">
+          <div class="dossier-top">
+            <div>
+              <h3>Genspark</h3>
+              <p class="dossier-label">エンドユーザー向けリサーチ</p>
+            </div>
+            <div class="mark">S</div>
+          </div>
+          <p class="dossier-callout">Knowledge OSのバックエンドに組み込むのではなく、独立したリサーチツールやアセット生成プロセスのアウトソース先として活用。</p>
+          <ul class="facts">
+            <li><strong>推奨プラン</strong>Plus ($24.99/mo)</li>
+            <li><strong>コアモデル</strong>Mixture-of-Agents</li>
+            <li><strong>CLI統合</strong>公式CLI非対応 (GUI主体)</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-band" id="matrix">
+      <div class="section-heading">
+        <h2>Detailed Architecture Matrix</h2>
+        <p>技術仕様・連携性能に基づく詳細比較。</p>
+      </div>
+
+      <div class="matrix-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="row-head">SPECIFICATION</th>
+              <th>ChatGPT</th>
+              <th>Claude</th>
+              <th>Gemini</th>
+              <th>Genspark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="row-head">コア・アーキテクチャの役割</th>
+              <td>
+                <p class="cell-title">汎用コントローラー</p>
+                <p class="cell-text">APIエコシステムが広く、n8nやDiscord等の外部システムとの橋渡し、ルーティング層として極めて安定している。</p>
+              </td>
+              <td>
+                <p class="cell-title">ディープシンキング・コア</p>
+                <p class="cell-text">複雑なプロンプトチェーンや、自律型エージェントの思考プロセス（ReAct）を担う中核エンジンとして最適。</p>
+              </td>
+              <td>
+                <p class="cell-title">バッチ・コンテキスト処理</p>
+                <p class="cell-text">巨大なコンテキストウィンドウを活かし、構造化されていない大量のローカルデータの初期解析や構造化に用いる。</p>
+              </td>
+              <td>
+                <p class="cell-title">外部リサーチ・アウトソース</p>
+                <p class="cell-text">内部システム構築用ではなく、最新情報の収集やマルチメディア生成のアウトプット用として独立させる。</p>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="row-head">MCP / API連携<br/>(Knowledge OS向け)</th>
+              <td>
+                <ul class="mini-list">
+                  <li>API利用のスタンダード。ドキュメントやラッパーライブラリが豊富。</li>
+                  <li>Function Callingの精度は高く、Ollamaとの切り替えロジックを組みやすい。</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Claude Desktopを通じたMCPのネイティブサポートが最強の利点。</li>
+                  <li>ローカルのNeo4jやQdrant等、バックエンドDBとの自律的連携を組むなら一択。</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Google Cloud Platformの認証基盤に依存しがちだが、大規模処理には向く。</li>
+                  <li>Workspace APIとの親和性は他を圧倒する。</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>APIによるプログラマブルな操作を前提とした設計ではない。</li>
+                  <li>GUIを通じたエンドユーザー作業の効率化と割り切るべき。</li>
+                </ul>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="row-head">開発向けCLI環境</th>
+              <td>
+                <p class="cell-title">Codex CLI</p>
+                <p class="cell-text">コード生成とターミナル操作のシームレスな統合。手早いスクリプト作成やインフラ構築時のアシスタントとして優れる。</p>
+                <div class="tags"><span class="tag outline">Codex</span><span class="tag solid">Pro</span></div>
+              </td>
+              <td>
+                <p class="cell-title">Claude Code</p>
+                <p class="cell-text">プロジェクト全体のコンテキスト理解に秀でる。大規模なリファクタリングやアーキテクチャ設計の壁打ち相手として最強。</p>
+                <div class="tags"><span class="tag outline">Native MCP</span><span class="tag solid">Pro</span></div>
+              </td>
+              <td>
+                <p class="cell-title">Gemini CLI</p>
+                <p class="cell-text">GCPデプロイや設定と密結合。Google Cloud環境をベースとする開発においては高い生産性を発揮する。</p>
+                <div class="tags"><span class="tag outline">GCP Native</span></div>
+              </td>
+              <td>
+                <p class="cell-title">Genspark Claw</p>
+                <p class="cell-text">開発特化のCLIではなく、ブラウザ内ターミナル等を通じた限定的な操作。純粋なコーディング支援としては弱い。</p>
+                <div class="tags"><span class="tag ghost">GUI Focused</span></div>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="row-head">ローカルAI<br/>(Ollama等)との親和性</th>
+              <td><p class="cell-text">APIスキーマが業界標準となっているため、ローカルモデルへのフォールバック（OpenAI互換API）設計が最も容易。</p></td>
+              <td><p class="cell-text">推論品質が高いため、ローカルモデルで処理しきれない高難度タスクのエスカレーション先（上位モデル）として最適配置。</p></td>
+              <td><p class="cell-text">Vertex AI等を通じた独自のルーティングになりがちで、OSSのローカルAIスタックとの透過的な切り替えはやや手間。</p></td>
+              <td><p class="cell-text">自社プラットフォーム内で処理が完結（Mixture-of-Agents）するため、自作のローカル環境との連携意図とは合致しない。</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-band">
+      <div class="sources">
+        <div>
+          <p>
+            <strong>ARCHITECTURAL NOTE</strong><br/>
+            本レポートはシステムアーキテクチャ設計、特にマルチエージェント基盤およびKnowledge OSの構築を主眼とした技術選定ドキュメントです。価格やプランの一般的な比較に加え、APIの拡張性やCLIの堅牢性を重視して再構成されています。各サービスの最新のAPIレートリミットや利用規約については、公式の開発者向けドキュメントを必ず参照してください。
+          </p>
+          <p class="print-note">※印刷用レイアウト適用済</p>
+        </div>
+        <nav class="source-links">
+          <div class="source-group">
+            <p>OpenAI</p>
+            <a href="https://platform.openai.com/docs/" target="_blank" rel="noreferrer">API Documentation</a>
+            <a href="https://developers.openai.com/cookbook/" target="_blank" rel="noreferrer">Codex & Tooling</a>
+          </div>
+          <div class="source-group">
+            <p>Anthropic</p>
+            <a href="https://docs.anthropic.com/" target="_blank" rel="noreferrer">Claude API Specs</a>
+            <a href="https://modelcontextprotocol.io/" target="_blank" rel="noreferrer">MCP Official Docs</a>
+          </div>
+          <div class="source-group">
+            <p>Google</p>
+            <a href="https://ai.google.dev/docs" target="_blank" rel="noreferrer">Gemini API Docs</a>
+            <a href="https://cloud.google.com/vertex-ai" target="_blank" rel="noreferrer">Vertex AI</a>
+          </div>
+          <div class="source-group">
+            <p>Genspark</p>
+            <a href="https://www.genspark.ai/" target="_blank" rel="noreferrer">Official Site</a>
+          </div>
+        </nav>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
