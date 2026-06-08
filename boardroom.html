@@ -618,6 +618,53 @@
       overflow-x: auto;
     }
 
+    .heat-guide {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: -2px 0 12px;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfc;
+    }
+
+    .heat-guide p {
+      margin: 0;
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1.65;
+      font-weight: 850;
+    }
+
+    .heat-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: flex-end;
+      flex: 0 0 auto;
+    }
+
+    .heat-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 24px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .heat-swatch {
+      width: 28px;
+      height: 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--cyan) var(--mix), #ffffff);
+    }
+
     .heatmap {
       display: grid;
       gap: 8px;
@@ -663,7 +710,8 @@
       gap: 8px;
       color: var(--ink);
       background: color-mix(in srgb, var(--accent) var(--mix), #ffffff);
-      border-color: color-mix(in srgb, var(--accent) 22%, #d9e2e2);
+      border-color: color-mix(in srgb, var(--accent) 36%, #d9e2e2);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.34);
     }
 
     .heat-cell span:last-child {
@@ -1052,6 +1100,21 @@
         gap: 6px;
       }
 
+      .heat-guide {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .heat-legend {
+        justify-content: flex-start;
+      }
+
+      .heat-guide p,
+      .heat-legend span {
+        font-size: 10.5px;
+      }
+
       .heat-row {
         grid-template-columns: 86px repeat(4, minmax(0, 1fr));
         gap: 5px;
@@ -1427,6 +1490,17 @@
             <h3>用途別適性ヒートマップ</h3>
             <p>濃いほど、その用途の第一候補に近い見立てです。</p>
           </div>
+          <div class="heat-guide">
+            <p>
+              見方: 左の用途ごとに横方向で4社を比較します。点数だけでなく、色が濃いセルほどその用途で優先候補に近いという意味です。
+            </p>
+            <div class="heat-legend" aria-label="色の濃さの凡例">
+              <span><i class="heat-swatch" style="--mix: 52%;"></i>最有力</span>
+              <span><i class="heat-swatch" style="--mix: 40%;"></i>強い</span>
+              <span><i class="heat-swatch" style="--mix: 28%;"></i>実用</span>
+              <span><i class="heat-swatch" style="--mix: 12%;"></i>限定的</span>
+            </div>
+          </div>
           <div class="heatmap-scroll">
             <div class="heatmap" aria-label="用途別適性ヒートマップ">
               <div class="heat-row">
@@ -1438,44 +1512,44 @@
               </div>
               <div class="heat-row">
                 <div class="heat-label">アプリ制作</div>
-                <div class="heat-cell" style="--accent: var(--green); --mix: 26%;"><span>最有力</span><span>9.5</span></div>
-                <div class="heat-cell" style="--accent: var(--amber); --mix: 20%;"><span>強い</span><span>8.7</span></div>
-                <div class="heat-cell" style="--accent: var(--blue); --mix: 16%;"><span>補助</span><span>7.6</span></div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 52%;"><span>最有力</span><span>9.5</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 40%;"><span>強い</span><span>8.7</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 26%;"><span>補助</span><span>7.6</span></div>
                 <div class="heat-cell" style="--accent: var(--cyan); --mix: 12%;"><span>限定的</span><span>6.4</span></div>
               </div>
               <div class="heat-row">
                 <div class="heat-label">文章・分析</div>
-                <div class="heat-cell" style="--accent: var(--green); --mix: 20%;"><span>万能</span><span>8.8</span></div>
-                <div class="heat-cell" style="--accent: var(--amber); --mix: 26%;"><span>最有力</span><span>9.5</span></div>
-                <div class="heat-cell" style="--accent: var(--blue); --mix: 16%;"><span>実用</span><span>7.8</span></div>
-                <div class="heat-cell" style="--accent: var(--cyan); --mix: 14%;"><span>補助</span><span>7.1</span></div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 42%;"><span>万能</span><span>8.8</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 52%;"><span>最有力</span><span>9.5</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 28%;"><span>実用</span><span>7.8</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 20%;"><span>補助</span><span>7.1</span></div>
               </div>
               <div class="heat-row">
                 <div class="heat-label">Google連携</div>
-                <div class="heat-cell" style="--accent: var(--green); --mix: 14%;"><span>可</span><span>7.2</span></div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 22%;"><span>可</span><span>7.2</span></div>
                 <div class="heat-cell" style="--accent: var(--amber); --mix: 10%;"><span>限定的</span><span>6.3</span></div>
-                <div class="heat-cell" style="--accent: var(--blue); --mix: 28%;"><span>最有力</span><span>9.6</span></div>
-                <div class="heat-cell" style="--accent: var(--cyan); --mix: 14%;"><span>補助</span><span>7.0</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 54%;"><span>最有力</span><span>9.6</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 20%;"><span>補助</span><span>7.0</span></div>
               </div>
               <div class="heat-row">
                 <div class="heat-label">リサーチ</div>
-                <div class="heat-cell" style="--accent: var(--green); --mix: 20%;"><span>強い</span><span>8.7</span></div>
-                <div class="heat-cell" style="--accent: var(--amber); --mix: 18%;"><span>強い</span><span>8.4</span></div>
-                <div class="heat-cell" style="--accent: var(--blue); --mix: 22%;"><span>強い</span><span>8.8</span></div>
-                <div class="heat-cell" style="--accent: var(--cyan); --mix: 26%;"><span>最有力</span><span>9.0</span></div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 40%;"><span>強い</span><span>8.7</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 36%;"><span>強い</span><span>8.4</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 42%;"><span>強い</span><span>8.8</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 50%;"><span>最有力</span><span>9.0</span></div>
               </div>
               <div class="heat-row">
                 <div class="heat-label">制作物作成</div>
-                <div class="heat-cell" style="--accent: var(--green); --mix: 20%;"><span>強い</span><span>8.5</span></div>
-                <div class="heat-cell" style="--accent: var(--amber); --mix: 12%;"><span>補助</span><span>6.8</span></div>
-                <div class="heat-cell" style="--accent: var(--blue); --mix: 18%;"><span>実用</span><span>8.0</span></div>
-                <div class="heat-cell" style="--accent: var(--cyan); --mix: 26%;"><span>最有力</span><span>8.8</span></div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 38%;"><span>強い</span><span>8.5</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 14%;"><span>補助</span><span>6.8</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 30%;"><span>実用</span><span>8.0</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 48%;"><span>最有力</span><span>8.8</span></div>
               </div>
               <div class="heat-row">
                 <div class="heat-label">CLI開発</div>
-                <div class="heat-cell" style="--accent: var(--green); --mix: 26%;"><span>最有力</span><span>9.0</span></div>
-                <div class="heat-cell" style="--accent: var(--amber); --mix: 22%;"><span>強い</span><span>8.6</span></div>
-                <div class="heat-cell" style="--accent: var(--blue); --mix: 18%;"><span>実用</span><span>7.8</span></div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 50%;"><span>最有力</span><span>9.0</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 38%;"><span>強い</span><span>8.6</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 28%;"><span>実用</span><span>7.8</span></div>
                 <div class="heat-cell" style="--accent: var(--cyan); --mix: 10%;"><span>限定的</span><span>6.2</span></div>
               </div>
             </div>
