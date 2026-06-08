@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIツール選定比較レポート Boardroom Edition</title>
+  <style>
+    :root {
+      --ink: #0f172a;
+      --text: #263449;
+      --muted: #64748b;
+      --subtle: #f6f8f7;
+      --paper: #ffffff;
+      --line: #d9e2e2;
+      --line-strong: #b8c7ca;
+      --green: #0f8a63;
+      --amber: #a76408;
+      --blue: #2563eb;
+      --cyan: #078894;
+      --slate: #334155;
+      --soft-green: #e8f6f0;
+      --soft-amber: #fbf0de;
+      --soft-blue: #eaf1ff;
+      --soft-cyan: #e4f6f8;
+      --soft-slate: #eef2f6;
+      --shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--subtle);
+      color: var(--text);
+      font-family: "Inter", "Segoe UI", "Noto Sans JP", "Hiragino Sans", Meiryo, sans-serif;
+      line-height: 1.7;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(1560px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 0 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid #b9dde1;
+      border-radius: var(--radius);
+      background: #f1fbfc;
+      color: var(--cyan);
+      font-weight: 950;
+    }
+
+    .brand-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 950;
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .action {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 36px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+      cursor: pointer;
+    }
+
+    .action:hover {
+      border-color: var(--line-strong);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(420px, 0.82fr);
+      gap: 28px;
+      align-items: end;
+      padding: 46px 0 32px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      margin: 0 0 18px;
+      padding: 0 12px;
+      border: 1px solid #b6dfe2;
+      border-radius: 999px;
+      background: #eefbfb;
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 58px;
+      line-height: 1.03;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 980px;
+      margin: 18px 0 0;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--slate);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .verdict-panel {
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .verdict-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #f9fbfb;
+    }
+
+    .verdict-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .verdict-title strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .verdict-list {
+      display: grid;
+    }
+
+    .verdict-item {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 14px;
+      padding: 17px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .verdict-item:last-child {
+      border-bottom: 0;
+    }
+
+    .rank {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: var(--radius);
+      background: #eef7f5;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .verdict-item h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 950;
+    }
+
+    .verdict-item p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .section-band {
+      margin-top: 26px;
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.25;
+      font-weight: 950;
+    }
+
+    .section-heading p {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: right;
+      font-weight: 750;
+    }
+
+    .editorial {
+      display: grid;
+      grid-template-columns: 310px minmax(0, 1fr);
+      border: 1px solid #b9d5d7;
+      border-left: 5px solid var(--cyan);
+      border-radius: var(--radius);
+      background: var(--paper);
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    .editorial-side {
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      background: #f1f9f9;
+    }
+
+    .editorial-kicker {
+      margin: 0 0 8px;
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .editorial-side h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 23px;
+      line-height: 1.4;
+      font-weight: 950;
+    }
+
+    .editorial-side p:last-child {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .editorial-main {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .editorial-point {
+      min-width: 0;
+      padding: 20px 22px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .editorial-point:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .editorial-point:last-child {
+      grid-column: 1 / -1;
+      border-bottom: 0;
+      border-right: 0;
+      background: #fbfdfd;
+    }
+
+    .editorial-point h3 {
+      margin: 0 0 8px;
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 950;
+    }
+
+    .editorial-point p {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.82;
+    }
+
+    .mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid color-mix(in srgb, var(--accent) 32%, #ffffff);
+      border-radius: var(--radius);
+      background: var(--soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 950;
+      flex: 0 0 auto;
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .score-block {
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--paper);
+      overflow: hidden;
+    }
+
+    .score-block.chatgpt { --accent: var(--green); }
+    .score-block.claude { --accent: var(--amber); }
+    .score-block.gemini { --accent: var(--blue); }
+    .score-block.genspark { --accent: var(--cyan); }
+
+    .score-block h3 {
+      margin: 0;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 950;
+      background: #fbfcfc;
+    }
+
+    .score-row {
+      display: grid;
+      grid-template-columns: 104px minmax(0, 1fr) 38px;
+      gap: 9px;
+      align-items: center;
+      min-height: 44px;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .score-row:last-child {
+      border-bottom: 0;
+    }
+
+    .score-row span:first-child {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .meter {
+      height: 8px;
+      border-radius: 999px;
+      background: #e6ecef;
+      overflow: hidden;
+    }
+
+    .meter i {
+      display: block;
+      width: var(--value);
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .score {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 950;
+      text-align: right;
+    }
+
+    .graph-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+      gap: 12px;
+    }
+
+    .graph-card {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .graph-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .graph-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .graph-head h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 950;
+    }
+
+    .graph-head p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .price-chart {
+      display: grid;
+      gap: 11px;
+    }
+
+    .price-row {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr) 82px;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .price-name {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .price-track {
+      height: 12px;
+      border-radius: 999px;
+      background: #e6ecef;
+      overflow: hidden;
+    }
+
+    .price-track i {
+      display: block;
+      width: var(--value);
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .price-value {
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 950;
+      text-align: right;
+    }
+
+    .price-note {
+      margin-top: 18px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: #f4fbfb;
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 800;
+    }
+
+    .price-note strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .position-map {
+      position: relative;
+      min-height: 300px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, transparent calc(50% - 0.5px), #dbe4e6 calc(50% - 0.5px), #dbe4e6 calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+        linear-gradient(0deg, transparent calc(50% - 0.5px), #dbe4e6 calc(50% - 0.5px), #dbe4e6 calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+        #fbfcfc;
+      overflow: hidden;
+    }
+
+    .axis-label {
+      position: absolute;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
+      line-height: 1.2;
+      pointer-events: none;
+    }
+
+    .axis-label.top { top: 12px; left: 50%; transform: translateX(-50%); }
+    .axis-label.bottom { bottom: 12px; left: 50%; transform: translateX(-50%); }
+    .axis-label.left { left: 12px; top: 50%; transform: translateY(-50%); }
+    .axis-label.right { right: 12px; top: 50%; transform: translateY(-50%); }
+
+    .map-dot {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 11px;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, #ffffff);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 950;
+      box-shadow: 0 9px 20px rgba(15, 23, 42, 0.11);
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+
+    .map-dot::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .heatmap-scroll {
+      overflow-x: auto;
+    }
+
+    .heat-guide {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: -2px 0 12px;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfc;
+    }
+
+    .heat-guide p {
+      margin: 0;
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1.65;
+      font-weight: 850;
+    }
+
+    .heat-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: flex-end;
+      flex: 0 0 auto;
+    }
+
+    .heat-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 24px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .heat-swatch {
+      width: 28px;
+      height: 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--cyan) var(--mix), #ffffff);
+    }
+
+    .heatmap {
+      display: grid;
+      gap: 8px;
+      min-width: 760px;
+    }
+
+    .heat-row {
+      display: grid;
+      grid-template-columns: 130px repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .heat-label,
+    .heat-cell {
+      min-height: 38px;
+      padding: 8px 9px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 900;
+    }
+
+    .heat-label {
+      display: flex;
+      align-items: center;
+      background: #f6f9f8;
+      color: var(--ink);
+    }
+
+    .heat-head {
+      min-height: 30px;
+      background: #eef4f2;
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .heat-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--ink);
+      background: color-mix(in srgb, var(--accent) var(--mix), #ffffff);
+      border-color: color-mix(in srgb, var(--accent) 36%, #d9e2e2);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.34);
+    }
+
+    .heat-cell span:last-child {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .dossier-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .dossier {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .dossier.chatgpt { --accent: var(--green); --soft: var(--soft-green); }
+    .dossier.claude { --accent: var(--amber); --soft: var(--soft-amber); }
+    .dossier.gemini { --accent: var(--blue); --soft: var(--soft-blue); }
+    .dossier.genspark { --accent: var(--cyan); --soft: var(--soft-cyan); }
+
+    .dossier-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .dossier h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 950;
+    }
+
+    .dossier-label {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .dossier-callout {
+      margin: 0;
+      padding: 11px 12px;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: var(--soft);
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.65;
+      font-weight: 900;
+    }
+
+    .facts {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .facts li {
+      display: grid;
+      gap: 2px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.58;
+    }
+
+    .facts strong {
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .matrix-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    table {
+      width: 100%;
+      min-width: 1180px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      vertical-align: top;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 16px;
+      text-align: left;
+    }
+
+    tr:last-child td,
+    tr:last-child th {
+      border-bottom: 0;
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: 0;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #eef4f2;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .row-head {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      width: 164px;
+      background: #f6f9f8;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 950;
+      text-align: center;
+    }
+
+    thead .row-head {
+      z-index: 3;
+      background: #e9f1ef;
+    }
+
+    tbody tr:nth-child(even) td {
+      background: #fcfdfd;
+    }
+
+    tbody tr:nth-child(even) .row-head {
+      background: #f1f6f4;
+    }
+
+    .cell-title {
+      margin: 0 0 6px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 950;
+      line-height: 1.5;
+    }
+
+    .cell-text {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.72;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mini-list li {
+      position: relative;
+      padding-left: 14px;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.66;
+    }
+
+    .mini-list li::before {
+      content: "";
+      position: absolute;
+      top: 0.78em;
+      left: 0;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: #94a3b8;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .tag.free { background: #f8fafc; }
+    .tag.paid { background: var(--soft-blue); border-color: #d6e3ff; color: #1d4ed8; }
+    .tag.pro { background: var(--soft-green); border-color: #c9eadb; color: #0f7a4f; }
+    .tag.mix { background: var(--soft-cyan); border-color: #bee5ea; color: #08727d; }
+
+    .rating {
+      margin: 0;
+      color: #d97706;
+      font-size: 14px;
+      font-weight: 950;
+      line-height: 1.2;
+    }
+
+    .sources {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(620px, 0.78fr);
+      gap: 18px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .sources p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+      font-weight: 750;
+    }
+
+    .source-links {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .source-group {
+      display: grid;
+      gap: 7px;
+      align-content: start;
+      min-height: 138px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfc;
+    }
+
+    .source-group p {
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 950;
+      line-height: 1.2;
+    }
+
+    .source-group a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.2;
+      text-decoration: none;
+    }
+
+    .source-group a:hover {
+      border-color: var(--line-strong);
+      color: var(--cyan);
+    }
+
+    .print-note {
+      display: none;
+    }
+
+    @media (max-width: 1180px) {
+      .hero,
+      .editorial,
+      .graph-grid,
+      .sources {
+        grid-template-columns: 1fr;
+      }
+
+      .editorial-side {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .scoreboard,
+      .dossier-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .source-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(100% - 24px, 680px);
+        padding-top: 22px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .actions {
+        justify-content: flex-start;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .lead {
+        font-size: 14px;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .section-heading p {
+        text-align: left;
+      }
+
+      .graph-head {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .graph-head p {
+        text-align: left;
+      }
+
+      .price-row {
+        grid-template-columns: 78px minmax(0, 1fr) 70px;
+        gap: 9px;
+      }
+
+      .position-map {
+        min-height: 340px;
+      }
+
+      .map-dot {
+        padding: 0 9px;
+        font-size: 11px;
+      }
+
+      .heatmap {
+        min-width: 0;
+        gap: 6px;
+      }
+
+      .heat-guide {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .heat-legend {
+        justify-content: flex-start;
+      }
+
+      .heat-guide p,
+      .heat-legend span {
+        font-size: 10.5px;
+      }
+
+      .heat-row {
+        grid-template-columns: 86px repeat(4, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      .heat-label,
+      .heat-cell {
+        min-height: 42px;
+        padding: 7px 6px;
+        font-size: 10.5px;
+      }
+
+      .heat-head {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 10px;
+      }
+
+      .heat-cell {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 1px;
+      }
+
+      .heat-cell span:last-child {
+        font-size: 10px;
+      }
+
+      .editorial-main,
+      .scoreboard,
+      .dossier-grid,
+      .source-links {
+        grid-template-columns: 1fr;
+      }
+
+      .editorial-point,
+      .editorial-point:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .score-row {
+        grid-template-columns: 110px minmax(0, 1fr) 38px;
+        gap: 9px;
+      }
+
+      .sources {
+        padding: 14px;
+      }
+    }
+
+    @page {
+      size: A4 landscape;
+      margin: 8mm;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      .topbar,
+      .actions {
+        display: none;
+      }
+
+      .hero {
+        padding: 0 0 10px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .lead,
+      .cell-text,
+      .mini-list li,
+      .facts li,
+      .editorial-point p {
+        font-size: 9px;
+        line-height: 1.48;
+      }
+
+      .section-band {
+        margin-top: 10px;
+        padding: 10px 0;
+      }
+
+      .scoreboard,
+      .dossier-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .graph-grid {
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+
+      .graph-card {
+        padding: 10px;
+      }
+
+      .position-map {
+        min-height: 210px;
+      }
+
+      .heatmap {
+        min-width: 680px;
+      }
+
+      .editorial,
+      .sources {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .print-note {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="topbar" aria-label="レポート操作">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">AI</div>
+        <div>
+          <p class="brand-title">AI Selection Report</p>
+          <p class="brand-subtitle">Boardroom Edition / 2026年6月9日</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="action" type="button" onclick="window.print()">印刷</button>
+        <a class="action" href="#matrix">比較表へ</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <p class="eyebrow">商用提案・意思決定向けレポート</p>
+        <h1>AIツール選定<br />比較レポート</h1>
+        <p class="lead">
+          ChatGPT、Claude、Gemini、Gensparkを、料金プラン、フラグシップモデル、強み、弱み、CLI、導入しやすさで比較します。
+          ChatGPT、Claude、GeminiはProまで、GensparkはPlusまでに絞った実務判断用の別版です。
+        </p>
+        <div class="hero-meta">
+          <span class="meta-pill">対象: 個人・小規模チーム</span>
+          <span class="meta-pill">料金: 主に米国表示</span>
+          <span class="meta-pill">見立て: 2026年6月8日時点</span>
+        </div>
+      </div>
+
+      <aside class="verdict-panel" aria-label="主要結論">
+        <div class="verdict-title">
+          <p>Executive Verdict</p>
+          <strong>最初に見る結論</strong>
+        </div>
+        <div class="verdict-list">
+          <div class="verdict-item">
+            <div class="rank">01</div>
+            <div>
+              <h2>アプリ制作・開発は ChatGPT + Codex</h2>
+              <p>CLIまで含めて試しやすく、最初の制作環境として強い。</p>
+            </div>
+          </div>
+          <div class="verdict-item">
+            <div class="rank">02</div>
+            <div>
+              <h2>文章・分析品質は Claude Pro</h2>
+              <p>長文整理、説明、落ち着いた分析に向く。</p>
+            </div>
+          </div>
+          <div class="verdict-item">
+            <div class="rank">03</div>
+            <div>
+              <h2>量とGoogle連携は Gemini AI Pro</h2>
+              <p>Google Workspace、NotebookLMまで含めた幅が強い。</p>
+            </div>
+          </div>
+          <div class="verdict-item">
+            <div class="rank">04</div>
+            <div>
+              <h2>調べもの担当は Genspark Plus</h2>
+              <p>主要LLMを扱いやすくし、リサーチと制作物作成に寄せやすい。</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <section class="section-band" aria-labelledby="seo-review-title">
+      <div class="editorial">
+        <aside class="editorial-side">
+          <p class="editorial-kicker">瀬尾くんの総評</p>
+          <h2 id="seo-review-title">課金するなら、目的で選ぶのが一番分かりやすい</h2>
+          <p>正式な契約前には、各社の最新プラン、提供地域、利用上限、キャンペーン条件を確認してください。</p>
+        </aside>
+        <div class="editorial-main">
+          <article class="editorial-point">
+            <h3>質のOpenAIとClaude 対 量と周辺ツールが充実しているGoogle。</h3>
+            <p>
+              OpenAIのChatGPTとAnthropicのClaudeは、どちらも世界トップ級の主要LLMです。
+              一般公開前のClaude Mythosを除外すると、GPT-5.5とClaude Opus 4.8は現時点でNo.1級モデルという見立てです。
+            </p>
+          </article>
+          <article class="editorial-point">
+            <h3>アプリ制作や開発ならChatGPT / Codexが有力</h3>
+            <p>
+              OpenAIのCodexは、CLIに慣れていない人にも実用的で使いやすく、期間限定キャンペーンや対象条件によってはFreeでも少し試せる点が大きな魅力です。
+            </p>
+          </article>
+          <article class="editorial-point">
+            <h3>Claudeは高品質だが、有料前提になりやすい</h3>
+            <p>
+              ClaudeもCoworkとClaude Codeが使いやすく、文章整理やコード相談では非常に強い選択肢です。
+              ただし本格的に使うには有料プランが前提になりやすい点が少しネックです。
+            </p>
+          </article>
+          <article class="editorial-point">
+            <h3>GeminiはGoogle連携まで含めると課金価値が高い</h3>
+            <p>
+              Gemini 3.1 ProはOpenAIやClaudeの最上位モデルにはやや劣る見立てですが、利用上限が高く、Google WorkspaceやNotebookLMまで使える幅が強みです。
+            </p>
+          </article>
+          <article class="editorial-point">
+            <h3>Gensparkは調べもの担当として重宝</h3>
+            <p>
+              Gensparkは主要LLMを使いやすくするツール。リサーチ能力が高いので調べもの担当として重宝。
+              資料、画像、動画など制作物をまとめたい時にも便利です。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band" aria-labelledby="score-title">
+      <div class="section-heading">
+        <h2 id="score-title">各社別スコアカード</h2>
+        <p>数値は厳密なベンチマークではなく、今回用途の選定メモです。各社の得意領域と注意点を比較します。</p>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-block chatgpt">
+          <h3>ChatGPT</h3>
+          <div class="score-row" style="--value: 96%;">
+            <span>総合力</span><div class="meter"><i></i></div><span class="score">9.6</span>
+          </div>
+          <div class="score-row" style="--value: 95%;">
+            <span>開発入口</span><div class="meter"><i></i></div><span class="score">9.5</span>
+          </div>
+          <div class="score-row" style="--value: 92%;">
+            <span>導入しやすさ</span><div class="meter"><i></i></div><span class="score">9.2</span>
+          </div>
+          <div class="score-row" style="--value: 90%;">
+            <span>CLI実用性</span><div class="meter"><i></i></div><span class="score">9.0</span>
+          </div>
+        </div>
+
+        <div class="score-block claude">
+          <h3>Claude</h3>
+          <div class="score-row" style="--value: 95%;">
+            <span>文章品質</span><div class="meter"><i></i></div><span class="score">9.5</span>
+          </div>
+          <div class="score-row" style="--value: 94%;">
+            <span>長文分析</span><div class="meter"><i></i></div><span class="score">9.4</span>
+          </div>
+          <div class="score-row" style="--value: 90%;">
+            <span>コード相談</span><div class="meter"><i></i></div><span class="score">9.0</span>
+          </div>
+          <div class="score-row" style="--value: 82%;">
+            <span>導入しやすさ</span><div class="meter"><i></i></div><span class="score">8.2</span>
+          </div>
+        </div>
+
+        <div class="score-block gemini">
+          <h3>Gemini</h3>
+          <div class="score-row" style="--value: 96%;">
+            <span>Google連携</span><div class="meter"><i></i></div><span class="score">9.6</span>
+          </div>
+          <div class="score-row" style="--value: 93%;">
+            <span>利用量</span><div class="meter"><i></i></div><span class="score">9.3</span>
+          </div>
+          <div class="score-row" style="--value: 88%;">
+            <span>調査・学習</span><div class="meter"><i></i></div><span class="score">8.8</span>
+          </div>
+          <div class="score-row" style="--value: 78%;">
+            <span>CLI導入</span><div class="meter"><i></i></div><span class="score">7.8</span>
+          </div>
+        </div>
+
+        <div class="score-block genspark">
+          <h3>Genspark</h3>
+          <div class="score-row" style="--value: 90%;">
+            <span>リサーチ</span><div class="meter"><i></i></div><span class="score">9.0</span>
+          </div>
+          <div class="score-row" style="--value: 88%;">
+            <span>制作統合</span><div class="meter"><i></i></div><span class="score">8.8</span>
+          </div>
+          <div class="score-row" style="--value: 86%;">
+            <span>複数AI活用</span><div class="meter"><i></i></div><span class="score">8.6</span>
+          </div>
+          <div class="score-row" style="--value: 62%;">
+            <span>開発CLI適性</span><div class="meter"><i></i></div><span class="score">6.2</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band" aria-labelledby="graphs-title">
+      <div class="section-heading">
+        <h2 id="graphs-title">比較グラフ</h2>
+        <p>表を読む前に、料金感、用途適性、サービスの位置づけを視覚で確認できます。</p>
+      </div>
+
+      <div class="graph-grid">
+        <article class="graph-card">
+          <div class="graph-head">
+            <h3>推奨プラン料金</h3>
+            <p>月額の目安。GensparkはPlus、主要3社はPro/Plus相当までで比較。</p>
+          </div>
+          <div class="price-chart" aria-label="推奨プラン料金比較">
+            <div class="price-row" style="--accent: var(--green); --value: 80%;">
+              <span class="price-name">ChatGPT</span>
+              <div class="price-track"><i></i></div>
+              <span class="price-value">$20</span>
+            </div>
+            <div class="price-row" style="--accent: var(--amber); --value: 80%;">
+              <span class="price-name">Claude</span>
+              <div class="price-track"><i></i></div>
+              <span class="price-value">$20</span>
+            </div>
+            <div class="price-row" style="--accent: var(--blue); --value: 80%;">
+              <span class="price-name">Gemini</span>
+              <div class="price-track"><i></i></div>
+              <span class="price-value">$19.99</span>
+            </div>
+            <div class="price-row" style="--accent: var(--cyan); --value: 100%;">
+              <span class="price-name">Genspark</span>
+              <div class="price-track"><i></i></div>
+              <span class="price-value">$24.99</span>
+            </div>
+          </div>
+          <p class="price-note">
+            <strong>料金の見方</strong>
+            主要3社は約$20帯で横並び。Gensparkは少し高い分、調査・資料・画像・動画など制作統合の価値で見ると判断しやすい。
+          </p>
+        </article>
+
+        <article class="graph-card">
+          <div class="graph-head">
+            <h3>ポジショニングマップ</h3>
+            <p>横軸は品質・推論、縦軸は量・連携・周辺ツールの充実度。</p>
+          </div>
+          <div class="position-map" aria-label="AIサービスの位置づけ">
+            <span class="axis-label top">量・連携・周辺ツール</span>
+            <span class="axis-label bottom">単体AI寄り</span>
+            <span class="axis-label left">制作・調査補助</span>
+            <span class="axis-label right">品質・推論</span>
+            <span class="map-dot" style="--accent: var(--green); --x: 72%; --y: 36%;">ChatGPT</span>
+            <span class="map-dot" style="--accent: var(--amber); --x: 82%; --y: 62%;">Claude</span>
+            <span class="map-dot" style="--accent: var(--blue); --x: 58%; --y: 22%;">Gemini</span>
+            <span class="map-dot" style="--accent: var(--cyan); --x: 37%; --y: 30%;">Genspark</span>
+          </div>
+        </article>
+
+        <article class="graph-card wide">
+          <div class="graph-head">
+            <h3>用途別適性ヒートマップ</h3>
+            <p>濃いほど、その用途の第一候補に近い見立てです。</p>
+          </div>
+          <div class="heat-guide">
+            <p>
+              見方: 左の用途ごとに横方向で4社を比較します。点数だけでなく、色が濃いセルほどその用途で優先候補に近いという意味です。
+            </p>
+            <div class="heat-legend" aria-label="色の濃さの凡例">
+              <span><i class="heat-swatch" style="--mix: 52%;"></i>最有力</span>
+              <span><i class="heat-swatch" style="--mix: 40%;"></i>強い</span>
+              <span><i class="heat-swatch" style="--mix: 28%;"></i>実用</span>
+              <span><i class="heat-swatch" style="--mix: 12%;"></i>限定的</span>
+            </div>
+          </div>
+          <div class="heatmap-scroll">
+            <div class="heatmap" aria-label="用途別適性ヒートマップ">
+              <div class="heat-row">
+                <div class="heat-label heat-head">用途</div>
+                <div class="heat-label heat-head">ChatGPT</div>
+                <div class="heat-label heat-head">Claude</div>
+                <div class="heat-label heat-head">Gemini</div>
+                <div class="heat-label heat-head">Genspark</div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">アプリ制作</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 52%;"><span>最有力</span><span>9.5</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 40%;"><span>強い</span><span>8.7</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 26%;"><span>補助</span><span>7.6</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 12%;"><span>限定的</span><span>6.4</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">文章・分析</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 42%;"><span>万能</span><span>8.8</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 52%;"><span>最有力</span><span>9.5</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 28%;"><span>実用</span><span>7.8</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 20%;"><span>補助</span><span>7.1</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">Google連携</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 22%;"><span>可</span><span>7.2</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 10%;"><span>限定的</span><span>6.3</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 54%;"><span>最有力</span><span>9.6</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 20%;"><span>補助</span><span>7.0</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">リサーチ</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 40%;"><span>強い</span><span>8.7</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 36%;"><span>強い</span><span>8.4</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 42%;"><span>強い</span><span>8.8</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 50%;"><span>最有力</span><span>9.0</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">制作物作成</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 38%;"><span>強い</span><span>8.5</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 14%;"><span>補助</span><span>6.8</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 30%;"><span>実用</span><span>8.0</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 48%;"><span>最有力</span><span>8.8</span></div>
+              </div>
+              <div class="heat-row">
+                <div class="heat-label">CLI開発</div>
+                <div class="heat-cell" style="--accent: var(--green); --mix: 50%;"><span>最有力</span><span>9.0</span></div>
+                <div class="heat-cell" style="--accent: var(--amber); --mix: 38%;"><span>強い</span><span>8.6</span></div>
+                <div class="heat-cell" style="--accent: var(--blue); --mix: 28%;"><span>実用</span><span>7.8</span></div>
+                <div class="heat-cell" style="--accent: var(--cyan); --mix: 10%;"><span>限定的</span><span>6.2</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-band" aria-labelledby="dossier-title">
+      <div class="section-heading">
+        <h2 id="dossier-title">4サービスの実務プロファイル</h2>
+        <p>料金、モデル、CLI、注意点をカードで先に見てから、必要に応じて下の詳細表で確認します。</p>
+      </div>
+
+      <div class="dossier-grid">
+        <article class="dossier chatgpt">
+          <div class="dossier-top">
+            <div>
+              <h3>ChatGPT</h3>
+              <p class="dossier-label">万能型AIアシスタント</p>
+            </div>
+            <div class="mark">O</div>
+          </div>
+          <p class="dossier-callout">開発も日常業務も1本で始めやすい。Codex CLIまで含めると制作入口として強い。</p>
+          <ul class="facts">
+            <li><strong>表示プラン</strong>Free / Go / Plus / Pro</li>
+            <li><strong>料金</strong>Free $0、Go $8/月、Plus $20/月、Pro $100または$200/月</li>
+            <li><strong>モデル</strong>GPT-5.5系</li>
+            <li><strong>CLI</strong>Codex CLI。Freeでも一部利用可能な場合あり。</li>
+          </ul>
+        </article>
+
+        <article class="dossier claude">
+          <div class="dossier-top">
+            <div>
+              <h3>Claude</h3>
+              <p class="dossier-label">文章・分析に強いAI</p>
+            </div>
+            <div class="mark">C</div>
+          </div>
+          <p class="dossier-callout">文章が読みやすく、長文整理や丁寧な説明に強い。コード相談も落ち着いて使いやすい。</p>
+          <ul class="facts">
+            <li><strong>表示プラン</strong>Free / Pro</li>
+            <li><strong>料金</strong>Free $0、Pro $20/月、Pro年払い 年$200</li>
+            <li><strong>モデル</strong>Claude Opus 4.8</li>
+            <li><strong>CLI</strong>Claude Code。Proプランより利用可能。</li>
+          </ul>
+        </article>
+
+        <article class="dossier gemini">
+          <div class="dossier-top">
+            <div>
+              <h3>Gemini</h3>
+              <p class="dossier-label">Google連携型AI</p>
+            </div>
+            <div class="mark">G</div>
+          </div>
+          <p class="dossier-callout">Google利用者ほど便利。検索、Workspace、Drive、NotebookLMまで含めて幅広く試せる。</p>
+          <ul class="facts">
+            <li><strong>表示プラン</strong>Free / Google AI Plus / Google AI Pro</li>
+            <li><strong>料金</strong>Free $0、AI Plus $7.99/月、AI Pro $19.99/月</li>
+            <li><strong>モデル</strong>Gemini 3.1 Pro</li>
+            <li><strong>CLI</strong>Gemini CLI。GoogleアカウントやCloud設定の理解が必要。</li>
+          </ul>
+        </article>
+
+        <article class="dossier genspark">
+          <div class="dossier-top">
+            <div>
+              <h3>Genspark</h3>
+              <p class="dossier-label">制作系AIワークスペース</p>
+            </div>
+            <div class="mark">S</div>
+          </div>
+          <p class="dossier-callout">主要LLMを使いやすくするツール。リサーチと制作物作成をまとめたい時に強い。</p>
+          <ul class="facts">
+            <li><strong>表示プラン</strong>Free / Plus</li>
+            <li><strong>料金</strong>Free $0、Plus $24.99/月、年払い 実質$19.99/月</li>
+            <li><strong>モデル</strong>Mixture-of-Agents</li>
+            <li><strong>CLI</strong>公式の汎用CLIは未確認。近いものはGenspark Claw。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-band" id="matrix" aria-labelledby="matrix-title">
+      <div class="section-heading">
+        <h2 id="matrix-title">詳細比較マトリクス</h2>
+        <p>横長の比較表です。スマホでは横スクロールして確認できます。</p>
+      </div>
+
+      <div class="matrix-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="row-head">比較項目</th>
+              <th>ChatGPT</th>
+              <th>Claude</th>
+              <th>Gemini</th>
+              <th>Genspark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="row-head">特徴</th>
+              <td>
+                <p class="cell-title">万能型AIアシスタント</p>
+                <p class="cell-text">会話、調査、資料作成、画像、コードまで幅広く使える。迷った時の標準候補。</p>
+              </td>
+              <td>
+                <p class="cell-title">文章・分析に強いAI</p>
+                <p class="cell-text">自然な文章、長文読解、深い分析、コード作業に強い。落ち着いた相談役として使いやすい。</p>
+              </td>
+              <td>
+                <p class="cell-title">Google連携型AI</p>
+                <p class="cell-text">Google検索やWorkspace、NotebookLMとの相性が高い。Google中心の人ほど便利。</p>
+              </td>
+              <td>
+                <p class="cell-title">制作系AIワークスペース</p>
+                <p class="cell-text">複数AIモデルや生成機能をまとめて使う発想。資料、画像、動画、音声の制作向き。</p>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="row-head">表示プラン</th>
+              <td><div class="tags"><span class="tag free">Free</span><span class="tag paid">Go</span><span class="tag paid">Plus</span><span class="tag pro">Pro</span></div></td>
+              <td><div class="tags"><span class="tag free">Free</span><span class="tag pro">Pro</span></div></td>
+              <td><div class="tags"><span class="tag free">Free</span><span class="tag paid">Google AI Plus</span><span class="tag pro">Google AI Pro</span></div></td>
+              <td><div class="tags"><span class="tag free">Free</span><span class="tag paid">Plus</span></div></td>
+            </tr>
+
+            <tr>
+              <th class="row-head">プラン別料金</th>
+              <td>
+                <ul class="mini-list">
+                  <li>Free: $0</li>
+                  <li>Go: $8/月</li>
+                  <li>Plus: $20/月</li>
+                  <li>Pro: $100または$200/月</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Free: $0</li>
+                  <li>Pro: $20/月</li>
+                  <li>Pro年払い: 年$200</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Free: $0</li>
+                  <li>Google AI Plus: $7.99/月</li>
+                  <li>Google AI Pro: $19.99/月</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Free: $0</li>
+                  <li>Plus: $24.99/月</li>
+                  <li>年払い: 実質$19.99/月</li>
+                </ul>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="row-head">フラグシップモデル</th>
+              <td><p class="cell-title">GPT-5.5系</p><p class="cell-text">Proではより高度な推論モデルや高い利用枠を使いやすい。</p></td>
+              <td><p class="cell-title">Claude Opus 4.8</p><p class="cell-text">高度な推論、長文、コーディング、複雑な分析に強い上位モデル。</p></td>
+              <td><p class="cell-title">Gemini 3.1 Pro</p><p class="cell-text">検索、マルチモーダル、Google連携を含む広い用途で使う中心モデル。</p></td>
+              <td><p class="cell-title">Mixture-of-Agents</p><p class="cell-text">GPT、Claude、Geminiなど複数モデルを組み合わせる運用が特徴。</p></td>
+            </tr>
+
+            <tr>
+              <th class="row-head">強み</th>
+              <td>
+                <ul class="mini-list">
+                  <li>できることが広く、最初の1本に選びやすい</li>
+                  <li>調査、文章、画像、コード相談まで1つで回しやすい</li>
+                  <li>Codexとの組み合わせでアプリ制作に入りやすい</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>文章が読みやすく、丁寧な説明が得意</li>
+                  <li>長い資料や議事録を整理するのに向いている</li>
+                  <li>コードレビューや設計相談も落ち着いて使える</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Gmail、Docs、DriveなどGoogle利用者には入りやすい</li>
+                  <li>利用上限が高めで、たくさん試しやすい</li>
+                  <li>NotebookLMまで含めると学習、調査、整理に強い</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>いろいろなAIをまとめて使える</li>
+                  <li>スライド、資料、画像、動画など制作物を作りやすい</li>
+                  <li>調べもの担当として使いやすい</li>
+                </ul>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="row-head">弱み・注意点</th>
+              <td>
+                <ul class="mini-list">
+                  <li>できることが多く、最初は用途を絞らないと散らかりやすい</li>
+                  <li>高度な利用は上位プラン前提になりやすい</li>
+                  <li>最新プランや利用枠の確認が必要</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>本格的に使うには有料プラン前提になりやすい</li>
+                  <li>画像や動画制作はChatGPTやGensparkほど中心ではない</li>
+                  <li>利用上限は用途によって確認が必要</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>最上位のモデル品質ではOpenAIやClaudeにやや劣る見立て</li>
+                  <li>Google環境を使っていない人には魅力が薄くなる</li>
+                  <li>Workspace連携は設定や権限確認が必要</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>どのAIを使っているか分かりにくいことがある</li>
+                  <li>汎用チャットとしては主要3社より位置づけが特殊</li>
+                  <li>開発用途ではCLIやローカル操作の確認が必要</li>
+                </ul>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="row-head">導入しやすさ</th>
+              <td><p class="rating">★★★★★</p><p class="cell-text">まず触るAIとして分かりやすい。用途が広い。</p></td>
+              <td><p class="rating">★★★★☆</p><p class="cell-text">文章・分析用途なら分かりやすい。開発CLIは有料前提に注意。</p></td>
+              <td><p class="rating">★★★★★</p><p class="cell-text">Google利用者なら導入しやすい。使える範囲が広い。</p></td>
+              <td><p class="rating">★★★☆☆</p><p class="cell-text">制作・調査に寄せると便利。汎用AIとしては説明が必要。</p></td>
+            </tr>
+
+            <tr>
+              <th class="row-head">おすすめ用途</th>
+              <td><p class="cell-text">仕事、学習、調査、文章、画像、コードを幅広く使いたい人。</p></td>
+              <td><p class="cell-text">文章品質、長文整理、分析、コード相談を丁寧に進めたい人。</p></td>
+              <td><p class="cell-text">Googleサービスをよく使い、AIをたくさん試したい人。</p></td>
+              <td><p class="cell-text">調査、資料、画像、動画など制作物をまとめて作りたい人。</p></td>
+            </tr>
+
+            <tr>
+              <th class="row-head">CLI名・コマンド</th>
+              <td>
+                <p class="cell-title">Codex CLI</p>
+                <p class="cell-text">ターミナルで <strong>codex</strong> として使う。Freeでも少し使える場合がある。</p>
+                <div class="tags"><span class="tag free">Free: 一部可</span><span class="tag paid">Plus</span><span class="tag pro">Pro</span></div>
+              </td>
+              <td>
+                <p class="cell-title">Claude Code</p>
+                <p class="cell-text">ターミナルで <strong>claude</strong> として使う。Pro/Maxなど有料前提になりやすい。</p>
+                <div class="tags"><span class="tag pro">Pro以上</span></div>
+              </td>
+              <td>
+                <p class="cell-title">Gemini CLI</p>
+                <p class="cell-text">ターミナルで <strong>gemini</strong> として使う。GoogleログインやAPI/Cloud設定が絡む。</p>
+                <div class="tags"><span class="tag free">Free枠あり</span><span class="tag pro">AI Pro</span></div>
+              </td>
+              <td>
+                <p class="cell-title">同等CLIは未確認</p>
+                <p class="cell-text">公式の汎用CLIコマンドは未確認。近いものはGenspark Clawのブラウザ内TerminalやDesktop App。</p>
+                <div class="tags"><span class="tag mix">Claw</span><span class="tag paid">Plus推奨</span></div>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="row-head">CLIの強み</th>
+              <td>
+                <ul class="mini-list">
+                  <li>ローカルコードを読みながら修正、テスト、説明まで進めやすい</li>
+                  <li>ターミナルに慣れていない人でも比較的入りやすい</li>
+                  <li>アプリ制作を試す入口としてかなり実用的</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>コード理解、修正、リファクタ、説明が得意</li>
+                  <li>長い文脈を読ませた開発相談に強い</li>
+                  <li>HooksやMCP連携で高度な運用ができる</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Google環境やGemini APIとつなげやすい</li>
+                  <li>無料枠から試しやすい</li>
+                  <li>検索やGoogle系ツールとの相性がよい</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>ブラウザ内TerminalやDesktop Appで近い作業体験を狙える</li>
+                  <li>調査や制作物生成と組み合わせやすい</li>
+                  <li>複数AIを使う発想と相性がよい</li>
+                </ul>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="row-head">CLIの弱み・注意点</th>
+              <td>
+                <ul class="mini-list">
+                  <li>CLIなので最低限のファイル操作やターミナル理解は必要</li>
+                  <li>Free利用可否や上限は時期と条件で変わる可能性がある</li>
+                  <li>大きな変更は実行前の確認が必要</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>有料プラン前提になりやすい</li>
+                  <li>強力な分、権限やファイル変更の確認が重要</li>
+                  <li>ターミナルに慣れていない人には最初の設定が重い</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Google CloudやAPIキーなど設定で迷いやすい</li>
+                  <li>開発者向け色が強く、最初の説明が必要</li>
+                  <li>用途によってはCodexやClaude Codeほど直感的ではない</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="mini-list">
+                  <li>Codex/Claude/Geminiのような公式CLIは未確認</li>
+                  <li>自動化やCIに組み込む用途には向きにくい</li>
+                  <li>開発作業はGensparkの画面内機能に依存しやすい</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-band" aria-label="出典と注意">
+      <div class="sources">
+        <div>
+          <p>
+            この表は比較検討用の資料として、公式料金ページと公開情報をもとに要約しています。
+            実際の契約前には、各サービスの公式ページで最新料金、対象地域、利用制限、キャンペーン条件を確認してください。
+          </p>
+          <p class="print-note">印刷時は横向きまたはPDF保存を推奨します。</p>
+        </div>
+        <nav class="source-links" aria-label="公式情報リンク">
+          <div class="source-group">
+            <p>OpenAI</p>
+            <a href="https://chatgpt.com/pricing" target="_blank" rel="noreferrer">ChatGPT Pricing</a>
+            <a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans" target="_blank" rel="noreferrer">ChatGPT Pro</a>
+            <a href="https://developers.openai.com/cookbook/examples/codex/secure_quality_gitlab#what-is-codex-cli" target="_blank" rel="noreferrer">Codex CLI</a>
+          </div>
+          <div class="source-group">
+            <p>Anthropic</p>
+            <a href="https://claude.com/pricing" target="_blank" rel="noreferrer">Claude Pricing</a>
+            <a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">Claude Code</a>
+            <a href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noreferrer">Claude Code CLI</a>
+          </div>
+          <div class="source-group">
+            <p>Google</p>
+            <a href="https://gemini.google/subscriptions/" target="_blank" rel="noreferrer">Gemini Plans</a>
+            <a href="https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli" target="_blank" rel="noreferrer">Gemini CLI</a>
+            <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">Gemini Models</a>
+            <a href="https://developers.google.com/gemini-code-assist/docs/set-up-gemini" target="_blank" rel="noreferrer">Gemini Code Assist</a>
+          </div>
+          <div class="source-group">
+            <p>Genspark</p>
+            <a href="https://www.genspark.ai/helpcenter?doc=general_Membership_Plans" target="_blank" rel="noreferrer">Genspark Plans</a>
+            <a href="https://www.genspark.ai/helpcenter/genspark-claw" target="_blank" rel="noreferrer">Genspark Claw</a>
+          </div>
+        </nav>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
