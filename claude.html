@@ -187,14 +187,27 @@
     }
     .kicker::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
 
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      align-items: stretch;
+      gap: 0;
+    }
+    .hero-main { min-width: 0; padding-right: 46px; }
+    .hero-aside {
+      min-width: 0;
+      display: flex; flex-direction: column;
+      padding-left: 46px;
+      border-left: 1px solid var(--rule);
+    }
+
     h1 {
       margin: 0;
-      max-width: 16ch;
       font-family: var(--serif);
       font-weight: 600;
       color: var(--ink);
-      font-size: clamp(42px, 6.4vw, 82px);
-      line-height: 1.04;
+      font-size: clamp(40px, 5.2vw, 68px);
+      line-height: 1.06;
       letter-spacing: -0.01em;
     }
     h1 .accent { color: var(--clay); }
@@ -207,11 +220,48 @@
 
     .lead {
       margin: 26px 0 0;
-      max-width: 50ch;
+      max-width: 44ch;
       color: var(--text);
-      font-size: 16.5px;
-      line-height: 1.95;
+      font-size: 16px;
+      line-height: 1.96;
+      overflow-wrap: normal;
+      word-break: auto-phrase;
+      line-break: strict;
+      text-wrap: pretty;
     }
+
+    /* hero contender index */
+    .hero-index-label {
+      display: flex; align-items: center; gap: 12px;
+      margin: 0 0 6px;
+      color: var(--clay-deep);
+      font-size: 11px;
+    }
+    .hero-index-label::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+
+    .hero-index { list-style: none; margin: 0; padding: 0; }
+    .hero-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .hero-row:last-child { border-bottom: 0; }
+    .hi-icon {
+      display: grid; width: 40px; height: 40px; place-items: center;
+      border-radius: 11px;
+      border: 1px solid color-mix(in srgb, var(--accent) 26%, #ffffff);
+      background: color-mix(in srgb, var(--accent) 10%, #ffffff);
+      color: var(--accent);
+      flex: 0 0 auto;
+    }
+    .hi-icon .brand-icon { width: 23px; height: 23px; }
+    .hi-text { min-width: 0; }
+    .hi-name { margin: 0; font-family: var(--serif); font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+    .hi-role { margin: 3px 0 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .hi-chatgpt { --accent: var(--chatgpt); }
+    .hi-claude { --accent: var(--claude); }
+    .hi-gemini { --accent: var(--gemini); }
+    .hi-genspark { --accent: var(--genspark); }
 
     /* ---------- Editorial summary ---------- */
     .editorial-summary {
@@ -608,6 +658,15 @@
     @media (max-width: 980px) {
       .summary-cards, .editorial-body, .ref-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-main { padding-right: 0; }
+      .hero-aside {
+        margin-top: 30px; padding-top: 26px; padding-left: 0;
+        border-left: 0; border-top: 1px solid var(--rule);
+      }
+      .lead { max-width: 60ch; }
+    }
     @media (max-width: 680px) {
       .page { width: auto; margin-right: 15px; margin-left: 15px; padding-top: 22px; }
       .topbar { align-items: flex-start; flex-direction: column; }
@@ -726,11 +785,77 @@
 
     <header>
       <p class="kicker smallcaps">2026年版・AIサービス比較レポート</p>
-      <h1>主要AIサービス<br><span class="accent">比較マトリクス</span> <span class="year">2026</span></h1>
-      <p class="lead">
-        ChatGPT、Claude、Gemini、Gensparkを、料金プラン・フラグシップモデル・強み・弱み・おすすめ用途で比較します。
-        ChatGPT、Claude、GeminiはProまで、GensparkはPlusまでに絞った見やすい版です。
-      </p>
+      <div class="hero-grid">
+        <div class="hero-main">
+          <h1>主要AIサービス<br><span class="accent">比較マトリクス</span> <span class="year">2026</span></h1>
+          <p class="lead">
+            ChatGPT・Claude・Gemini・Gensparkを、料金プラン、フラグシップモデル、強み・弱み、おすすめ用途で横断比較。
+            ChatGPT・Claude・GeminiはProまで、GensparkはPlusまでに絞った保存版です。
+          </p>
+        </div>
+        <aside class="hero-aside" aria-label="比較対象サービス">
+          <p class="hero-index-label smallcaps">比較対象 — 4 services</p>
+          <ul class="hero-index">
+            <li class="hero-row hi-chatgpt">
+              <span class="hi-icon" aria-hidden="true">
+                <svg class="brand-icon" viewBox="0 0 24 24">
+                  <path d="M12 3.6a4.5 4.5 0 0 1 4.4 3.4 4.55 4.55 0 0 1 3.1 7.6 4.5 4.5 0 0 1-5.2 5.4A4.5 4.5 0 0 1 7.6 17a4.55 4.55 0 0 1-3.1-7.6A4.5 4.5 0 0 1 9.7 4 4.4 4.4 0 0 1 12 3.6Z"></path>
+                  <path d="M8.2 8.3 15.8 15.7"></path>
+                  <path d="M15.8 8.3 8.2 15.7"></path>
+                  <path d="M12 6.7v10.6"></path>
+                </svg>
+              </span>
+              <div class="hi-text">
+                <p class="hi-name">ChatGPT</p>
+                <p class="hi-role">万能型アシスタント</p>
+              </div>
+            </li>
+            <li class="hero-row hi-claude">
+              <span class="hi-icon" aria-hidden="true">
+                <svg class="brand-icon" viewBox="0 0 24 24">
+                  <path d="M7 4h7l4 4v12H7z"></path>
+                  <path d="M14 4v4h4"></path>
+                  <path d="M9.5 11h5"></path>
+                  <path d="M9.5 14h4"></path>
+                  <path d="M9.5 17h6"></path>
+                </svg>
+              </span>
+              <div class="hi-text">
+                <p class="hi-name">Claude</p>
+                <p class="hi-role">文章・分析に強い</p>
+              </div>
+            </li>
+            <li class="hero-row hi-gemini">
+              <span class="hi-icon" aria-hidden="true">
+                <svg class="brand-icon" viewBox="0 0 24 24">
+                  <path d="M12 3.5 13.8 8.7 19 10.5 13.8 12.3 12 17.5 10.2 12.3 5 10.5 10.2 8.7z"></path>
+                  <path d="M18.5 4.5v3"></path>
+                  <path d="M20 6h-3"></path>
+                  <path d="M5.5 16.5v2.5"></path>
+                  <path d="M6.8 17.8H4.2"></path>
+                </svg>
+              </span>
+              <div class="hi-text">
+                <p class="hi-name">Gemini</p>
+                <p class="hi-role">Google連携型</p>
+              </div>
+            </li>
+            <li class="hero-row hi-genspark">
+              <span class="hi-icon" aria-hidden="true">
+                <svg class="brand-icon" viewBox="0 0 24 24">
+                  <rect x="4" y="5" width="7" height="7" rx="2"></rect>
+                  <rect x="13" y="12" width="7" height="7" rx="2"></rect>
+                  <path d="M14.5 4.5 16 8l3.5 1.5L16 11l-1.5 3.5L13 11 9.5 9.5 13 8z"></path>
+                </svg>
+              </span>
+              <div class="hi-text">
+                <p class="hi-name">Genspark</p>
+                <p class="hi-role">制作・調べもの</p>
+              </div>
+            </li>
+          </ul>
+        </aside>
+      </div>
     </header>
 
     <section class="editorial-summary" aria-labelledby="seo-review-title">
