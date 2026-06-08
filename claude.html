@@ -81,6 +81,18 @@
       background: linear-gradient(90deg, var(--clay-deep), var(--clay), var(--clay-bright));
     }
 
+    /* fine paper grain for a tactile, printed feel */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 49;
+      pointer-events: none;
+      opacity: 0.04;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
     h1, h2, h3, p, th, td, li, .service-card { overflow-wrap: break-word; }
 
     a { color: inherit; text-decoration-color: rgba(189, 90, 55, 0.4); text-underline-offset: 3px; }
@@ -485,6 +497,11 @@
       border-bottom: 1px solid var(--rule);
     }
     thead th:nth-child(3) { background: #f3e3d8; }
+    thead th.product-head { box-shadow: inset 0 -3px 0 0 var(--ca, transparent); }
+    thead th:nth-child(2) { --ca: var(--chatgpt); }
+    thead th:nth-child(3) { --ca: var(--claude); }
+    thead th:nth-child(4) { --ca: var(--gemini); }
+    thead th:nth-child(5) { --ca: var(--genspark); }
 
     .row-head {
       width: 188px;
@@ -536,18 +553,45 @@
       color: var(--clay); font-size: 17px; line-height: 1; letter-spacing: 2px; white-space: nowrap;
     }
 
-    /* ---------- Sources ---------- */
-    .sources { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: start; padding: 26px 28px; }
-    .sources p { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
-    .source-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; max-width: 660px; }
-    .source-links a {
-      display: inline-flex; align-items: center; min-height: 30px; padding: 0 13px;
-      border: 1px solid var(--line); border-radius: var(--radius-pill);
-      background: #fff; color: var(--text);
-      font-size: 12px; font-weight: 600; text-decoration: none;
-      transition: border-color .15s ease, color .15s ease, transform .15s ease;
+    /* ---------- References ---------- */
+    .ref-body { padding: 26px 28px 28px; }
+    .ref-note { margin: 0 0 22px; max-width: 78ch; color: var(--muted); font-size: 12.5px; line-height: 1.92; }
+    .ref-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .ref-col {
+      padding: 18px 18px 8px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--paper-2);
     }
-    .source-links a:hover { border-color: var(--clay-line); color: var(--clay-deep); transform: translateY(-1px); }
+    .ref-head {
+      display: flex; align-items: center; gap: 10px;
+      margin: 0 0 10px;
+      font-family: var(--serif);
+      font-size: 16px; font-weight: 600;
+      color: var(--ink);
+    }
+    .ref-dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent); }
+    .rd-chatgpt { background: var(--chatgpt); color: var(--chatgpt); }
+    .rd-claude { background: var(--claude); color: var(--claude); }
+    .rd-gemini { background: var(--gemini); color: var(--gemini); }
+    .rd-genspark { background: var(--genspark); color: var(--genspark); }
+    .ref-col a {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 0;
+      border-top: 1px solid var(--line-soft);
+      color: var(--text);
+      font-size: 12.5px; font-weight: 600;
+      text-decoration: none;
+      transition: color .15s ease, padding-left .15s ease;
+    }
+    .ref-col a:first-of-type { border-top: 0; }
+    .ref-col a::before {
+      content: "↗"; flex: 0 0 auto;
+      color: var(--clay); opacity: 0.55;
+      font-size: 12px; font-weight: 700;
+    }
+    .ref-col a:hover { color: var(--clay-deep); padding-left: 4px; }
+    .ref-col a:hover::before { opacity: 1; }
 
     .footer-mark {
       display: flex; align-items: center; gap: 10px;
@@ -561,9 +605,7 @@
 
     /* ---------- Responsive ---------- */
     @media (max-width: 980px) {
-      .summary-cards, .editorial-body { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .sources { grid-template-columns: 1fr; }
-      .source-links { justify-content: flex-start; }
+      .summary-cards, .editorial-body, .ref-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 680px) {
       .page { width: auto; margin-right: 15px; margin-left: 15px; padding-top: 22px; }
@@ -571,7 +613,8 @@
       .actions { width: 100%; justify-content: flex-start; }
       h1 { font-size: 40px; }
       .lead { font-size: 15px; }
-      .summary-cards, .editorial-body { grid-template-columns: 1fr; }
+      .summary-cards, .editorial-body, .ref-grid { grid-template-columns: 1fr; }
+      .ref-body { padding: 20px 18px 22px; }
       .editorial-head { flex-direction: column; gap: 8px; padding: 22px 18px 16px; }
       .editorial-date { white-space: normal; }
       .editorial-quote { padding: 22px 18px 22px 44px; font-size: 19px; }
@@ -635,9 +678,13 @@
       .mini-list { gap: 3px; }
       .mini-list li { padding-left: 11px; }
       .tag { min-height: 19px; padding: 0 7px; font-size: 8.5px; }
-      .sources { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 10px 12px; }
-      .sources p, .source-links a { font-size: 9px; }
-      .print-note { display: block; color: var(--muted); font-size: 11px; }
+      .ref-body { padding: 10px 12px; }
+      .ref-note { margin-bottom: 10px; font-size: 9px; }
+      .ref-grid { gap: 8px; }
+      .ref-col { padding: 9px 10px 5px; }
+      .ref-head { font-size: 11px; margin-bottom: 6px; }
+      .ref-col a { padding: 4px 0; font-size: 8.8px; }
+      .print-note { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
     }
   </style>
 </head>
@@ -677,7 +724,7 @@
     </div>
 
     <header>
-      <p class="kicker smallcaps">初心者向け・商用比較レポート</p>
+      <p class="kicker smallcaps">2026年版・AIサービス比較レポート</p>
       <h1>主要AIサービス<br><span class="accent">比較マトリクス</span> <span class="year">2026</span></h1>
       <p class="lead">
         ChatGPT、Claude、Gemini、Gensparkを、料金プラン・フラグシップモデル・強み・弱み・おすすめ用途で比較します。
@@ -700,7 +747,7 @@
           <p>
             OpenAIのChatGPTとAnthropicのClaudeは、どちらも世界トップ級の主要LLMです。
             一般公開前のClaude Mythosを除外すると、GPT-5.5とClaude Opus 4.8は現時点でNo.1級モデルという見立てです。
-            特にOpenAIのCodexは、CLI初心者にも実用的で使いやすく、期間限定キャンペーンや対象条件によってはFreeでも少し試せる点が大きな魅力です。
+            特にOpenAIのCodexは、はじめてのCLIでも実用的で使いやすく、期間限定キャンペーンや対象条件によってはFreeでも少し試せる点が大きな魅力です。
           </p>
         </div>
         <div class="editorial-block">
@@ -753,7 +800,7 @@
         <span class="plan-chip">おすすめ Plus</span>
         <p class="price">$20 <small>/ 月</small></p>
         <div class="card-rule"></div>
-        <p class="service-copy">会話、調査、画像、資料作成、コードまで幅広い。初心者が最初に選ぶAIとして最も無難です。</p>
+        <p class="service-copy">会話、調査、画像、資料作成、コードまで幅広い。最初の1本として最も無難な選択肢です。</p>
       </article>
 
       <article class="service-card claude">
@@ -1040,14 +1087,14 @@
               </td>
               <td>
                 <ul class="mini-list">
-                  <li>どのAIを使っているか初心者には分かりにくいことがある</li>
+                  <li>どのAIを使っているか分かりにくいことがある</li>
                   <li>クレジット制なので使いすぎに注意が必要</li>
                   <li>普通のチャットだけなら機能が多すぎる場合がある</li>
                 </ul>
               </td>
             </tr>
             <tr>
-              <th class="row-head">初心者向け評価</th>
+              <th class="row-head">総合評価</th>
               <td>
                 <p class="rating" aria-label="5点満点中5点">★★★★★</p>
                 <p class="cell-text">最初の1本として最も無難。Plusから始めやすい。</p>
@@ -1185,29 +1232,49 @@
       </div>
     </section>
 
-    <section class="section" aria-label="出典と注意">
-      <div class="sources">
-        <div>
-          <p>
-            この表は初心者向けの判断材料として、公式料金ページと公開情報をもとに要約しています。
-            実際の契約前には、各サービスの公式ページで最新料金、対象地域、利用制限、キャンペーン条件を確認してください。
-          </p>
-          <p class="print-note">印刷時は横向きまたはPDF保存を推奨します。</p>
+    <section class="section" aria-label="公式リンク・出典">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"></path>
+            <path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.5-1.5"></path>
+          </svg>
+          公式リンク・出典
+        </h2>
+        <p class="section-note">最新情報は各サービスの公式ページでご確認ください。</p>
+      </div>
+      <div class="ref-body">
+        <p class="ref-note">
+          この表は判断材料として、公式料金ページと公開情報をもとに要約しています。
+          実際の契約前には、各サービスの公式ページで最新料金、対象地域、利用制限、キャンペーン条件を確認してください。
+        </p>
+        <div class="ref-grid">
+          <nav class="ref-col" aria-label="ChatGPT 公式リンク">
+            <p class="ref-head"><span class="ref-dot rd-chatgpt" aria-hidden="true"></span>ChatGPT</p>
+            <a href="https://chatgpt.com/pricing" target="_blank" rel="noreferrer">料金プラン</a>
+            <a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans" target="_blank" rel="noreferrer">Pro プラン</a>
+            <a href="https://developers.openai.com/cookbook/examples/codex/secure_quality_gitlab#what-is-codex-cli" target="_blank" rel="noreferrer">Codex CLI</a>
+          </nav>
+          <nav class="ref-col" aria-label="Claude 公式リンク">
+            <p class="ref-head"><span class="ref-dot rd-claude" aria-hidden="true"></span>Claude</p>
+            <a href="https://claude.com/pricing" target="_blank" rel="noreferrer">料金プラン</a>
+            <a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">Claude Code</a>
+            <a href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noreferrer">Claude Code CLI</a>
+          </nav>
+          <nav class="ref-col" aria-label="Gemini 公式リンク">
+            <p class="ref-head"><span class="ref-dot rd-gemini" aria-hidden="true"></span>Gemini</p>
+            <a href="https://gemini.google/subscriptions/" target="_blank" rel="noreferrer">料金プラン</a>
+            <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">モデル一覧</a>
+            <a href="https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli" target="_blank" rel="noreferrer">Gemini CLI</a>
+            <a href="https://developers.google.com/gemini-code-assist/docs/set-up-gemini" target="_blank" rel="noreferrer">CLI 移行案内</a>
+          </nav>
+          <nav class="ref-col" aria-label="Genspark 公式リンク">
+            <p class="ref-head"><span class="ref-dot rd-genspark" aria-hidden="true"></span>Genspark</p>
+            <a href="https://www.genspark.ai/helpcenter?doc=general_Membership_Plans" target="_blank" rel="noreferrer">料金プラン</a>
+            <a href="https://www.genspark.ai/helpcenter/genspark-claw" target="_blank" rel="noreferrer">Genspark Claw</a>
+          </nav>
         </div>
-        <nav class="source-links" aria-label="公式情報リンク">
-          <a href="https://chatgpt.com/pricing" target="_blank" rel="noreferrer">ChatGPT Pricing</a>
-          <a href="https://developers.openai.com/cookbook/examples/codex/secure_quality_gitlab#what-is-codex-cli" target="_blank" rel="noreferrer">Codex CLI</a>
-          <a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans" target="_blank" rel="noreferrer">ChatGPT Pro</a>
-          <a href="https://claude.com/pricing" target="_blank" rel="noreferrer">Claude Pricing</a>
-          <a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">Claude Code</a>
-          <a href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noreferrer">Claude Code CLI</a>
-          <a href="https://gemini.google/subscriptions/" target="_blank" rel="noreferrer">Gemini Plans</a>
-          <a href="https://developers.google.com/gemini-code-assist/docs/set-up-gemini" target="_blank" rel="noreferrer">Gemini Migration</a>
-          <a href="https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli" target="_blank" rel="noreferrer">Gemini CLI</a>
-          <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">Gemini Models</a>
-          <a href="https://www.genspark.ai/helpcenter/genspark-claw" target="_blank" rel="noreferrer">Genspark Claw</a>
-          <a href="https://www.genspark.ai/helpcenter?doc=general_Membership_Plans" target="_blank" rel="noreferrer">Genspark Plans</a>
-        </nav>
+        <p class="print-note">印刷時は横向きまたはPDF保存を推奨します。</p>
       </div>
     </section>
 
@@ -1218,7 +1285,7 @@
         <line x1="22" y1="22" x2="78" y2="78"></line>
         <line x1="78" y1="22" x2="22" y2="78"></line>
       </svg>
-      AI Plan Matrix 2026 — 初心者向け比較レポート
+      AI Plan Matrix 2026 — AIサービス比較レポート
     </div>
   </main>
 </body>
