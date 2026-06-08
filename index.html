@@ -476,6 +476,52 @@
 
     .service-copy { margin: 14px 0 0; color: var(--text); font-size: 13px; line-height: 1.82; }
 
+    /* ---------- Capability radar ---------- */
+    .radar-body { padding: 26px 28px 28px; }
+    .radar-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+    .radar-card {
+      margin: 0;
+      padding: 16px 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--paper-2);
+      text-align: center;
+    }
+    .radar-card svg { width: 100%; height: auto; display: block; }
+    .radar-card figcaption {
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      margin-top: 10px;
+      font-family: var(--serif); font-size: 17px; font-weight: 600; color: var(--ink);
+    }
+    .radar-card .rc-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: 0 0 auto; }
+    .rc-chatgpt { --accent: var(--chatgpt); }
+    .rc-claude { --accent: var(--claude); }
+    .rc-gemini { --accent: var(--gemini); }
+    .rc-genspark { --accent: var(--genspark); }
+
+    .radar-grid-lines polygon { fill: none; stroke: var(--rule); stroke-width: 1; }
+    .radar-grid-lines line { stroke: var(--line-soft); stroke-width: 1; }
+    .radar-shape {
+      fill: color-mix(in srgb, var(--accent) 20%, transparent);
+      stroke: var(--accent); stroke-width: 2.2; stroke-linejoin: round;
+    }
+    .radar-dot { fill: var(--accent); }
+    .radar-num text { fill: var(--faint); font-size: 9px; font-weight: 700; text-anchor: middle; dominant-baseline: central; font-family: var(--sans); }
+
+    .radar-foot {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 14px; margin-top: 20px; padding-top: 18px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .radar-legend { display: flex; flex-wrap: wrap; gap: 9px 18px; margin: 0; padding: 0; list-style: none; }
+    .radar-legend li { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 12.5px; font-weight: 600; }
+    .radar-legend .ln {
+      display: grid; place-items: center; width: 19px; height: 19px;
+      border-radius: 50%; background: var(--clay-soft); color: var(--clay-deep);
+      font-size: 11px; font-weight: 700;
+    }
+    .radar-note { margin: 0; color: var(--faint); font-size: 11.5px; }
+
     /* ---------- Matrix section ---------- */
     .section {
       margin-top: 22px;
@@ -656,7 +702,7 @@
 
     /* ---------- Responsive ---------- */
     @media (max-width: 980px) {
-      .summary-cards, .editorial-body, .ref-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .summary-cards, .editorial-body, .ref-grid, .radar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; }
@@ -674,6 +720,7 @@
       h1 { font-size: 40px; }
       .lead { font-size: 15px; }
       .summary-cards, .editorial-body, .ref-grid { grid-template-columns: 1fr; }
+      .radar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .ref-body { padding: 20px 18px 22px; }
       .editorial-head { flex-direction: column; gap: 8px; padding: 22px 18px 16px; }
       .editorial-date { white-space: normal; }
@@ -720,6 +767,15 @@
       .card-rule { margin: 9px 0 0; }
       .service-copy { margin: 9px 0 0; font-size: 9.5px; line-height: 1.5; }
       header, .summary-cards, .editorial-summary, .service-card { break-inside: avoid; }
+      .radar-body { padding: 10px 12px; }
+      .radar-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+      .radar-card { padding: 8px 6px 6px; break-inside: avoid; }
+      .radar-card figcaption { font-size: 11px; margin-top: 5px; }
+      .radar-foot { margin-top: 10px; padding-top: 8px; gap: 8px; }
+      .radar-legend { gap: 4px 12px; }
+      .radar-legend li { font-size: 8.8px; }
+      .radar-legend .ln { width: 15px; height: 15px; font-size: 9px; }
+      .radar-note { font-size: 8.5px; }
       .section { margin-top: 10px; box-shadow: none; }
       .section-header { padding: 10px 12px; }
       .section-title { font-size: 16px; }
@@ -989,6 +1045,113 @@
         <div class="card-rule"></div>
         <p class="service-copy">複数AI、スライド、文書、画像、動画など制作系の作業を1つにまとめやすいサービスです。</p>
       </article>
+    </section>
+
+    <div class="section-eyebrow">
+      <h2>能力バランス</h2>
+      <span>瀬尾くんの見立てによる5段階評価（本ページの内容ベース）</span>
+    </div>
+
+    <section class="section" aria-label="能力バランス・レーダーチャート">
+      <div class="radar-body">
+        <div class="radar-grid">
+          <figure class="radar-card rc-chatgpt">
+            <svg viewBox="0 0 150 150" role="img" aria-label="ChatGPTの能力バランス">
+              <g class="radar-grid-lines">
+                <polygon points="75,18 121.76,45 121.76,99 75,126 28.24,99 28.24,45"></polygon>
+                <polygon points="75,39.6 103.06,55.8 103.06,88.2 75,104.4 46.94,88.2 46.94,55.8"></polygon>
+                <line x1="75" y1="72" x2="75" y2="18"></line>
+                <line x1="75" y1="72" x2="121.76" y2="45"></line>
+                <line x1="75" y1="72" x2="121.76" y2="99"></line>
+                <line x1="75" y1="72" x2="75" y2="126"></line>
+                <line x1="75" y1="72" x2="28.24" y2="99"></line>
+                <line x1="75" y1="72" x2="28.24" y2="45"></line>
+              </g>
+              <polygon class="radar-shape" points="75,18 121.76,45 103.06,88.2 75,115.2 28.24,99 28.24,45"></polygon>
+              <g class="radar-num">
+                <text x="75" y="9">1</text><text x="133" y="41">2</text><text x="133" y="104">3</text>
+                <text x="75" y="141">4</text><text x="17" y="104">5</text><text x="17" y="41">6</text>
+              </g>
+            </svg>
+            <figcaption><span class="rc-dot" aria-hidden="true"></span>ChatGPT</figcaption>
+          </figure>
+
+          <figure class="radar-card rc-claude">
+            <svg viewBox="0 0 150 150" role="img" aria-label="Claudeの能力バランス">
+              <g class="radar-grid-lines">
+                <polygon points="75,18 121.76,45 121.76,99 75,126 28.24,99 28.24,45"></polygon>
+                <polygon points="75,39.6 103.06,55.8 103.06,88.2 75,104.4 46.94,88.2 46.94,55.8"></polygon>
+                <line x1="75" y1="72" x2="75" y2="18"></line>
+                <line x1="75" y1="72" x2="121.76" y2="45"></line>
+                <line x1="75" y1="72" x2="121.76" y2="99"></line>
+                <line x1="75" y1="72" x2="75" y2="126"></line>
+                <line x1="75" y1="72" x2="28.24" y2="99"></line>
+                <line x1="75" y1="72" x2="28.24" y2="45"></line>
+              </g>
+              <polygon class="radar-shape" points="75,18 93.71,61.2 103.06,88.2 75,115.2 28.24,99 46.94,55.8"></polygon>
+              <g class="radar-num">
+                <text x="75" y="9">1</text><text x="133" y="41">2</text><text x="133" y="104">3</text>
+                <text x="75" y="141">4</text><text x="17" y="104">5</text><text x="17" y="41">6</text>
+              </g>
+            </svg>
+            <figcaption><span class="rc-dot" aria-hidden="true"></span>Claude</figcaption>
+          </figure>
+
+          <figure class="radar-card rc-gemini">
+            <svg viewBox="0 0 150 150" role="img" aria-label="Geminiの能力バランス">
+              <g class="radar-grid-lines">
+                <polygon points="75,18 121.76,45 121.76,99 75,126 28.24,99 28.24,45"></polygon>
+                <polygon points="75,39.6 103.06,55.8 103.06,88.2 75,104.4 46.94,88.2 46.94,55.8"></polygon>
+                <line x1="75" y1="72" x2="75" y2="18"></line>
+                <line x1="75" y1="72" x2="121.76" y2="45"></line>
+                <line x1="75" y1="72" x2="121.76" y2="99"></line>
+                <line x1="75" y1="72" x2="75" y2="126"></line>
+                <line x1="75" y1="72" x2="28.24" y2="99"></line>
+                <line x1="75" y1="72" x2="28.24" y2="45"></line>
+              </g>
+              <polygon class="radar-shape" points="75,28.8 112.41,50.4 121.76,99 75,115.2 46.94,88.2 28.24,45"></polygon>
+              <g class="radar-num">
+                <text x="75" y="9">1</text><text x="133" y="41">2</text><text x="133" y="104">3</text>
+                <text x="75" y="141">4</text><text x="17" y="104">5</text><text x="17" y="41">6</text>
+              </g>
+            </svg>
+            <figcaption><span class="rc-dot" aria-hidden="true"></span>Gemini</figcaption>
+          </figure>
+
+          <figure class="radar-card rc-genspark">
+            <svg viewBox="0 0 150 150" role="img" aria-label="Gensparkの能力バランス">
+              <g class="radar-grid-lines">
+                <polygon points="75,18 121.76,45 121.76,99 75,126 28.24,99 28.24,45"></polygon>
+                <polygon points="75,39.6 103.06,55.8 103.06,88.2 75,104.4 46.94,88.2 46.94,55.8"></polygon>
+                <line x1="75" y1="72" x2="75" y2="18"></line>
+                <line x1="75" y1="72" x2="121.76" y2="45"></line>
+                <line x1="75" y1="72" x2="121.76" y2="99"></line>
+                <line x1="75" y1="72" x2="75" y2="126"></line>
+                <line x1="75" y1="72" x2="28.24" y2="99"></line>
+                <line x1="75" y1="72" x2="28.24" y2="45"></line>
+              </g>
+              <polygon class="radar-shape" points="75,39.6 121.76,45 103.06,88.2 75,126 56.29,82.8 37.59,50.4"></polygon>
+              <g class="radar-num">
+                <text x="75" y="9">1</text><text x="133" y="41">2</text><text x="133" y="104">3</text>
+                <text x="75" y="141">4</text><text x="17" y="104">5</text><text x="17" y="41">6</text>
+              </g>
+            </svg>
+            <figcaption><span class="rc-dot" aria-hidden="true"></span>Genspark</figcaption>
+          </figure>
+        </div>
+
+        <div class="radar-foot">
+          <ul class="radar-legend" aria-label="評価軸">
+            <li><span class="ln">1</span>文章・分析</li>
+            <li><span class="ln">2</span>画像・動画生成</li>
+            <li><span class="ln">3</span>外部・Google連携</li>
+            <li><span class="ln">4</span>リサーチ・調べもの</li>
+            <li><span class="ln">5</span>コーディング・CLI</li>
+            <li><span class="ln">6</span>手軽さ・コスパ</li>
+          </ul>
+          <p class="radar-note">※ 公式指標ではなく、比較の目安としての主観評価です。</p>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="matrix">
