@@ -304,6 +304,12 @@
       overflow-wrap: anywhere;
     }
 
+    .editorial-block-wide {
+      grid-column: 1 / -1;
+      border-top: 1px solid #dbe7f7;
+      border-left: 0 !important;
+    }
+
     .editorial-note {
       margin: 0;
       padding: 12px 20px 16px;
@@ -643,16 +649,35 @@
     }
 
     .source-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 8px;
-      max-width: 620px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 10px;
+      min-width: min(720px, 100%);
+    }
+
+    .source-group {
+      display: grid;
+      gap: 7px;
+      align-content: start;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .source-company {
+      margin: 0;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 1.2;
     }
 
     .source-links a {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       min-height: 28px;
       padding: 0 9px;
       border: 1px solid var(--line);
@@ -688,7 +713,8 @@
       }
 
       .source-links {
-        justify-content: flex-start;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        min-width: 0;
       }
     }
 
@@ -708,6 +734,10 @@
       .actions {
         width: 100%;
         justify-content: flex-start;
+      }
+
+      .source-links {
+        grid-template-columns: 1fr;
       }
 
       h1 {
@@ -1015,6 +1045,7 @@
       }
 
       .sources p,
+      .source-company,
       .source-links a {
         font-size: 9px;
       }
@@ -1067,7 +1098,7 @@
 
     <header>
       <div class="hero-copy">
-        <p class="eyebrow">初心者向け・商用資料フォーマット</p>
+        <p class="eyebrow">比較検討用・商用資料フォーマット</p>
         <h1><span>主要AIサービス</span><span>比較マトリクス</span></h1>
         <p class="lead">
           ChatGPT、Claude、Gemini、Gensparkを、料金プラン・フラグシップモデル・強み・弱み・おすすめ用途で比較します。
@@ -1091,7 +1122,7 @@
           <p>
             OpenAIのChatGPTとAnthropicのClaudeは、どちらも世界トップ級の主要LLMです。
             一般公開前のClaude Mythosを除外すると、GPT-5.5とClaude Opus 4.8は現時点でNo.1級モデルという見立てです。
-            特にOpenAIのCodexは、CLI初心者にも実用的で使いやすく、期間限定キャンペーンや対象条件によってはFreeでも少し試せる点が大きな魅力です。
+            特にOpenAIのCodexは、CLIに慣れていない人にも実用的で使いやすく、期間限定キャンペーンや対象条件によってはFreeでも少し試せる点が大きな魅力です。
           </p>
         </div>
         <div class="editorial-block">
@@ -1117,6 +1148,12 @@
             さらにNotebookLMまで使えるため、AIで何ができるのかを幅広く体験したいなら、課金先としてGeminiを強くおすすめします。
           </p>
         </div>
+        <div class="editorial-block editorial-block-wide">
+          <h2>Gensparkは調べもの担当として重宝</h2>
+          <p>
+            Gensparkは主要LLMを使いやすくするツール。リサーチ能力が高いので調べもの担当として重宝。
+          </p>
+        </div>
       </div>
       <p class="editorial-note">
         この総評は瀬尾くん視点の判断メモです。正式な契約前には、各社の最新プラン、提供地域、利用上限、期間限定キャンペーンを必ず確認してください。
@@ -1138,7 +1175,7 @@
         </div>
         <span class="plan-chip">おすすめ: Plus</span>
         <p class="price">$20 <small>/ 月</small></p>
-        <p class="service-copy">会話、調査、画像、資料作成、コードまで幅広い。初心者が最初に選ぶAIとして最も無難です。</p>
+        <p class="service-copy">会話、調査、画像、資料作成、コードまで幅広い。最初に選ぶAIとして最も無難です。</p>
       </article>
 
       <article class="service-card claude">
@@ -1424,14 +1461,14 @@
               </td>
               <td>
                 <ul class="mini-list">
-                  <li>どのAIを使っているか初心者には分かりにくいことがある</li>
+                  <li>どのAIを使っているか分かりにくいことがある</li>
                   <li>クレジット制なので使いすぎに注意が必要</li>
                   <li>普通のチャットだけなら機能が多すぎる場合がある</li>
                 </ul>
               </td>
             </tr>
             <tr>
-              <th class="row-head">初心者向け評価</th>
+              <th class="row-head">導入しやすさ</th>
               <td>
                 <p class="rating" aria-label="5点満点中5点">★★★★★</p>
                 <p class="cell-text">最初の1本として最も無難。Plusから始めやすい。</p>
@@ -1573,24 +1610,36 @@
       <div class="sources">
         <div>
           <p>
-            この表は初心者向けの判断材料として、公式料金ページと公開情報をもとに要約しています。
+            この表は比較検討用の資料として、公式料金ページと公開情報をもとに要約しています。
             実際の契約前には、各サービスの公式ページで最新料金、対象地域、利用制限、キャンペーン条件を確認してください。
           </p>
           <p class="print-note">印刷時は横向きまたはPDF保存を推奨します。</p>
         </div>
         <nav class="source-links" aria-label="公式情報リンク">
-          <a href="https://chatgpt.com/pricing" target="_blank" rel="noreferrer">ChatGPT Pricing</a>
-          <a href="https://developers.openai.com/cookbook/examples/codex/secure_quality_gitlab#what-is-codex-cli" target="_blank" rel="noreferrer">Codex CLI</a>
-          <a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans" target="_blank" rel="noreferrer">ChatGPT Pro</a>
-          <a href="https://claude.com/pricing" target="_blank" rel="noreferrer">Claude Pricing</a>
-          <a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">Claude Code</a>
-          <a href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noreferrer">Claude Code CLI</a>
-          <a href="https://gemini.google/subscriptions/" target="_blank" rel="noreferrer">Gemini Plans</a>
-          <a href="https://developers.google.com/gemini-code-assist/docs/set-up-gemini" target="_blank" rel="noreferrer">Gemini Migration</a>
-          <a href="https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli" target="_blank" rel="noreferrer">Gemini CLI</a>
-          <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">Gemini Models</a>
-          <a href="https://www.genspark.ai/helpcenter/genspark-claw" target="_blank" rel="noreferrer">Genspark Claw</a>
-          <a href="https://www.genspark.ai/helpcenter?doc=general_Membership_Plans" target="_blank" rel="noreferrer">Genspark Plans</a>
+          <div class="source-group">
+            <p class="source-company">OpenAI</p>
+            <a href="https://chatgpt.com/pricing" target="_blank" rel="noreferrer">ChatGPT Pricing</a>
+            <a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans" target="_blank" rel="noreferrer">ChatGPT Pro</a>
+            <a href="https://developers.openai.com/cookbook/examples/codex/secure_quality_gitlab#what-is-codex-cli" target="_blank" rel="noreferrer">Codex CLI</a>
+          </div>
+          <div class="source-group">
+            <p class="source-company">Anthropic</p>
+            <a href="https://claude.com/pricing" target="_blank" rel="noreferrer">Claude Pricing</a>
+            <a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">Claude Code</a>
+            <a href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noreferrer">Claude Code CLI</a>
+          </div>
+          <div class="source-group">
+            <p class="source-company">Google</p>
+            <a href="https://gemini.google/subscriptions/" target="_blank" rel="noreferrer">Gemini Plans</a>
+            <a href="https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli" target="_blank" rel="noreferrer">Gemini CLI</a>
+            <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">Gemini Models</a>
+            <a href="https://developers.google.com/gemini-code-assist/docs/set-up-gemini" target="_blank" rel="noreferrer">Gemini Code Assist</a>
+          </div>
+          <div class="source-group">
+            <p class="source-company">Genspark</p>
+            <a href="https://www.genspark.ai/helpcenter?doc=general_Membership_Plans" target="_blank" rel="noreferrer">Genspark Plans</a>
+            <a href="https://www.genspark.ai/helpcenter/genspark-claw" target="_blank" rel="noreferrer">Genspark Claw</a>
+          </div>
         </nav>
       </div>
     </section>
