@@ -369,36 +369,6 @@
       line-height: 1.82;
     }
 
-    .recommend-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .recommend {
-      display: grid;
-      gap: 12px;
-      min-height: 252px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-top: 4px solid var(--accent);
-      border-radius: var(--radius);
-      background: var(--paper);
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
-    }
-
-    .recommend.chatgpt { --accent: var(--green); --soft: var(--soft-green); }
-    .recommend.claude { --accent: var(--amber); --soft: var(--soft-amber); }
-    .recommend.gemini { --accent: var(--blue); --soft: var(--soft-blue); }
-    .recommend.genspark { --accent: var(--cyan); --soft: var(--soft-cyan); }
-
-    .recommend-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
     .mark {
       display: grid;
       width: 34px;
@@ -411,48 +381,6 @@
       font-size: 13px;
       font-weight: 950;
       flex: 0 0 auto;
-    }
-
-    .recommend h3 {
-      margin: 0;
-      color: var(--ink);
-      font-size: 20px;
-      line-height: 1.25;
-      font-weight: 950;
-    }
-
-    .price {
-      margin: 0;
-      color: var(--ink);
-      font-size: 32px;
-      line-height: 1;
-      font-weight: 950;
-    }
-
-    .price span {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 850;
-    }
-
-    .recommend-badge {
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      min-height: 28px;
-      padding: 0 10px;
-      border-radius: 999px;
-      background: var(--soft);
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 950;
-    }
-
-    .recommend p {
-      margin: 0;
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.7;
     }
 
     .scoreboard {
@@ -829,7 +757,6 @@
         border-bottom: 1px solid var(--line);
       }
 
-      .recommend-grid,
       .scoreboard,
       .dossier-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -878,7 +805,6 @@
       }
 
       .editorial-main,
-      .recommend-grid,
       .scoreboard,
       .dossier-grid,
       .source-links {
@@ -931,7 +857,6 @@
       .lead,
       .cell-text,
       .mini-list li,
-      .recommend p,
       .facts li,
       .editorial-point p {
         font-size: 9px;
@@ -943,7 +868,6 @@
         padding: 10px 0;
       }
 
-      .recommend-grid,
       .scoreboard,
       .dossier-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1071,55 +995,6 @@
             </p>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section class="section-band" aria-labelledby="recommend-title">
-      <div class="section-heading">
-        <h2 id="recommend-title">用途別の第一候補</h2>
-        <p>まずは「何に使うか」で選ぶと迷いにくい。モデル性能だけでなく、料金、周辺ツール、CLI、作業量まで含めて判断します。</p>
-      </div>
-
-      <div class="recommend-grid">
-        <article class="recommend chatgpt">
-          <div class="recommend-head">
-            <h3>ChatGPT</h3>
-            <div class="mark">O</div>
-          </div>
-          <span class="recommend-badge">おすすめ: Plus</span>
-          <p class="price">$20 <span>/ 月</span></p>
-          <p>最初の1本、開発入口、Codex試用をまとめて見たい人向け。会話、調査、画像、資料作成、コードまで幅広い。</p>
-        </article>
-
-        <article class="recommend claude">
-          <div class="recommend-head">
-            <h3>Claude</h3>
-            <div class="mark">C</div>
-          </div>
-          <span class="recommend-badge">おすすめ: Pro</span>
-          <p class="price">$20 <span>/ 月</span></p>
-          <p>文章品質、分析、長文整理を重視する人向け。自然な文章、深い読み解き、丁寧な説明が得意。</p>
-        </article>
-
-        <article class="recommend gemini">
-          <div class="recommend-head">
-            <h3>Gemini</h3>
-            <div class="mark">G</div>
-          </div>
-          <span class="recommend-badge">おすすめ: AI Pro</span>
-          <p class="price">$19.99 <span>/ 月</span></p>
-          <p>Google連携、利用量、AI体験の幅を重視する人向け。Gmail、Docs、Drive、NotebookLMとの相性が高い。</p>
-        </article>
-
-        <article class="recommend genspark">
-          <div class="recommend-head">
-            <h3>Genspark</h3>
-            <div class="mark">S</div>
-          </div>
-          <span class="recommend-badge">おすすめ: Plus</span>
-          <p class="price">$24.99 <span>/ 月</span></p>
-          <p>資料、画像、動画、調査をまとめて扱いたい人向け。複数AIを使いやすくする制作系ワークスペース。</p>
-        </article>
       </div>
     </section>
 
