@@ -4,270 +4,330 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>主要AIサービス比較マトリクス 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Shippori+Mincho+B1:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f7fb;
-      --paper: #ffffff;
-      --ink: #121722;
-      --text: #3c4658;
-      --muted: #697386;
-      --line: #dfe5ef;
-      --line-soft: #edf1f7;
-      --black: #111827;
-      --green: #0f7a4f;
-      --blue: #2563eb;
-      --amber: #a15c07;
-      --cyan: #087c89;
-      --soft-green: #e9f8f1;
-      --soft-blue: #edf4ff;
-      --soft-amber: #fff7e6;
-      --soft-cyan: #e8f7f9;
-      --shadow: 0 18px 40px rgba(17, 24, 39, 0.08);
-      --shadow-soft: 0 8px 22px rgba(17, 24, 39, 0.06);
-      --radius: 8px;
-      --font: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      /* Anthropic / Claude — warm editorial system */
+      --bg: #f1ede4;
+      --bg-2: #ece6d9;
+      --paper: #fdfbf6;
+      --paper-2: #f8f4ea;
+      --ink: #1b1813;
+      --ink-2: #423d34;
+      --text: #4c473d;
+      --muted: #837c6c;
+      --faint: #aaa292;
+      --line: #e1dac9;
+      --line-soft: #ebe5d6;
+      --rule: #d8cfba;
+
+      --clay: #bd5a37;
+      --clay-deep: #9a4527;
+      --clay-bright: #cf6a42;
+      --clay-soft: #f6eae1;
+      --clay-line: #e6c6b3;
+
+      --chatgpt: #1f7a5e;
+      --claude: #bd5a37;
+      --gemini: #3a64a8;
+      --genspark: #1c818d;
+
+      --soft-green: #e9f2ec;
+      --soft-blue: #e9eef7;
+      --soft-clay: #f6eae1;
+      --soft-cyan: #e5f0f1;
+
+      --shadow: 0 30px 70px -34px rgba(60, 38, 20, 0.34);
+      --shadow-soft: 0 14px 38px -22px rgba(60, 38, 20, 0.26);
+      --shadow-card: 0 1px 2px rgba(60, 38, 20, 0.05), 0 18px 40px -28px rgba(60, 38, 20, 0.32);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --radius-pill: 999px;
+
+      --serif: "Newsreader", "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+      --mincho: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+      --sans: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       margin: 0;
       overflow-x: hidden;
       background:
-        radial-gradient(circle at 18% 0%, rgba(37, 99, 235, 0.12), transparent 34%),
-        radial-gradient(circle at 82% 4%, rgba(15, 122, 79, 0.12), transparent 28%),
-        linear-gradient(180deg, #ffffff 0%, var(--bg) 430px, var(--bg) 100%);
+        radial-gradient(120% 60% at 8% -10%, rgba(189, 90, 55, 0.10), transparent 46%),
+        radial-gradient(90% 50% at 96% 0%, rgba(189, 90, 55, 0.05), transparent 40%),
+        linear-gradient(180deg, #faf7f0 0%, var(--bg) 560px, var(--bg) 100%);
       color: var(--ink);
-      font-family: var(--font);
-      line-height: 1.68;
-      letter-spacing: 0;
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.78;
+      letter-spacing: 0.004em;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    h1,
-    h2,
-    h3,
-    p,
-    th,
-    td,
-    li,
-    .service-card {
-      overflow-wrap: break-word;
+    /* page spine */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: 4px;
+      z-index: 50;
+      background: linear-gradient(90deg, var(--clay-deep), var(--clay), var(--clay-bright));
     }
 
-    a {
-      color: inherit;
-      text-decoration-color: rgba(37, 99, 235, 0.35);
-      text-underline-offset: 3px;
+    /* fine paper grain for a tactile, printed feel */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 49;
+      pointer-events: none;
+      opacity: 0.04;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    a:hover {
-      color: var(--blue);
-      text-decoration-color: var(--blue);
+    h1, h2, h3, p, th, td, li, .service-card { overflow-wrap: break-word; }
+
+    a { color: inherit; text-decoration-color: rgba(189, 90, 55, 0.4); text-underline-offset: 3px; }
+    a:hover { color: var(--clay-deep); text-decoration-color: var(--clay); }
+
+    .smallcaps {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 700;
     }
 
     .page {
-      width: min(1440px, calc(100% - 32px));
+      width: min(1340px, calc(100% - 44px));
       margin: 0 auto;
-      padding: 28px 0 56px;
+      padding: 34px 0 80px;
     }
 
+    /* ---------- Masthead ---------- */
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-      min-height: 48px;
-      margin-bottom: 28px;
+      min-height: 52px;
+      padding-bottom: 20px;
+      margin-bottom: 44px;
+      border-bottom: 3px double var(--rule);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
 
     .brand-mark {
       display: grid;
-      width: 36px;
-      height: 36px;
+      width: 44px; height: 44px;
       place-items: center;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--paper);
-      box-shadow: var(--shadow-soft);
-      color: var(--blue);
+      border-radius: 13px;
+      background: radial-gradient(120% 120% at 30% 20%, #cb6a42, var(--clay-deep));
+      color: #fbf3ed;
+      box-shadow: 0 10px 22px -10px rgba(154, 69, 39, 0.8), inset 0 1px 0 rgba(255,255,255,0.25);
       flex: 0 0 auto;
     }
+    .brand-mark svg { width: 23px; height: 23px; }
 
-    .brand-text {
-      min-width: 0;
-    }
-
+    .brand-text { min-width: 0; }
     .brand-title {
       margin: 0;
       font-size: 14px;
-      font-weight: 800;
       color: var(--ink);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-
     .brand-meta {
-      margin: 1px 0 0;
+      margin: 3px 0 0;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       font-weight: 600;
     }
 
-    .actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
 
     .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-height: 36px;
-      padding: 0 12px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 42px; padding: 0 17px;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.92);
+      border-radius: var(--radius-pill);
+      background: var(--paper);
       color: var(--ink);
-      font: inherit;
-      font-size: 13px;
-      font-weight: 700;
+      font: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
       cursor: pointer;
-      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+      box-shadow: 0 1px 2px rgba(60, 38, 20, 0.05);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
     }
-
-    .button:hover {
-      border-color: #c9d3e4;
-      background: #ffffff;
+    .button:hover { border-color: var(--clay-line); background: #fff; transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+    .button.primary {
+      border-color: transparent;
+      background: linear-gradient(150deg, var(--clay-bright), var(--clay-deep));
+      color: #fbf3ed;
+      box-shadow: 0 12px 24px -12px rgba(154, 69, 39, 0.8);
     }
+    .button.primary:hover { color: #fff; filter: brightness(1.04); }
+    .button svg, .section-title svg { width: 17px; height: 17px; stroke-width: 2; }
 
-    .button svg,
-    .brand-mark svg,
-    .section-title svg {
-      width: 17px;
-      height: 17px;
-      stroke-width: 2;
+    /* ---------- Hero ---------- */
+    header { margin-bottom: 40px; }
+
+    .kicker {
+      display: flex; align-items: center; gap: 14px;
+      margin: 0 0 22px;
+      color: var(--clay-deep);
+      font-size: 11.5px;
     }
+    .kicker::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
 
-    header {
-      max-width: 1040px;
-      margin-bottom: 24px;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      align-items: stretch;
+      gap: 0;
     }
-
-    .hero-copy {
+    .hero-main { min-width: 0; padding-right: 46px; }
+    .hero-aside {
       min-width: 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 12px;
-      padding: 6px 10px;
-      border: 1px solid #d7e5f8;
-      border-radius: 999px;
-      background: rgba(237, 244, 255, 0.85);
-      color: #1d4ed8;
-      font-size: 12px;
-      font-weight: 800;
+      display: flex; flex-direction: column;
+      padding-left: 46px;
+      border-left: 1px solid var(--rule);
     }
 
     h1 {
       margin: 0;
-      max-width: 980px;
-      color: var(--black);
-      font-size: clamp(34px, 5vw, 58px);
-      line-height: 1.12;
-      letter-spacing: 0;
+      font-family: var(--serif);
+      font-weight: 600;
+      color: var(--ink);
+      font-size: clamp(40px, 5.2vw, 68px);
+      line-height: 1.06;
+      letter-spacing: -0.01em;
     }
-
-    h1 span {
-      display: block;
+    h1 .accent { color: var(--clay); }
+    h1 .year {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--clay);
     }
 
     .lead {
-      margin: 16px 0 0;
-      max-width: 940px;
+      margin: 26px 0 0;
+      max-width: 44ch;
       color: var(--text);
       font-size: 16px;
-      line-height: 1.86;
+      line-height: 1.96;
+      overflow-wrap: normal;
+      word-break: auto-phrase;
+      line-break: strict;
+      text-wrap: pretty;
     }
 
+    /* hero contender index */
+    .hero-index-label {
+      display: flex; align-items: center; gap: 12px;
+      margin: 0 0 6px;
+      color: var(--clay-deep);
+      font-size: 11px;
+    }
+    .hero-index-label::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+
+    .hero-index { list-style: none; margin: 0; padding: 0; }
+    .hero-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .hero-row:last-child { border-bottom: 0; }
+    .hi-icon {
+      display: grid; width: 40px; height: 40px; place-items: center;
+      border-radius: 11px;
+      border: 1px solid color-mix(in srgb, var(--accent) 26%, #ffffff);
+      background: color-mix(in srgb, var(--accent) 10%, #ffffff);
+      color: var(--accent);
+      flex: 0 0 auto;
+    }
+    .hi-icon .brand-icon { width: 23px; height: 23px; }
+    .hi-text { min-width: 0; }
+    .hi-name { margin: 0; font-family: var(--serif); font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+    .hi-role { margin: 3px 0 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .hi-chatgpt { --accent: var(--chatgpt); }
+    .hi-claude { --accent: var(--claude); }
+    .hi-gemini { --accent: var(--gemini); }
+    .hi-genspark { --accent: var(--genspark); }
+
+    /* ---------- Editorial summary ---------- */
     .editorial-summary {
-      margin: 24px 0;
-      border: 1px solid #cddcf3;
-      border-left: 5px solid var(--blue);
+      margin: 40px 0;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.96)),
-        #ffffff;
+      background: var(--paper);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
     }
 
     .editorial-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;
       min-width: 0;
-      padding: 18px 20px 12px;
-      border-bottom: 1px solid #dbe7f7;
+      padding: 26px 30px 20px;
     }
+    .editorial-kicker {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin: 0 0 12px;
+      color: var(--clay-deep);
+      font-size: 11.5px;
+    }
+    .editorial-kicker::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: var(--clay); }
 
     .editorial-title {
       margin: 0;
+      font-family: var(--mincho);
       color: var(--ink);
-      font-size: 18px;
-      font-weight: 950;
-      line-height: 1.35;
+      font-size: 27px;
+      font-weight: 700;
+      line-height: 1.42;
+      letter-spacing: 0.005em;
       overflow-wrap: anywhere;
     }
-
-    .editorial-kicker {
-      margin: 0 0 4px;
-      color: #1d4ed8;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
     .editorial-date {
-      margin: 0;
+      margin: 5px 0 0;
       color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11.5px;
+      letter-spacing: 0.06em;
       white-space: nowrap;
     }
 
     .editorial-quote {
+      position: relative;
       margin: 0;
-      padding: 14px 20px;
-      background: rgba(37, 99, 235, 0.06);
-      color: var(--ink);
-      font-size: 17px;
-      font-weight: 900;
-      line-height: 1.7;
+      padding: 26px 30px 26px 64px;
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, var(--clay-soft), #faf0e9);
+      color: var(--clay-deep);
+      font-family: var(--mincho);
+      font-size: 23px;
+      font-weight: 600;
+      line-height: 1.62;
+      letter-spacing: 0.01em;
       overflow-wrap: anywhere;
+    }
+    .editorial-quote::before {
+      content: "“";
+      position: absolute;
+      left: 26px; top: 18px;
+      font-family: var(--serif);
+      font-size: 52px;
+      line-height: 1;
+      color: var(--clay);
+      opacity: 0.5;
     }
 
     .editorial-body {
@@ -275,786 +335,416 @@
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 0;
       min-width: 0;
-      border-top: 1px solid #dbe7f7;
     }
-
     .editorial-block {
       min-width: 0;
-      padding: 18px 20px;
+      padding: 24px 30px;
+      border-bottom: 1px solid var(--line-soft);
     }
-
-    .editorial-block + .editorial-block {
-      border-left: 1px solid #dbe7f7;
-    }
+    .editorial-block:nth-child(odd) { border-right: 1px solid var(--line-soft); }
+    .editorial-block.full { grid-column: 1 / -1; border-right: 0; }
 
     .editorial-block h2 {
-      margin: 0 0 8px;
+      display: flex; gap: 12px; align-items: baseline;
+      margin: 0 0 11px;
+      font-family: var(--mincho);
       color: var(--ink);
-      font-size: 15px;
-      font-weight: 950;
-      line-height: 1.45;
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.6;
+      letter-spacing: 0.005em;
       overflow-wrap: anywhere;
     }
-
+    .editorial-block h2 .idx {
+      flex: 0 0 auto;
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--clay);
+    }
     .editorial-block p {
       margin: 0;
       color: var(--text);
-      font-size: 13px;
-      line-height: 1.82;
+      font-size: 13.5px;
+      line-height: 1.96;
       overflow-wrap: anywhere;
-    }
-
-    .editorial-block-wide {
-      grid-column: 1 / -1;
-      border-top: 1px solid #dbe7f7;
-      border-left: 0 !important;
     }
 
     .editorial-note {
       margin: 0;
-      padding: 12px 20px 16px;
-      border-top: 1px solid #dbe7f7;
+      padding: 18px 30px 22px;
       color: var(--muted);
       font-size: 12px;
-      line-height: 1.7;
-      font-weight: 700;
+      line-height: 1.82;
       overflow-wrap: anywhere;
     }
 
+    /* ---------- Section eyebrow ---------- */
+    .section-eyebrow {
+      display: flex; align-items: baseline; gap: 16px;
+      margin: 52px 0 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section-eyebrow h2 {
+      margin: 0;
+      font-family: var(--mincho);
+      font-size: 25px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+    .section-eyebrow span { color: var(--muted); font-size: 12.5px; }
+
+    /* ---------- Summary cards ---------- */
     .summary-cards {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-      margin: 22px 0 24px;
+      gap: 18px;
     }
 
     .service-card {
       position: relative;
-      min-width: 0;
-      min-height: 220px;
-      padding: 18px;
+      display: flex; flex-direction: column;
+      min-width: 0; min-height: 244px;
+      padding: 24px 24px 26px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #ffffff;
-      box-shadow: var(--shadow-soft);
+      background: var(--paper);
+      box-shadow: var(--shadow-card);
       overflow: hidden;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
     }
-
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
+      box-shadow: 0 28px 50px -26px color-mix(in srgb, var(--accent) 55%, rgba(60,38,20,0.45));
+    }
     .service-card::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto;
-      height: 4px;
-      background: var(--accent);
+      content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--accent);
     }
+    .service-card.chatgpt { --accent: var(--chatgpt); }
+    .service-card.claude { --accent: var(--claude); }
+    .service-card.gemini { --accent: var(--gemini); }
+    .service-card.genspark { --accent: var(--genspark); }
 
-    .service-card.chatgpt { --accent: var(--green); }
-    .service-card.claude { --accent: var(--amber); }
-    .service-card.gemini { --accent: var(--blue); }
-    .service-card.genspark { --accent: var(--cyan); }
-
-    .service-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
+    .service-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
     .service-name {
       margin: 0;
-      font-size: 19px;
-      font-weight: 900;
+      font-family: var(--serif);
+      font-size: 23px;
+      font-weight: 600;
       color: var(--ink);
+      letter-spacing: 0;
     }
-
     .service-icon {
-      display: grid;
-      width: 42px;
-      height: 42px;
-      place-items: center;
-      border: 1px solid color-mix(in srgb, var(--accent) 30%, #ffffff);
-      border-radius: var(--radius);
-      background: color-mix(in srgb, var(--accent) 12%, #ffffff);
+      display: grid; width: 46px; height: 46px; place-items: center;
+      border-radius: 13px;
+      border: 1px solid color-mix(in srgb, var(--accent) 26%, #ffffff);
+      background: color-mix(in srgb, var(--accent) 10%, #ffffff);
       color: var(--accent);
-      font-size: 18px;
-      font-weight: 900;
       flex: 0 0 auto;
     }
-
-    .brand-icon {
-      width: 25px;
-      height: 25px;
-      stroke: currentColor;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-width: 1.9;
-    }
-
-    .brand-icon .fill-mark {
-      fill: currentColor;
-      stroke: none;
-    }
+    .brand-icon { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.9; }
+    .brand-icon .fill-mark { fill: currentColor; stroke: none; }
 
     .plan-chip {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      padding: 0 10px;
-      border-radius: 999px;
+      display: inline-flex; align-self: flex-start; align-items: center;
+      min-height: 27px; padding: 0 13px;
+      border-radius: var(--radius-pill);
       background: color-mix(in srgb, var(--accent) 12%, #ffffff);
-      color: color-mix(in srgb, var(--accent) 86%, #111827);
-      font-size: 12px;
-      font-weight: 900;
+      color: color-mix(in srgb, var(--accent) 80%, #1b1813);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     .price {
-      margin: 12px 0 6px;
+      margin: 15px 0 0;
       color: var(--ink);
-      font-size: 28px;
-      font-weight: 950;
-      line-height: 1.1;
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: -0.01em;
     }
+    .price small { color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 600; }
 
-    .price small {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-    }
+    .card-rule { height: 1px; margin: 16px 0 0; background: var(--line-soft); }
 
-    .service-copy {
-      margin: 10px 0 0;
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.72;
-    }
+    .service-copy { margin: 14px 0 0; color: var(--text); font-size: 13px; line-height: 1.82; }
 
+    /* ---------- Matrix section ---------- */
     .section {
-      margin-top: 24px;
+      margin-top: 22px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.92);
+      background: var(--paper);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
     }
-
     .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 24px 28px;
       border-bottom: 1px solid var(--line);
-      background: linear-gradient(180deg, #ffffff, #fbfcff);
+      background: linear-gradient(180deg, #fdfbf6, var(--paper-2));
     }
-
     .section-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0;
+      display: flex; align-items: center; gap: 13px; margin: 0;
       color: var(--ink);
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    .section-note {
-      margin: 0;
-      color: var(--muted);
-      font-size: 12px;
+      font-family: var(--mincho);
+      font-size: 22px;
       font-weight: 700;
-      text-align: right;
+      letter-spacing: 0.01em;
     }
+    .section-title svg { color: var(--clay); }
+    .section-note { margin: 0; color: var(--muted); font-size: 12px; text-align: right; }
 
     .table-wrap {
       width: 100%;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       background:
-        linear-gradient(90deg, #ffffff 30%, rgba(255, 255, 255, 0)),
-        linear-gradient(90deg, rgba(255, 255, 255, 0), #ffffff 70%) 100% 0,
-        radial-gradient(farthest-side at 0 50%, rgba(17, 24, 39, 0.13), rgba(17, 24, 39, 0)),
-        radial-gradient(farthest-side at 100% 50%, rgba(17, 24, 39, 0.13), rgba(17, 24, 39, 0)) 100% 0;
+        linear-gradient(90deg, var(--paper) 30%, rgba(253, 251, 246, 0)),
+        linear-gradient(90deg, rgba(253, 251, 246, 0), var(--paper) 70%) 100% 0,
+        radial-gradient(farthest-side at 0 50%, rgba(60, 38, 20, 0.14), rgba(60, 38, 20, 0)),
+        radial-gradient(farthest-side at 100% 50%, rgba(60, 38, 20, 0.14), rgba(60, 38, 20, 0)) 100% 0;
       background-repeat: no-repeat;
       background-size: 44px 100%, 44px 100%, 16px 100%, 16px 100%;
       background-attachment: local, local, scroll, scroll;
     }
 
     table {
-      width: 100%;
-      min-width: 1080px;
-      border-collapse: separate;
-      border-spacing: 0;
+      width: 100%; min-width: 1080px;
+      border-collapse: separate; border-spacing: 0;
       table-layout: fixed;
-      background: #ffffff;
+      background: var(--paper);
     }
 
-    th,
-    td {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 16px;
+    th, td {
+      border-right: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      padding: 18px 19px;
       vertical-align: top;
       overflow-wrap: anywhere;
     }
+    th:last-child, td:last-child { border-right: 0; }
 
-    th:last-child,
-    td:last-child {
-      border-right: 0;
-    }
+    tbody tr:nth-child(even) td,
+    tbody tr:nth-child(even) .row-head { background: #faf6ee; }
+
+    /* subtle Claude column emphasis */
+    thead th:nth-child(3),
+    tbody td:nth-child(3) { background: linear-gradient(180deg, rgba(189,90,55,0.05), rgba(189,90,55,0.025)); }
+    tbody tr:nth-child(even) td:nth-child(3) { background: linear-gradient(180deg, rgba(189,90,55,0.07), rgba(189,90,55,0.045)); }
 
     thead th {
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      background: #fbfcff;
+      position: sticky; top: 0; z-index: 2;
+      background: #f3ecdd;
       color: var(--ink);
-      font-size: 14px;
-      font-weight: 900;
-      text-align: left;
+      font-size: 14px; font-weight: 700; text-align: left;
+      border-bottom: 1px solid var(--rule);
     }
+    thead th:nth-child(3) { background: #f3e3d8; }
+    thead th.product-head { box-shadow: inset 0 -3px 0 0 var(--ca, transparent); }
+    thead th:nth-child(2) { --ca: var(--chatgpt); }
+    thead th:nth-child(3) { --ca: var(--claude); }
+    thead th:nth-child(4) { --ca: var(--gemini); }
+    thead th:nth-child(5) { --ca: var(--genspark); }
 
     .row-head {
-      width: 180px;
-      background: #f8fafc;
-      color: var(--ink);
-      font-size: 13px;
-      font-weight: 900;
+      width: 188px;
+      background: #f3ecdd;
+      color: var(--ink-2);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.02em;
     }
 
-    .product-head {
-      min-height: 58px;
-    }
-
-    .product-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .product-head { min-height: 60px; }
+    .product-label { display: flex; align-items: center; gap: 12px; font-family: var(--serif); font-size: 17px; font-weight: 600; }
     .product-mark {
-      display: grid;
-      width: 32px;
-      height: 32px;
-      place-items: center;
-      border-radius: var(--radius);
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 900;
-      flex: 0 0 auto;
+      display: grid; width: 35px; height: 35px; place-items: center;
+      border-radius: 11px; color: #fff; flex: 0 0 auto;
+      box-shadow: 0 6px 14px -7px currentColor;
     }
+    .product-mark .brand-icon { width: 21px; height: 21px; stroke-width: 2.1; }
+    .mark-chatgpt { background: var(--chatgpt); }
+    .mark-claude { background: var(--claude); }
+    .mark-gemini { background: var(--gemini); }
+    .mark-genspark { background: var(--genspark); }
 
-    .product-mark .brand-icon {
-      width: 19px;
-      height: 19px;
-      stroke-width: 2.1;
-    }
+    .cell-title { margin: 0 0 8px; color: var(--ink); font-size: 14px; font-weight: 700; }
+    .cell-text { margin: 0; color: var(--text); font-size: 13px; line-height: 1.8; }
 
-    .mark-chatgpt { background: var(--green); }
-    .mark-claude { background: var(--amber); }
-    .mark-gemini { background: var(--blue); }
-    .mark-genspark { background: var(--cyan); }
-
-    .cell-title {
-      margin: 0 0 7px;
-      color: var(--ink);
-      font-size: 14px;
-      font-weight: 900;
-    }
-
-    .cell-text {
-      margin: 0;
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.72;
-    }
-
-    .mini-list {
-      display: grid;
-      gap: 6px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .mini-list li {
-      position: relative;
-      padding-left: 14px;
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.66;
-    }
-
+    .mini-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .mini-list li { position: relative; padding-left: 17px; color: var(--text); font-size: 13px; line-height: 1.7; }
     .mini-list li::before {
-      content: "";
-      position: absolute;
-      top: 0.78em;
-      left: 0;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #94a3b8;
+      content: ""; position: absolute; top: 0.64em; left: 0;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--clay); opacity: 0.6;
     }
 
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
     .tag {
-      display: inline-flex;
-      align-items: center;
-      min-height: 26px;
-      padding: 0 8px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #ffffff;
-      color: var(--text);
-      font-size: 12px;
-      font-weight: 800;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; min-height: 26px; padding: 0 11px;
+      border: 1px solid var(--line); border-radius: var(--radius-pill);
+      background: #fff; color: var(--text);
+      font-size: 12px; font-weight: 600; white-space: nowrap;
     }
-
-    .tag.free { background: #f8fafc; }
-    .tag.paid { background: var(--soft-blue); border-color: #d7e6ff; color: #1e40af; }
-    .tag.pro { background: var(--soft-green); border-color: #cdeedd; color: #0f7a4f; }
-    .tag.warn { background: var(--soft-amber); border-color: #f8dfaa; color: #8a4b05; }
-    .tag.mix { background: var(--soft-cyan); border-color: #c8e8ee; color: #086b75; }
+    .tag.free { background: var(--paper-2); color: var(--muted); }
+    .tag.paid { background: var(--soft-blue); border-color: #ccd8ef; color: #2c4c8f; }
+    .tag.pro { background: var(--soft-green); border-color: #c5e0d3; color: #1a6850; }
+    .tag.warn { background: var(--soft-clay); border-color: var(--clay-line); color: var(--clay-deep); }
+    .tag.mix { background: var(--soft-cyan); border-color: #c3dfe1; color: #146570; }
 
     .rating {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      color: #f59e0b;
-      font-size: 15px;
-      line-height: 1;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 2px; margin: 0 0 8px;
+      color: var(--clay); font-size: 17px; line-height: 1; letter-spacing: 2px; white-space: nowrap;
     }
 
-    .sources {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 18px;
-      align-items: start;
-      padding: 18px 20px;
-    }
-
-    .sources p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    .source-links {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(120px, 1fr));
-      gap: 10px;
-      min-width: min(720px, 100%);
-    }
-
-    .source-group {
-      display: grid;
-      gap: 7px;
-      align-content: start;
-      padding: 10px;
+    /* ---------- References ---------- */
+    .ref-body { padding: 26px 28px 28px; }
+    .ref-note { margin: 0 0 22px; max-width: 78ch; color: var(--muted); font-size: 12.5px; line-height: 1.92; }
+    .ref-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .ref-col {
+      padding: 18px 18px 8px;
       border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #ffffff;
+      border-radius: var(--radius-sm);
+      background: var(--paper-2);
     }
-
-    .source-company {
-      margin: 0;
+    .ref-head {
+      display: flex; align-items: center; gap: 10px;
+      margin: 0 0 10px;
+      font-family: var(--serif);
+      font-size: 16px; font-weight: 600;
       color: var(--ink);
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0;
-      line-height: 1.2;
     }
-
-    .source-links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 28px;
-      padding: 0 9px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #ffffff;
+    .ref-dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent); }
+    .rd-chatgpt { background: var(--chatgpt); color: var(--chatgpt); }
+    .rd-claude { background: var(--claude); color: var(--claude); }
+    .rd-gemini { background: var(--gemini); color: var(--gemini); }
+    .rd-genspark { background: var(--genspark); color: var(--genspark); }
+    .ref-col a {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 0;
+      border-top: 1px solid var(--line-soft);
       color: var(--text);
-      font-size: 12px;
-      font-weight: 800;
+      font-size: 12.5px; font-weight: 600;
       text-decoration: none;
+      transition: color .15s ease, padding-left .15s ease;
     }
-
-    .source-links a:hover {
-      border-color: #bfd1eb;
-      color: var(--blue);
+    .ref-col a:first-of-type { border-top: 0; }
+    .ref-col a::before {
+      content: "↗"; flex: 0 0 auto;
+      color: var(--clay); opacity: 0.55;
+      font-size: 12px; font-weight: 700;
     }
+    .ref-col a:hover { color: var(--clay-deep); padding-left: 4px; }
+    .ref-col a:hover::before { opacity: 1; }
 
-    .print-note {
-      display: none;
+    .footer-mark {
+      display: flex; align-items: center; gap: 10px;
+      margin: 36px 2px 0; padding-top: 22px;
+      border-top: 3px double var(--rule);
+      color: var(--faint); font-size: 12px; letter-spacing: 0.06em;
     }
+    .footer-mark .spark { width: 15px; height: 15px; color: var(--clay); opacity: 0.75; }
 
+    .print-note { display: none; }
+
+    /* ---------- Responsive ---------- */
     @media (max-width: 980px) {
-      header {
-        grid-template-columns: 1fr;
-      }
-
-      .summary-cards,
-      .editorial-body {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .sources {
-        grid-template-columns: 1fr;
-      }
-
-      .source-links {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        min-width: 0;
-      }
+      .summary-cards, .editorial-body, .ref-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-main { padding-right: 0; }
+      .hero-aside {
+        margin-top: 30px; padding-top: 26px; padding-left: 0;
+        border-left: 0; border-top: 1px solid var(--rule);
+      }
+      .lead { max-width: 60ch; }
+    }
     @media (max-width: 680px) {
-      .page {
-        width: auto;
-        margin-right: 12px;
-        margin-left: 12px;
-        padding-top: 18px;
-      }
-
-      .topbar {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .actions {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .source-links {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 33px;
-      }
-
-      .lead {
-        font-size: 14px;
-      }
-
-      .summary-cards,
-      .editorial-body {
-        grid-template-columns: 1fr;
-      }
-
-      .editorial-head {
-        flex-direction: column;
-        gap: 8px;
-        padding: 16px 14px 12px;
-      }
-
-      .editorial-date {
-        white-space: normal;
-      }
-
-      .editorial-title,
-      .editorial-quote,
-      .editorial-block h2 {
-        word-break: break-all;
-      }
-
-      .editorial-title {
-        font-size: 17px;
-      }
-
-      .editorial-quote {
-        padding: 13px 14px;
-        font-size: 16px;
-      }
-
-      .editorial-block {
-        padding: 16px 14px;
-      }
-
-      .editorial-note {
-        padding: 12px 14px 15px;
-      }
-
-      .editorial-block + .editorial-block {
-        border-left: 0;
-        border-top: 1px solid #dbe7f7;
-      }
-
-      .section-header {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .section-note {
-        text-align: left;
-      }
-
-      header,
-      .hero-copy,
-      .section,
-      .summary-cards,
-      .service-card {
-        min-width: 0;
-        max-width: 100%;
-      }
+      .page { width: auto; margin-right: 15px; margin-left: 15px; padding-top: 22px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .actions { width: 100%; justify-content: flex-start; }
+      h1 { font-size: 40px; }
+      .lead { font-size: 15px; }
+      .summary-cards, .editorial-body, .ref-grid { grid-template-columns: 1fr; }
+      .ref-body { padding: 20px 18px 22px; }
+      .editorial-head { flex-direction: column; gap: 8px; padding: 22px 18px 16px; }
+      .editorial-date { white-space: normal; }
+      .editorial-quote { padding: 22px 18px 22px 44px; font-size: 19px; }
+      .editorial-quote::before { left: 14px; font-size: 40px; }
+      .editorial-block { padding: 20px 18px; }
+      .editorial-block:nth-child(odd) { border-right: 0; }
+      .editorial-note { padding: 16px 18px 20px; }
+      .section-header { align-items: flex-start; flex-direction: column; }
+      .section-note { text-align: left; }
+      header, .section, .summary-cards, .service-card { min-width: 0; max-width: 100%; }
     }
 
-    @page {
-      size: A4 landscape;
-      margin: 8mm;
-    }
-
+    @page { size: A4 landscape; margin: 8mm; }
     @media print {
-      html,
-      body {
-        background: #ffffff;
-        overflow: visible;
-      }
-
-      body {
-        font-size: 10.5px;
-        line-height: 1.45;
-      }
-
-      .page {
-        width: 100%;
-        padding: 0;
-        margin: 0;
-      }
-
-      .topbar,
-      .actions {
-        display: none;
-      }
-
-      header {
-        max-width: none;
-        margin-bottom: 10px;
-      }
-
-      .eyebrow {
-        margin-bottom: 7px;
-        padding: 4px 8px;
-        font-size: 10px;
-      }
-
-      h1 {
-        font-size: 30px;
-        line-height: 1.08;
-      }
-
-      .lead {
-        max-width: none;
-        margin-top: 8px;
-        font-size: 10.5px;
-        line-height: 1.55;
-      }
-
-      .editorial-summary {
-        margin: 10px 0;
-        break-inside: avoid;
-        box-shadow: none;
-      }
-
-      .editorial-head {
-        padding: 9px 12px 7px;
-      }
-
-      .editorial-kicker,
-      .editorial-date {
-        font-size: 9px;
-      }
-
-      .editorial-title {
-        font-size: 14px;
-      }
-
-      .editorial-quote {
-        padding: 8px 12px;
-        font-size: 13px;
-        line-height: 1.45;
-      }
-
-      .editorial-body {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .editorial-block {
-        padding: 9px 12px;
-      }
-
-      .editorial-block h2 {
-        font-size: 11px;
-        margin-bottom: 4px;
-      }
-
-      .editorial-block p {
-        font-size: 9.5px;
-        line-height: 1.52;
-      }
-
-      .editorial-note {
-        padding: 7px 12px 9px;
-        font-size: 9px;
-      }
-
-      .summary-cards {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 8px;
-        margin: 10px 0;
-      }
-
-      .service-card {
-        min-height: 0;
-        padding: 11px;
-      }
-
-      .service-icon {
-        width: 30px;
-        height: 30px;
-        font-size: 13px;
-      }
-
-      .service-icon .brand-icon {
-        width: 20px;
-        height: 20px;
-      }
-
-      .service-name {
-        font-size: 15px;
-      }
-
-      .plan-chip {
-        min-height: 22px;
-        padding: 0 8px;
-        font-size: 9.5px;
-      }
-
-      .price {
-        margin: 7px 0 4px;
-        font-size: 22px;
-      }
-
-      .service-copy {
-        font-size: 9.5px;
-        line-height: 1.5;
-      }
-
-      header,
-      .summary-cards,
-      .editorial-summary,
-      .service-card {
-        break-inside: avoid;
-      }
-
-      .section {
-        margin-top: 10px;
-      }
-
-      .section,
-      .service-card {
-        box-shadow: none;
-      }
-
-      .section-header {
-        padding: 10px 12px;
-      }
-
-      .section-title {
-        font-size: 14px;
-      }
-
-      .section-title svg {
-        width: 14px;
-        height: 14px;
-      }
-
-      .section-note {
-        font-size: 9.5px;
-      }
-
-      .table-wrap {
-        overflow: visible;
-        background: #ffffff;
-      }
-
-      table {
-        width: 100%;
-        min-width: 0;
-        font-size: 8.8px;
-        table-layout: fixed;
-      }
-
-      th,
-      td {
-        padding: 6px;
-      }
-
-      .row-head {
-        width: 116px;
-        font-size: 8.8px;
-      }
-
-      .product-mark {
-        width: 24px;
-        height: 24px;
-        font-size: 10px;
-      }
-
-      .product-mark .brand-icon {
-        width: 15px;
-        height: 15px;
-      }
-
-      .cell-title {
-        font-size: 9.5px;
-        margin-bottom: 4px;
-      }
-
-      .cell-text,
-      .mini-list li {
-        font-size: 8.8px;
-        line-height: 1.42;
-      }
-
-      .mini-list {
-        gap: 3px;
-      }
-
-      .tag {
-        min-height: 19px;
-        padding: 0 6px;
-        font-size: 8.5px;
-      }
-
-      .sources {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 8px;
-        padding: 10px 12px;
-      }
-
-      .sources p,
-      .source-company,
-      .source-links a {
-        font-size: 9px;
-      }
-
-      .print-note {
-        display: block;
-        color: var(--muted);
-        font-size: 11px;
-      }
+      html, body { background: #ffffff; overflow: visible; }
+      body::before { display: none; }
+      body { font-size: 10.5px; line-height: 1.45; }
+      .page { width: 100%; padding: 0; margin: 0; }
+      .topbar, .actions, .footer-mark { display: none; }
+      header { margin-bottom: 10px; }
+      .kicker { margin-bottom: 8px; font-size: 9.5px; }
+      h1 { font-size: 34px; line-height: 1.05; }
+      .lead { max-width: none; margin-top: 9px; font-size: 10.5px; line-height: 1.55; }
+      .editorial-summary { margin: 10px 0; break-inside: avoid; box-shadow: none; }
+      .editorial-head { padding: 10px 12px 8px; }
+      .editorial-kicker, .editorial-date { font-size: 9px; }
+      .editorial-title { font-size: 16px; }
+      .editorial-quote { padding: 10px 12px 10px 34px; font-size: 14px; line-height: 1.45; }
+      .editorial-quote::before { left: 10px; top: 6px; font-size: 32px; }
+      .editorial-body { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .editorial-block { padding: 10px 12px; }
+      .editorial-block h2 { font-size: 11.5px; margin-bottom: 4px; }
+      .editorial-block p { font-size: 9.5px; line-height: 1.52; }
+      .editorial-note { padding: 8px 12px 10px; font-size: 9px; }
+      .section-eyebrow { margin: 12px 0 8px; padding-bottom: 6px; }
+      .section-eyebrow h2 { font-size: 17px; }
+      .summary-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+      .service-card { min-height: 0; padding: 12px; box-shadow: none; }
+      .service-icon { width: 32px; height: 32px; }
+      .service-name { font-size: 17px; }
+      .plan-chip { min-height: 22px; padding: 0 9px; font-size: 9px; }
+      .price { margin: 9px 0 0; font-size: 25px; }
+      .card-rule { margin: 9px 0 0; }
+      .service-copy { margin: 9px 0 0; font-size: 9.5px; line-height: 1.5; }
+      header, .summary-cards, .editorial-summary, .service-card { break-inside: avoid; }
+      .section { margin-top: 10px; box-shadow: none; }
+      .section-header { padding: 10px 12px; }
+      .section-title { font-size: 16px; }
+      .section-title svg { width: 14px; height: 14px; }
+      .section-note { font-size: 9.5px; }
+      .table-wrap { overflow: visible; background: #ffffff; }
+      table { width: 100%; min-width: 0; font-size: 8.8px; table-layout: fixed; }
+      th, td { padding: 6px; }
+      thead th:nth-child(3), tbody td:nth-child(3) { background: rgba(189,90,55,0.06) !important; }
+      .row-head { width: 116px; font-size: 8.8px; }
+      .product-label { font-size: 11px; }
+      .product-mark { width: 24px; height: 24px; box-shadow: none; }
+      .product-mark .brand-icon { width: 15px; height: 15px; }
+      .cell-title { font-size: 9.5px; margin-bottom: 4px; }
+      .cell-text, .mini-list li { font-size: 8.8px; line-height: 1.42; }
+      .mini-list { gap: 3px; }
+      .mini-list li { padding-left: 11px; }
+      .tag { min-height: 19px; padding: 0 7px; font-size: 8.5px; }
+      .ref-body { padding: 10px 12px; }
+      .ref-note { margin-bottom: 10px; font-size: 9px; }
+      .ref-grid { gap: 8px; }
+      .ref-col { padding: 9px 10px 5px; }
+      .ref-head { font-size: 11px; margin-bottom: 6px; }
+      .ref-col a { padding: 4px 0; font-size: 8.8px; }
+      .print-note { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
     }
   </style>
 </head>
@@ -1063,70 +753,131 @@
     <div class="topbar">
       <div class="brand">
         <div class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M4 6h16"></path>
-            <path d="M4 12h16"></path>
-            <path d="M4 18h16"></path>
-            <path d="M7 4v16"></path>
-            <path d="M17 4v16"></path>
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round">
+            <line x1="50" y1="11" x2="50" y2="89"></line>
+            <line x1="11" y1="50" x2="89" y2="50"></line>
+            <line x1="22" y1="22" x2="78" y2="78"></line>
+            <line x1="78" y1="22" x2="22" y2="78"></line>
           </svg>
         </div>
         <div class="brand-text">
-          <p class="brand-title">AI Plan Matrix</p>
-          <p class="brand-meta">確認日: 2026年6月8日</p>
+          <p class="brand-title smallcaps">AI Plan Matrix</p>
+          <p class="brand-meta">確認日 2026.06.08</p>
         </div>
       </div>
       <div class="actions" aria-label="ページ操作">
-        <button class="button" type="button" onclick="window.print()" title="PDF保存や印刷に使えます">
+        <a class="button" href="#matrix" title="比較表へ移動">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path>
+          </svg>
+          表を見る
+        </a>
+        <button class="button primary" type="button" onclick="window.print()" title="PDF保存や印刷に使えます">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M6 9V2h12v7"></path>
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
             <path d="M6 14h12v8H6z"></path>
           </svg>
-          印刷
+          印刷 / PDF
         </button>
-        <a class="button" href="#matrix" title="比較表へ移動">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M4 6h16"></path>
-            <path d="M4 12h16"></path>
-            <path d="M4 18h16"></path>
-          </svg>
-          表を見る
-        </a>
       </div>
     </div>
 
     <header>
-      <div class="hero-copy">
-        <p class="eyebrow">比較検討用・商用資料フォーマット</p>
-        <h1><span>主要AIサービス</span><span>比較マトリクス</span></h1>
-        <p class="lead">
-          ChatGPT、Claude、Gemini、Gensparkを、料金プラン・フラグシップモデル・強み・弱み・おすすめ用途で比較します。
-          ChatGPT、Claude、GeminiはProまで、GensparkはPlusまでに絞った見やすい版です。
-        </p>
+      <p class="kicker smallcaps">2026年版・AIサービス比較レポート</p>
+      <div class="hero-grid">
+        <div class="hero-main">
+          <h1>主要AIサービス<br><span class="accent">比較マトリクス</span> <span class="year">2026</span></h1>
+          <p class="lead">
+            ChatGPT・Claude・Gemini・Gensparkを、料金プラン、フラグシップモデル、強み・弱み、おすすめ用途で横断比較。
+            ChatGPT・Claude・GeminiはProまで、GensparkはPlusまでに絞った保存版です。
+          </p>
+        </div>
+        <aside class="hero-aside" aria-label="比較対象サービス">
+          <p class="hero-index-label smallcaps">比較対象 — 4 services</p>
+          <ul class="hero-index">
+            <li class="hero-row hi-chatgpt">
+              <span class="hi-icon" aria-hidden="true">
+                <svg class="brand-icon" viewBox="0 0 24 24">
+                  <path d="M12 3.6a4.5 4.5 0 0 1 4.4 3.4 4.55 4.55 0 0 1 3.1 7.6 4.5 4.5 0 0 1-5.2 5.4A4.5 4.5 0 0 1 7.6 17a4.55 4.55 0 0 1-3.1-7.6A4.5 4.5 0 0 1 9.7 4 4.4 4.4 0 0 1 12 3.6Z"></path>
+                  <path d="M8.2 8.3 15.8 15.7"></path>
+                  <path d="M15.8 8.3 8.2 15.7"></path>
+                  <path d="M12 6.7v10.6"></path>
+                </svg>
+              </span>
+              <div class="hi-text">
+                <p class="hi-name">ChatGPT</p>
+                <p class="hi-role">万能型アシスタント</p>
+              </div>
+            </li>
+            <li class="hero-row hi-claude">
+              <span class="hi-icon" aria-hidden="true">
+                <svg class="brand-icon" viewBox="0 0 24 24">
+                  <path d="M7 4h7l4 4v12H7z"></path>
+                  <path d="M14 4v4h4"></path>
+                  <path d="M9.5 11h5"></path>
+                  <path d="M9.5 14h4"></path>
+                  <path d="M9.5 17h6"></path>
+                </svg>
+              </span>
+              <div class="hi-text">
+                <p class="hi-name">Claude</p>
+                <p class="hi-role">文章・分析に強い</p>
+              </div>
+            </li>
+            <li class="hero-row hi-gemini">
+              <span class="hi-icon" aria-hidden="true">
+                <svg class="brand-icon" viewBox="0 0 24 24">
+                  <path d="M12 3.5 13.8 8.7 19 10.5 13.8 12.3 12 17.5 10.2 12.3 5 10.5 10.2 8.7z"></path>
+                  <path d="M18.5 4.5v3"></path>
+                  <path d="M20 6h-3"></path>
+                  <path d="M5.5 16.5v2.5"></path>
+                  <path d="M6.8 17.8H4.2"></path>
+                </svg>
+              </span>
+              <div class="hi-text">
+                <p class="hi-name">Gemini</p>
+                <p class="hi-role">Google連携型</p>
+              </div>
+            </li>
+            <li class="hero-row hi-genspark">
+              <span class="hi-icon" aria-hidden="true">
+                <svg class="brand-icon" viewBox="0 0 24 24">
+                  <rect x="4" y="5" width="7" height="7" rx="2"></rect>
+                  <rect x="13" y="12" width="7" height="7" rx="2"></rect>
+                  <path d="M14.5 4.5 16 8l3.5 1.5L16 11l-1.5 3.5L13 11 9.5 9.5 13 8z"></path>
+                </svg>
+              </span>
+              <div class="hi-text">
+                <p class="hi-name">Genspark</p>
+                <p class="hi-role">制作・調べもの</p>
+              </div>
+            </li>
+          </ul>
+        </aside>
       </div>
     </header>
 
     <section class="editorial-summary" aria-labelledby="seo-review-title">
       <div class="editorial-head">
         <div>
-          <p class="editorial-kicker">瀬尾くんの総評</p>
+          <p class="editorial-kicker smallcaps">瀬尾くんの総評</p>
           <h2 class="editorial-title" id="seo-review-title">課金するなら、目的で選ぶのが一番分かりやすい</h2>
         </div>
-        <p class="editorial-date">見立て: 2026年6月8日時点</p>
+        <p class="editorial-date smallcaps">見立て 2026.06.08 時点</p>
       </div>
       <p class="editorial-quote">質のOpenAIとClaude 対 量と周辺ツールが充実しているGoogle。</p>
       <div class="editorial-body">
         <div class="editorial-block">
-          <h2>アプリ制作や開発ならChatGPT / Codexが有力</h2>
+          <h2><span class="idx">01</span>アプリ制作や開発ならChatGPT / Codexが有力</h2>
           <p>
             OpenAIのChatGPTとAnthropicのClaudeは、どちらも世界トップ級の主要LLMです。
             一般公開前のClaude Mythosを除外すると、GPT-5.5とClaude Opus 4.8は現時点でNo.1級モデルという見立てです。
-            特にOpenAIのCodexは、CLIに慣れていない人にも実用的で使いやすく、期間限定キャンペーンや対象条件によってはFreeでも少し試せる点が大きな魅力です。
+            特にOpenAIのCodexは、はじめてのCLIでも実用的で使いやすく、期間限定キャンペーンや対象条件によってはFreeでも少し試せる点が大きな魅力です。
           </p>
         </div>
         <div class="editorial-block">
-          <h2>Claudeは高品質だが、有料前提になりやすい</h2>
+          <h2><span class="idx">02</span>Claudeは高品質だが、有料前提になりやすい</h2>
           <p>
             ClaudeもCoworkとClaude Codeが使いやすく、文章整理やコード相談では非常に強い選択肢です。
             ただし本格的に使うには有料プランが前提になりやすい点が少しネックです。
@@ -1134,7 +885,7 @@
           </p>
         </div>
         <div class="editorial-block">
-          <h2>GeminiはAIをこれから広く試したい人向け</h2>
+          <h2><span class="idx">03</span>GeminiはAIをこれから広く試したい人向け</h2>
           <p>
             GoogleのGeminiは、AI自体をこれから触る人に向いています。
             Gemini 3.1 ProはOpenAIやClaudeの最上位モデルにはやや劣る見立てですが、その代わり利用上限が高く、たくさん試せるのが特徴です。
@@ -1142,16 +893,16 @@
           </p>
         </div>
         <div class="editorial-block">
-          <h2>Google連携まで含めるならGemini課金は強い</h2>
+          <h2><span class="idx">04</span>Google連携まで含めるならGemini課金は強い</h2>
           <p>
             スプレッドシート、スライド、ドキュメント、Gmail、Googleカレンダーなどとの連携が簡単なのは圧倒的に便利です。
             さらにNotebookLMまで使えるため、AIで何ができるのかを幅広く体験したいなら、課金先としてGeminiを強くおすすめします。
           </p>
         </div>
-        <div class="editorial-block editorial-block-wide">
-          <h2>Gensparkは調べもの担当として重宝</h2>
+        <div class="editorial-block full">
+          <h2><span class="idx">05</span>Gensparkは主要LLMを束ねる"調べもの担当"として重宝</h2>
           <p>
-            Gensparkは主要LLMを使いやすくするツール。リサーチ能力が高いので調べもの担当として重宝。
+            Gensparkは主要LLMを使いやすくするツールです。リサーチ能力が高いので、調べもの担当として重宝します。
           </p>
         </div>
       </div>
@@ -1159,6 +910,11 @@
         この総評は瀬尾くん視点の判断メモです。正式な契約前には、各社の最新プラン、提供地域、利用上限、期間限定キャンペーンを必ず確認してください。
       </p>
     </section>
+
+    <div class="section-eyebrow">
+      <h2>おすすめプラン概要</h2>
+      <span>各サービスの「まずここから」プラン</span>
+    </div>
 
     <section class="summary-cards" aria-label="おすすめプラン概要">
       <article class="service-card chatgpt">
@@ -1173,9 +929,10 @@
             </svg>
           </div>
         </div>
-        <span class="plan-chip">おすすめ: Plus</span>
+        <span class="plan-chip">おすすめ Plus</span>
         <p class="price">$20 <small>/ 月</small></p>
-        <p class="service-copy">会話、調査、画像、資料作成、コードまで幅広い。最初に選ぶAIとして最も無難です。</p>
+        <div class="card-rule"></div>
+        <p class="service-copy">会話、調査、画像、資料作成、コードまで幅広い。最初の1本として最も無難な選択肢です。</p>
       </article>
 
       <article class="service-card claude">
@@ -1191,8 +948,9 @@
             </svg>
           </div>
         </div>
-        <span class="plan-chip">おすすめ: Pro</span>
+        <span class="plan-chip">おすすめ Pro</span>
         <p class="price">$20 <small>/ 月</small></p>
+        <div class="card-rule"></div>
         <p class="service-copy">自然な文章、長文整理、分析、コード相談が得意。丁寧に考えてほしい用途に向きます。</p>
       </article>
 
@@ -1209,8 +967,9 @@
             </svg>
           </div>
         </div>
-        <span class="plan-chip">おすすめ: AI Pro</span>
+        <span class="plan-chip">おすすめ AI Pro</span>
         <p class="price">$19.99 <small>/ 月</small></p>
+        <div class="card-rule"></div>
         <p class="service-copy">Google検索、Gmail、Docs、Drive、NotebookLMなどGoogle環境との相性が高いAIです。</p>
       </article>
 
@@ -1225,8 +984,9 @@
             </svg>
           </div>
         </div>
-        <span class="plan-chip">おすすめ: Plus</span>
+        <span class="plan-chip">おすすめ Plus</span>
         <p class="price">$24.99 <small>/ 月</small></p>
+        <div class="card-rule"></div>
         <p class="service-copy">複数AI、スライド、文書、画像、動画など制作系の作業を1つにまとめやすいサービスです。</p>
       </article>
     </section>
@@ -1235,9 +995,7 @@
       <div class="section-header">
         <h2 class="section-title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M3 3h18v18H3z"></path>
-            <path d="M3 9h18"></path>
-            <path d="M9 3v18"></path>
+            <path d="M3 3h18v18H3z"></path><path d="M3 9h18"></path><path d="M9 3v18"></path>
           </svg>
           比較マトリクス
         </h2>
@@ -1468,7 +1226,7 @@
               </td>
             </tr>
             <tr>
-              <th class="row-head">導入しやすさ</th>
+              <th class="row-head">総合評価</th>
               <td>
                 <p class="rating" aria-label="5点満点中5点">★★★★★</p>
                 <p class="cell-text">最初の1本として最も無難。Plusから始めやすい。</p>
@@ -1606,43 +1364,61 @@
       </div>
     </section>
 
-    <section class="section" aria-label="出典と注意">
-      <div class="sources">
-        <div>
-          <p>
-            この表は比較検討用の資料として、公式料金ページと公開情報をもとに要約しています。
-            実際の契約前には、各サービスの公式ページで最新料金、対象地域、利用制限、キャンペーン条件を確認してください。
-          </p>
-          <p class="print-note">印刷時は横向きまたはPDF保存を推奨します。</p>
-        </div>
-        <nav class="source-links" aria-label="公式情報リンク">
-          <div class="source-group">
-            <p class="source-company">OpenAI</p>
-            <a href="https://chatgpt.com/pricing" target="_blank" rel="noreferrer">ChatGPT Pricing</a>
-            <a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans" target="_blank" rel="noreferrer">ChatGPT Pro</a>
+    <section class="section" aria-label="公式リンク・出典">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"></path>
+            <path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.5-1.5"></path>
+          </svg>
+          公式リンク・出典
+        </h2>
+        <p class="section-note">最新情報は各サービスの公式ページでご確認ください。</p>
+      </div>
+      <div class="ref-body">
+        <p class="ref-note">
+          この表は判断材料として、公式料金ページと公開情報をもとに要約しています。
+          実際の契約前には、各サービスの公式ページで最新料金、対象地域、利用制限、キャンペーン条件を確認してください。
+        </p>
+        <div class="ref-grid">
+          <nav class="ref-col" aria-label="ChatGPT 公式リンク">
+            <p class="ref-head"><span class="ref-dot rd-chatgpt" aria-hidden="true"></span>ChatGPT</p>
+            <a href="https://chatgpt.com/pricing" target="_blank" rel="noreferrer">料金プラン</a>
+            <a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans" target="_blank" rel="noreferrer">Pro プラン</a>
             <a href="https://developers.openai.com/cookbook/examples/codex/secure_quality_gitlab#what-is-codex-cli" target="_blank" rel="noreferrer">Codex CLI</a>
-          </div>
-          <div class="source-group">
-            <p class="source-company">Anthropic</p>
-            <a href="https://claude.com/pricing" target="_blank" rel="noreferrer">Claude Pricing</a>
+          </nav>
+          <nav class="ref-col" aria-label="Claude 公式リンク">
+            <p class="ref-head"><span class="ref-dot rd-claude" aria-hidden="true"></span>Claude</p>
+            <a href="https://claude.com/pricing" target="_blank" rel="noreferrer">料金プラン</a>
             <a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">Claude Code</a>
             <a href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noreferrer">Claude Code CLI</a>
-          </div>
-          <div class="source-group">
-            <p class="source-company">Google</p>
-            <a href="https://gemini.google/subscriptions/" target="_blank" rel="noreferrer">Gemini Plans</a>
+          </nav>
+          <nav class="ref-col" aria-label="Gemini 公式リンク">
+            <p class="ref-head"><span class="ref-dot rd-gemini" aria-hidden="true"></span>Gemini</p>
+            <a href="https://gemini.google/subscriptions/" target="_blank" rel="noreferrer">料金プラン</a>
+            <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">モデル一覧</a>
             <a href="https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli" target="_blank" rel="noreferrer">Gemini CLI</a>
-            <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">Gemini Models</a>
-            <a href="https://developers.google.com/gemini-code-assist/docs/set-up-gemini" target="_blank" rel="noreferrer">Gemini Code Assist</a>
-          </div>
-          <div class="source-group">
-            <p class="source-company">Genspark</p>
-            <a href="https://www.genspark.ai/helpcenter?doc=general_Membership_Plans" target="_blank" rel="noreferrer">Genspark Plans</a>
+            <a href="https://developers.google.com/gemini-code-assist/docs/set-up-gemini" target="_blank" rel="noreferrer">CLI 移行案内</a>
+          </nav>
+          <nav class="ref-col" aria-label="Genspark 公式リンク">
+            <p class="ref-head"><span class="ref-dot rd-genspark" aria-hidden="true"></span>Genspark</p>
+            <a href="https://www.genspark.ai/helpcenter?doc=general_Membership_Plans" target="_blank" rel="noreferrer">料金プラン</a>
             <a href="https://www.genspark.ai/helpcenter/genspark-claw" target="_blank" rel="noreferrer">Genspark Claw</a>
-          </div>
-        </nav>
+          </nav>
+        </div>
+        <p class="print-note">印刷時は横向きまたはPDF保存を推奨します。</p>
       </div>
     </section>
+
+    <div class="footer-mark">
+      <svg class="spark" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" aria-hidden="true">
+        <line x1="50" y1="11" x2="50" y2="89"></line>
+        <line x1="11" y1="50" x2="89" y2="50"></line>
+        <line x1="22" y1="22" x2="78" y2="78"></line>
+        <line x1="78" y1="22" x2="22" y2="78"></line>
+      </svg>
+      AI Plan Matrix 2026 — AIサービス比較レポート
+    </div>
   </main>
 </body>
 </html>
