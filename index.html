@@ -376,6 +376,21 @@
       flex: 0 0 auto;
     }
 
+    .brand-icon {
+      width: 25px;
+      height: 25px;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.9;
+    }
+
+    .brand-icon .fill-mark {
+      fill: currentColor;
+      stroke: none;
+    }
+
     .plan-chip {
       display: inline-flex;
       align-items: center;
@@ -522,6 +537,12 @@
       font-size: 13px;
       font-weight: 900;
       flex: 0 0 auto;
+    }
+
+    .product-mark .brand-icon {
+      width: 19px;
+      height: 19px;
+      stroke-width: 2.1;
     }
 
     .mark-chatgpt { background: var(--green); }
@@ -875,6 +896,11 @@
         font-size: 13px;
       }
 
+      .service-icon .brand-icon {
+        width: 20px;
+        height: 20px;
+      }
+
       .service-name {
         font-size: 15px;
       }
@@ -954,6 +980,11 @@
         width: 24px;
         height: 24px;
         font-size: 10px;
+      }
+
+      .product-mark .brand-icon {
+        width: 15px;
+        height: 15px;
       }
 
       .cell-title {
@@ -1096,7 +1127,14 @@
       <article class="service-card chatgpt">
         <div class="service-head">
           <h2 class="service-name">ChatGPT</h2>
-          <div class="service-icon" aria-hidden="true">C</div>
+          <div class="service-icon" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 24 24">
+              <path d="M12 3.6a4.5 4.5 0 0 1 4.4 3.4 4.55 4.55 0 0 1 3.1 7.6 4.5 4.5 0 0 1-5.2 5.4A4.5 4.5 0 0 1 7.6 17a4.55 4.55 0 0 1-3.1-7.6A4.5 4.5 0 0 1 9.7 4 4.4 4.4 0 0 1 12 3.6Z"></path>
+              <path d="M8.2 8.3 15.8 15.7"></path>
+              <path d="M15.8 8.3 8.2 15.7"></path>
+              <path d="M12 6.7v10.6"></path>
+            </svg>
+          </div>
         </div>
         <span class="plan-chip">おすすめ: Plus</span>
         <p class="price">$20 <small>/ 月</small></p>
@@ -1106,7 +1144,15 @@
       <article class="service-card claude">
         <div class="service-head">
           <h2 class="service-name">Claude</h2>
-          <div class="service-icon" aria-hidden="true">A</div>
+          <div class="service-icon" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 24 24">
+              <path d="M7 4h7l4 4v12H7z"></path>
+              <path d="M14 4v4h4"></path>
+              <path d="M9.5 11h5"></path>
+              <path d="M9.5 14h4"></path>
+              <path d="M9.5 17h6"></path>
+            </svg>
+          </div>
         </div>
         <span class="plan-chip">おすすめ: Pro</span>
         <p class="price">$20 <small>/ 月</small></p>
@@ -1116,7 +1162,15 @@
       <article class="service-card gemini">
         <div class="service-head">
           <h2 class="service-name">Gemini</h2>
-          <div class="service-icon" aria-hidden="true">G</div>
+          <div class="service-icon" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 24 24">
+              <path d="M12 3.5 13.8 8.7 19 10.5 13.8 12.3 12 17.5 10.2 12.3 5 10.5 10.2 8.7z"></path>
+              <path d="M18.5 4.5v3"></path>
+              <path d="M20 6h-3"></path>
+              <path d="M5.5 16.5v2.5"></path>
+              <path d="M6.8 17.8H4.2"></path>
+            </svg>
+          </div>
         </div>
         <span class="plan-chip">おすすめ: AI Pro</span>
         <p class="price">$19.99 <small>/ 月</small></p>
@@ -1126,7 +1180,13 @@
       <article class="service-card genspark">
         <div class="service-head">
           <h2 class="service-name">Genspark</h2>
-          <div class="service-icon" aria-hidden="true">S</div>
+          <div class="service-icon" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 24 24">
+              <rect x="4" y="5" width="7" height="7" rx="2"></rect>
+              <rect x="13" y="12" width="7" height="7" rx="2"></rect>
+              <path d="M14.5 4.5 16 8l3.5 1.5L16 11l-1.5 3.5L13 11 9.5 9.5 13 8z"></path>
+            </svg>
+          </div>
         </div>
         <span class="plan-chip">おすすめ: Plus</span>
         <p class="price">$24.99 <small>/ 月</small></p>
@@ -1153,16 +1213,57 @@
             <tr>
               <th class="row-head">比較項目</th>
               <th class="product-head">
-                <div class="product-label"><span class="product-mark mark-chatgpt">C</span>ChatGPT</div>
+                <div class="product-label">
+                  <span class="product-mark mark-chatgpt" aria-hidden="true">
+                    <svg class="brand-icon" viewBox="0 0 24 24">
+                      <path d="M12 3.6a4.5 4.5 0 0 1 4.4 3.4 4.55 4.55 0 0 1 3.1 7.6 4.5 4.5 0 0 1-5.2 5.4A4.5 4.5 0 0 1 7.6 17a4.55 4.55 0 0 1-3.1-7.6A4.5 4.5 0 0 1 9.7 4 4.4 4.4 0 0 1 12 3.6Z"></path>
+                      <path d="M8.2 8.3 15.8 15.7"></path>
+                      <path d="M15.8 8.3 8.2 15.7"></path>
+                      <path d="M12 6.7v10.6"></path>
+                    </svg>
+                  </span>
+                  ChatGPT
+                </div>
               </th>
               <th class="product-head">
-                <div class="product-label"><span class="product-mark mark-claude">A</span>Claude</div>
+                <div class="product-label">
+                  <span class="product-mark mark-claude" aria-hidden="true">
+                    <svg class="brand-icon" viewBox="0 0 24 24">
+                      <path d="M7 4h7l4 4v12H7z"></path>
+                      <path d="M14 4v4h4"></path>
+                      <path d="M9.5 11h5"></path>
+                      <path d="M9.5 14h4"></path>
+                      <path d="M9.5 17h6"></path>
+                    </svg>
+                  </span>
+                  Claude
+                </div>
               </th>
               <th class="product-head">
-                <div class="product-label"><span class="product-mark mark-gemini">G</span>Gemini</div>
+                <div class="product-label">
+                  <span class="product-mark mark-gemini" aria-hidden="true">
+                    <svg class="brand-icon" viewBox="0 0 24 24">
+                      <path d="M12 3.5 13.8 8.7 19 10.5 13.8 12.3 12 17.5 10.2 12.3 5 10.5 10.2 8.7z"></path>
+                      <path d="M18.5 4.5v3"></path>
+                      <path d="M20 6h-3"></path>
+                      <path d="M5.5 16.5v2.5"></path>
+                      <path d="M6.8 17.8H4.2"></path>
+                    </svg>
+                  </span>
+                  Gemini
+                </div>
               </th>
               <th class="product-head">
-                <div class="product-label"><span class="product-mark mark-genspark">S</span>Genspark</div>
+                <div class="product-label">
+                  <span class="product-mark mark-genspark" aria-hidden="true">
+                    <svg class="brand-icon" viewBox="0 0 24 24">
+                      <rect x="4" y="5" width="7" height="7" rx="2"></rect>
+                      <rect x="13" y="12" width="7" height="7" rx="2"></rect>
+                      <path d="M14.5 4.5 16 8l3.5 1.5L16 11l-1.5 3.5L13 11 9.5 9.5 13 8z"></path>
+                    </svg>
+                  </span>
+                  Genspark
+                </div>
               </th>
             </tr>
           </thead>
