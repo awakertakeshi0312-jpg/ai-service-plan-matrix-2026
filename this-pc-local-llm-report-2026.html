@@ -1,0 +1,1133 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>This PC Local LLM Report 2026 | このPCで使えるローカルLLM比較</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --paper: #ffffff;
+      --ink: #101827;
+      --text: #344054;
+      --muted: #667085;
+      --line: #d9e0ea;
+      --line-soft: #edf1f6;
+      --blue: #2457d6;
+      --teal: #0f766e;
+      --green: #16803c;
+      --amber: #b7791f;
+      --rose: #bd123c;
+      --violet: #6d28d9;
+      --soft-blue: #eaf1ff;
+      --soft-teal: #e8f7f4;
+      --soft-green: #ecfdf3;
+      --soft-amber: #fff7e6;
+      --soft-rose: #fff1f3;
+      --soft-violet: #f4efff;
+      --radius: 8px;
+      --shadow: 0 14px 34px rgba(16, 24, 39, 0.08);
+      --font: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, #ffffff 0, #f6f7f9 420px, #f6f7f9 100%);
+      font-family: var(--font);
+      line-height: 1.72;
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: rgba(36, 87, 214, 0.35);
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--blue);
+      text-decoration-color: var(--blue);
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      min-height: 54px;
+      border-bottom: 1px solid var(--line-soft);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: conic-gradient(from 180deg, var(--teal), var(--blue), var(--amber), var(--rose), var(--teal));
+      box-shadow: inset 0 0 0 4px #ffffff;
+    }
+
+    .top-meta {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      align-items: center;
+      padding: 50px 0 34px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      max-width: 760px;
+      color: var(--text);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 8px 14px;
+      border: 1px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 900;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .button.secondary {
+      background: #ffffff;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .hero-panel {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin-bottom: 14px;
+      font-size: 20px;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .spec {
+      min-height: 92px;
+      padding: 14px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+    }
+
+    .spec strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .spec span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    section {
+      margin-top: 18px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 4px 18px rgba(16, 24, 39, 0.04);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-head p:not(.eyebrow) {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .takeaways {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .takeaway {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .takeaway .label {
+      display: inline-flex;
+      min-height: 26px;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .takeaway h3 {
+      margin: 10px 0 8px;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .takeaway p {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .model-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      min-height: 250px;
+    }
+
+    .model-card h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fbfcfd;
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .model-card p {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .meter {
+      margin-top: 14px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .meter-row {
+      display: grid;
+      grid-template-columns: 74px 1fr 42px;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .track {
+      height: 12px;
+      border-radius: 999px;
+      background: #edf2f7;
+      overflow: hidden;
+    }
+
+    .fill {
+      width: calc(var(--v) * 1%);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+    }
+
+    .fill.green { background: linear-gradient(90deg, var(--green), var(--teal)); }
+    .fill.amber { background: linear-gradient(90deg, var(--amber), var(--rose)); }
+    .fill.violet { background: linear-gradient(90deg, var(--violet), var(--blue)); }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .chart-panel {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .chart-panel h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .bar-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: minmax(150px, 0.82fr) minmax(160px, 1fr) 64px;
+      gap: 10px;
+      align-items: center;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .bar {
+      height: 16px;
+      border-radius: 999px;
+      background: #edf2f7;
+      overflow: hidden;
+    }
+
+    .bar > span {
+      display: block;
+      width: calc(var(--v) * 1%);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+    }
+
+    .bar > span.slow {
+      background: linear-gradient(90deg, var(--amber), var(--green));
+    }
+
+    .scatter {
+      position: relative;
+      min-height: 330px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, rgba(217, 224, 234, 0.72) 1px, transparent 1px) 0 0 / 20% 100%,
+        linear-gradient(0deg, rgba(217, 224, 234, 0.72) 1px, transparent 1px) 0 0 / 100% 20%,
+        linear-gradient(135deg, #fbfcfd, #ffffff);
+      overflow: hidden;
+    }
+
+    .axis {
+      position: absolute;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .axis.x { right: 12px; bottom: 10px; }
+    .axis.y { top: 10px; left: 12px; }
+
+    .dot {
+      position: absolute;
+      left: calc(var(--x) * 1%);
+      top: calc(var(--y) * 1%);
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      width: var(--s);
+      height: var(--s);
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      background: var(--c);
+      color: #ffffff;
+      box-shadow: 0 10px 24px rgba(16, 24, 39, 0.18);
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .dot-label {
+      position: absolute;
+      left: calc(var(--x) * 1%);
+      top: calc(var(--y) * 1% + var(--s) / 2 + 6px);
+      transform: translateX(-50%);
+      max-width: 118px;
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 950;
+      line-height: 1.2;
+      text-align: center;
+      text-shadow: 0 1px 0 #ffffff;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      min-width: 960px;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th,
+    td {
+      padding: 11px 10px;
+      border-right: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f3f6fa;
+      color: var(--ink);
+      font-weight: 950;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    th:last-child, td:last-child { border-right: 0; }
+
+    .rank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      min-height: 25px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .rank.good { background: var(--soft-green); color: var(--green); }
+    .rank.warn { background: var(--soft-amber); color: var(--amber); }
+    .rank.stop { background: var(--soft-rose); color: var(--rose); }
+    .rank.side { background: var(--soft-violet); color: var(--violet); }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .workflow {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .workflow strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .workflow p {
+      margin: 0;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .method {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .method-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .method-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .method-card p,
+    .method-card li {
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .method-card ul {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding-left: 1.15em;
+    }
+
+    code {
+      padding: 1px 4px;
+      border-radius: 4px;
+      background: #eef2f7;
+      color: #172033;
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .source-list li {
+      padding: 12px 14px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line-soft);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .section-head,
+      .takeaways,
+      .model-grid,
+      .chart-grid,
+      .workflow-grid,
+      .method,
+      .source-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      h1,
+      h2,
+      h3,
+      p,
+      li,
+      .pill,
+      .button,
+      td,
+      th {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .page {
+        width: min(100% - 24px, 1180px);
+        padding-top: 18px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-bottom: 14px;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      h1 {
+        font-size: 31px;
+        line-height: 1.18;
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+
+      section {
+        padding: 20px;
+      }
+
+      .spec-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .bar-row {
+        grid-template-columns: 1fr 58px;
+        gap: 6px 8px;
+      }
+
+      .bar-row > span:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .meter-row {
+        grid-template-columns: 64px 1fr 36px;
+      }
+
+      .scatter {
+        min-height: 390px;
+      }
+    }
+
+    @media print {
+      body { background: #ffffff; }
+      .page { width: 100%; padding: 0; }
+      section, .hero-panel, .model-card, .takeaway, .chart-panel, .workflow, .method-card {
+        box-shadow: none;
+      }
+      .button { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>This PC Local LLM Report</span>
+      </div>
+      <div class="top-meta">
+        <span class="pill">Snapshot: 2026-06-10 JST</span>
+        <span class="pill">Ollama 0.30.7</span>
+        <span class="pill">Public report</span>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Local capability, not catalog ranking</p>
+        <h1 id="hero-title">このPCで現実的に使えるローカルLLM比較</h1>
+        <p class="lead">
+          一般論のモデルランキングではなく、このPCの実測スペック、Ollamaに入っているモデル、短時間ベンチマークから「今すぐ使える」「追加導入なら現実的」「このPCでは重い」を切り分けた比較レポート。
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#ready">今すぐ使えるモデルを見る</a>
+          <a class="button secondary" href="#fit">追加導入候補を見る</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="PC hardware snapshot">
+        <h2>PCスナップショット</h2>
+        <div class="spec-grid">
+          <div class="spec">
+            <strong>RTX 3060</strong>
+            <span>12GB VRAM / NVIDIA-SMI実測</span>
+          </div>
+          <div class="spec">
+            <strong>63.8GB</strong>
+            <span>システムRAM</span>
+          </div>
+          <div class="spec">
+            <strong>i7-11700</strong>
+            <span>8 cores / 16 threads</span>
+          </div>
+          <div class="spec">
+            <strong>11434</strong>
+            <span>Ollama API listening</span>
+          </div>
+        </div>
+        <p class="note">
+          測定時はOllama上で `gemma3:12b` がGPU常駐中。ローカルLLMは1モデルずつ載せ替える前提が安定。
+        </p>
+      </aside>
+    </section>
+
+    <section aria-labelledby="summary-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Executive summary</p>
+          <h2 id="summary-title">結論</h2>
+        </div>
+        <p>
+          このPCは「7Bから12B級の量子化モデルを高速に回す」用途にかなり向いている。20B級はRAM込みで現実的、27B以上やサーバー級MoEは動いても快適運用とは言いにくい。
+        </p>
+      </div>
+
+      <div class="takeaways">
+        <article class="takeaway">
+          <span class="label">Default</span>
+          <h3>普段使いは `gemma4:e4b`</h3>
+          <p>UTF-8送信を明示すれば日本語も問題なく、短文応答は約69 tok/s。速度、ツール対応、軽さのバランスがよい。</p>
+        </article>
+        <article class="takeaway">
+          <span class="label" style="background: var(--soft-green); color: var(--green);">Japanese docs</span>
+          <h3>文書要約は `gemma3:12b`</h3>
+          <p>約36から37 tok/s。やや遅いが日本語の素直さと12B級の安定感があり、社内文書要約やレビュー向き。</p>
+        </article>
+        <article class="takeaway">
+          <span class="label" style="background: var(--soft-violet); color: var(--violet);">RAG</span>
+          <h3>検索は `nomic-embed-text`</h3>
+          <p>768次元Embeddingを約1.05秒で生成。ローカルRAGの検索レイヤーとして今すぐ使える。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="ready" aria-labelledby="ready-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Installed and ready</p>
+          <h2 id="ready-title">このPCで今すぐ使えるモデル</h2>
+        </div>
+        <p>
+          `ollama list` と `ollama show`、Ollama APIの実測をもとに整理。スコアはこのPCでの実用性であり、モデル一般の絶対性能ではない。
+        </p>
+      </div>
+
+      <div class="model-grid">
+        <article class="model-card">
+          <h3>gemma4:e4b</h3>
+          <div class="tag-row">
+            <span class="tag">8.0B</span>
+            <span class="tag">Q4_K_M</span>
+            <span class="tag">9.6GB</span>
+            <span class="tag">tools</span>
+            <span class="tag">thinking</span>
+          </div>
+          <p>最も速く、日常の下書き、要約、軽いツール利用に向く。日本語プロンプトはUTF-8 JSON bodyで送るのが安定。</p>
+          <div class="meter">
+            <div class="meter-row"><span>Fit</span><div class="track"><div class="fill green" style="--v:92;"></div></div><span>9.2</span></div>
+            <div class="meter-row"><span>Speed</span><div class="track"><div class="fill green" style="--v:94;"></div></div><span>68.8</span></div>
+            <div class="meter-row"><span>JP</span><div class="track"><div class="fill" style="--v:78;"></div></div><span>7.8</span></div>
+          </div>
+        </article>
+
+        <article class="model-card">
+          <h3>gemma3:12b</h3>
+          <div class="tag-row">
+            <span class="tag">12.2B</span>
+            <span class="tag">Q4_K_M</span>
+            <span class="tag">8.1GB</span>
+            <span class="tag">vision</span>
+            <span class="tag">131K ctx</span>
+          </div>
+          <p>速度は落ちるが、文書要約、ローカルレビュー、比較的丁寧な日本語回答に向く。ツール利用より読解寄り。</p>
+          <div class="meter">
+            <div class="meter-row"><span>Fit</span><div class="track"><div class="fill" style="--v:83;"></div></div><span>8.3</span></div>
+            <div class="meter-row"><span>Speed</span><div class="track"><div class="fill amber" style="--v:51;"></div></div><span>37.1</span></div>
+            <div class="meter-row"><span>JP</span><div class="track"><div class="fill green" style="--v:84;"></div></div><span>8.4</span></div>
+          </div>
+        </article>
+
+        <article class="model-card">
+          <h3>nomic-embed-text</h3>
+          <div class="tag-row">
+            <span class="tag">137M</span>
+            <span class="tag">F16</span>
+            <span class="tag">274MB</span>
+            <span class="tag">768 dims</span>
+            <span class="tag">embedding</span>
+          </div>
+          <p>回答モデルではなく検索用。社内文書、メモ、PDF要約の前段に置くと、ローカルRAGの土台になる。</p>
+          <div class="meter">
+            <div class="meter-row"><span>Fit</span><div class="track"><div class="fill violet" style="--v:88;"></div></div><span>8.8</span></div>
+            <div class="meter-row"><span>Embed</span><div class="track"><div class="fill violet" style="--v:82;"></div></div><span>1.05s</span></div>
+            <div class="meter-row"><span>RAG</span><div class="track"><div class="fill green" style="--v:90;"></div></div><span>9.0</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="bench-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Measured on this PC</p>
+          <h2 id="bench-title">実測ベンチマーク</h2>
+        </div>
+        <p>
+          生成テストはOllama API、`num_ctx=4096`、短い日本語プロンプト、UTF-8 JSON bodyで実施。速度はウォームアップや常駐状態で変動するため、相対比較として読む。
+        </p>
+      </div>
+
+      <div class="chart-grid">
+        <article class="chart-panel">
+          <h3>日本語応答速度</h3>
+          <div class="bar-list">
+            <div class="bar-row">
+              <span>gemma4:e4b</span>
+              <div class="bar"><span style="--v:100;"></span></div>
+              <span>68.8 tok/s</span>
+            </div>
+            <div class="bar-row">
+              <span>gemma3:12b</span>
+              <div class="bar"><span class="slow" style="--v:54;"></span></div>
+              <span>37.1 tok/s</span>
+            </div>
+            <div class="bar-row">
+              <span>nomic embed</span>
+              <div class="bar"><span class="slow" style="--v:82;"></span></div>
+              <span>1.05 sec</span>
+            </div>
+          </div>
+          <p class="note">
+            `gemma3:12b` の長め生成では約35.9 tok/s。`gemma4:e4b` は通常の短文では約65から69 tok/s。
+          </p>
+        </article>
+
+        <article class="chart-panel">
+          <h3>このPCでの性能と快適性</h3>
+          <div class="scatter" aria-label="Local model capability and comfort chart">
+            <span class="axis y">Task capability</span>
+            <span class="axis x">This PC comfort</span>
+
+            <span class="dot" style="--x:83; --y:26; --s:44px; --c: var(--green);">9.2</span>
+            <span class="dot-label" style="--x:83; --y:26; --s:44px;">gemma4:e4b</span>
+
+            <span class="dot" style="--x:74; --y:34; --s:40px; --c: var(--blue);">8.3</span>
+            <span class="dot-label" style="--x:74; --y:34; --s:40px;">gemma3:12b</span>
+
+            <span class="dot" style="--x:88; --y:52; --s:36px; --c: var(--violet);">8.8</span>
+            <span class="dot-label" style="--x:88; --y:52; --s:36px;">nomic embed</span>
+
+            <span class="dot" style="--x:56; --y:38; --s:36px; --c: var(--teal);">7.6</span>
+            <span class="dot-label" style="--x:56; --y:38; --s:36px;">gpt-oss:20b candidate</span>
+
+            <span class="dot" style="--x:44; --y:31; --s:35px; --c: var(--amber);">6.8</span>
+            <span class="dot-label" style="--x:44; --y:31; --s:35px;">Qwen3.6 A3B candidate</span>
+
+            <span class="dot" style="--x:18; --y:13; --s:34px; --c: var(--rose);">2.0</span>
+            <span class="dot-label" style="--x:18; --y:13; --s:34px;">server frontier</span>
+          </div>
+          <p class="note">
+            左上は強いが重い。右側はこのPCで快適。公開ベンチ上位モデルでも、12GB VRAMでは常用性が落ちる。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="fit" aria-labelledby="fit-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Fit matrix</p>
+          <h2 id="fit-title">このPCでの採用判断表</h2>
+        </div>
+        <p>
+          インストール済みモデルだけでなく、追加導入候補も含めて整理。未導入モデルの速度は未測定なので、公式要件とこのPCのVRAM/RAMからの実務判断として扱う。
+        </p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>候補</th>
+              <th>状態</th>
+              <th>このPC適性</th>
+              <th>強い用途</th>
+              <th>注意点</th>
+              <th>判断</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>gemma4:e4b</strong><br>8B Q4</td>
+              <td><span class="rank good">Ready</span></td>
+              <td>9.2 / 10<br>約68.8 tok/s</td>
+              <td>高速下書き、軽い要約、ツール利用、ローカル秘匿処理</td>
+              <td>PowerShellや独自クライアントではUTF-8送信を明示。日本語品質はタスクで確認。</td>
+              <td>標準モデルにする</td>
+            </tr>
+            <tr>
+              <td><strong>gemma3:12b</strong><br>12.2B Q4</td>
+              <td><span class="rank good">Ready</span></td>
+              <td>8.3 / 10<br>約36から37 tok/s</td>
+              <td>日本語文書要約、比較レビュー、視覚入力を含む補助</td>
+              <td>tool callingは弱い。長文出力ではgemma4より体感が遅い。</td>
+              <td>文書担当にする</td>
+            </tr>
+            <tr>
+              <td><strong>nomic-embed-text</strong><br>137M F16</td>
+              <td><span class="rank side">Ready</span></td>
+              <td>8.8 / 10<br>768 dimensions</td>
+              <td>ローカルRAG、メモ検索、社内文書検索、類似検索</td>
+              <td>生成モデルではない。回答生成はGemma系と組み合わせる。</td>
+              <td>RAGの土台にする</td>
+            </tr>
+            <tr>
+              <td><strong>gpt-oss:20b</strong><br>20B MoE</td>
+              <td><span class="rank warn">Candidate</span></td>
+              <td>7.6 / 10<br>16GB memory級</td>
+              <td>推論、エージェント的タスク、OpenAI系の挙動に近いローカル検証</td>
+              <td>12GB VRAMだけでは余裕が少ない。RAM込み運用は可能でも速度検証が必要。</td>
+              <td>次に試す候補</td>
+            </tr>
+            <tr>
+              <td><strong>Qwen 7Bから14B級</strong><br>coding / instruct</td>
+              <td><span class="rank warn">Candidate</span></td>
+              <td>7.4 / 10</td>
+              <td>コード補助、多言語、ローカル開発、CLI補助</td>
+              <td>モデル名と量子化の選択で速度が大きく変わる。14Bは快適境界。</td>
+              <td>開発用に検討</td>
+            </tr>
+            <tr>
+              <td><strong>Qwen3.6-35B-A3B</strong><br>35B total / 3B active</td>
+              <td><span class="rank warn">Candidate</span></td>
+              <td>6.8 / 10</td>
+              <td>agentic coding、長文、推論</td>
+              <td>公式は長文文脈を推奨するが、このPCでは文脈長を絞る必要がある。未導入。</td>
+              <td>実験枠</td>
+            </tr>
+            <tr>
+              <td><strong>Qwen3.6-27B</strong><br>27B dense</td>
+              <td><span class="rank warn">Candidate</span></td>
+              <td>5.8 / 10</td>
+              <td>高品質コード、長文推論</td>
+              <td>12GB VRAMでは全量GPUは厳しい。CPU/RAM併用で速度が落ちやすい。</td>
+              <td>必要時だけ</td>
+            </tr>
+            <tr>
+              <td><strong>Phi-4 mini reasoning</strong><br>3.8B級</td>
+              <td><span class="rank warn">Candidate</span></td>
+              <td>7.8 / 10</td>
+              <td>軽量な数学、論理、補助推論</td>
+              <td>万能モデルではない。日本語文書作成や広範な知識にはGemma/Qwenを優先。</td>
+              <td>専門部品</td>
+            </tr>
+            <tr>
+              <td><strong>DeepSeek V4 / Kimi K2.6 / GLM-5.1</strong><br>server frontier</td>
+              <td><span class="rank stop">Avoid local</span></td>
+              <td>2.0 / 10</td>
+              <td>オンプレGPUサーバー、企業RAG、長時間エージェント</td>
+              <td>このPCの12GB VRAMでは本来の性能を出す対象ではない。</td>
+              <td>クラウド/サーバー枠</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="workflow-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Recommended local stack</p>
+          <h2 id="workflow-title">このPCで組むなら、この役割分担</h2>
+        </div>
+        <p>
+          1つのモデルで全部やらせるより、検索、下書き、文書読解を分けるほうが安定する。特にRAGではEmbeddingと回答生成を分離する。
+        </p>
+      </div>
+
+      <div class="workflow-grid">
+        <article class="workflow">
+          <strong>高速アシスタント</strong>
+          <p>`gemma4:e4b`。短い相談、下書き、ツール利用の試作、オフラインメモ処理。</p>
+        </article>
+        <article class="workflow">
+          <strong>日本語文書担当</strong>
+          <p>`gemma3:12b`。社内資料、長めの要約、比較レビュー、落ち着いた文章化。</p>
+        </article>
+        <article class="workflow">
+          <strong>検索レイヤー</strong>
+          <p>`nomic-embed-text`。文書をベクトル化し、回答生成前に関連箇所を引く。</p>
+        </article>
+        <article class="workflow">
+          <strong>追加実験枠</strong>
+          <p>`gpt-oss:20b` か Qwen 14B級。コード補助や推論を強めたい時に比較する。</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="ops-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Operation notes</p>
+          <h2 id="ops-title">運用メモ</h2>
+        </div>
+        <p>
+          ローカルLLMはモデル性能だけでなく、送信エンコード、文脈長、常駐モデル、GPUメモリの扱いで体感が大きく変わる。
+        </p>
+      </div>
+
+      <div class="method">
+        <article class="method-card">
+          <h3>安定運用ルール</h3>
+          <ul>
+            <li>PowerShellや自作クライアントからOllama APIを叩く時は、JSON bodyをUTF-8 bytesで送る。</li>
+            <li>12GB VRAMでは、同時に複数の大きい生成モデルを常駐させない。</li>
+            <li>長文対応モデルでも、普段は `num_ctx=4096` から `8192` で始める。</li>
+            <li>RAGは `nomic-embed-text` で検索し、回答はGemma系に渡す。</li>
+          </ul>
+        </article>
+        <article class="method-card">
+          <h3>測定条件</h3>
+          <ul>
+            <li>生成: Ollama `/api/generate`、`stream=false`、`num_ctx=4096`、短い日本語プロンプト。</li>
+            <li>Embedding: Ollama `/api/embeddings`、日本語短文、768次元出力。</li>
+            <li>GPU: NVIDIA-SMIでRTX 3060 12GBを確認。</li>
+            <li>日付: 2026-06-10 JST。このPCのその時点の状態に基づく。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="sources-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Sources</p>
+          <h2 id="sources-title">参照情報</h2>
+        </div>
+        <p>
+          PC固有の値はローカル実測。追加導入候補の要件や一般的なモデル情報は公開ドキュメントを参照。
+        </p>
+      </div>
+
+      <ul class="source-list">
+        <li><a href="https://docs.ollama.com/api/introduction">Ollama API documentation</a>: local API, generate endpoint, model operation.</li>
+        <li><a href="https://docs.ollama.com/capabilities/embeddings">Ollama Embeddings documentation</a>: embeddings for semantic search, retrieval, and RAG.</li>
+        <li><a href="https://ollama.com/library/nomic-embed-text">Ollama nomic-embed-text</a>: local embedding model positioning.</li>
+        <li><a href="https://openai.com/index/introducing-gpt-oss/">OpenAI gpt-oss</a>: open-weight 20B/120B models and memory guidance.</li>
+        <li><a href="https://ollama.com/library/gpt-oss%3A20b">Ollama gpt-oss:20b</a>: Ollama deployment notes and memory footprint context.</li>
+        <li><a href="https://ai.google.dev/gemma/docs/core/model_card_4">Google Gemma 4 model card</a>: model family, context, and evaluation background.</li>
+        <li><a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B">Qwen3.6-35B-A3B</a>: context length and local inference considerations.</li>
+        <li><a href="https://huggingface.co/Qwen/Qwen3.6-27B">Qwen3.6-27B</a>: long context support and inference framework notes.</li>
+        <li><a href="https://huggingface.co/microsoft/Phi-4-mini-reasoning">Microsoft Phi-4 mini reasoning</a>: lightweight reasoning model and context length.</li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <p>
+        This PC Local LLM Report 2026. Public version. No local file paths or private content are included.
+      </p>
+    </footer>
+  </main>
+</body>
+</html>
