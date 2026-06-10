@@ -721,6 +721,124 @@
       white-space: nowrap;
     }
 
+    .benchmark-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .benchmark-note {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: #fffaf0;
+    }
+
+    .benchmark-note h3 {
+      margin: 0 0 8px;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 950;
+    }
+
+    .benchmark-note p {
+      margin: 0;
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 830;
+    }
+
+    .benchmark-note p + p {
+      margin-top: 10px;
+    }
+
+    .benchmark-bars {
+      display: grid;
+      gap: 11px;
+      margin-top: 14px;
+    }
+
+    .bench-bar {
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr) 56px;
+      gap: 10px;
+      align-items: center;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .bench-track {
+      height: 10px;
+      border-radius: 999px;
+      background: #edf2f2;
+      overflow: hidden;
+    }
+
+    .bench-track i {
+      display: block;
+      width: var(--value);
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .benchmark-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .benchmark-table {
+      min-width: 920px;
+    }
+
+    .benchmark-table th,
+    .benchmark-table td {
+      padding: 12px;
+      vertical-align: top;
+    }
+
+    .benchmark-table .bench-metric {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .benchmark-table .bench-purpose {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
+    .bench-score {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      border: 1px solid color-mix(in srgb, var(--accent) 34%, #ffffff);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 16%, #ffffff);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .bench-score.muted {
+      --accent: var(--muted);
+      color: var(--muted);
+      background: #f5f7f7;
+    }
+
     .dossier-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1016,6 +1134,7 @@
       .hero,
       .editorial,
       .graph-grid,
+      .benchmark-layout,
       .sources {
         grid-template-columns: 1fr;
       }
@@ -1143,6 +1262,40 @@
 
       .heat-cell span:last-child {
         font-size: 10px;
+      }
+
+      .benchmark-note {
+        padding: 14px;
+      }
+
+      .benchmark-note h3 {
+        font-size: 15px;
+      }
+
+      .benchmark-note p,
+      .benchmark-table .bench-purpose {
+        font-size: 10.5px;
+      }
+
+      .bench-bar {
+        grid-template-columns: 82px minmax(0, 1fr) 44px;
+        gap: 8px;
+        font-size: 10.5px;
+      }
+
+      .benchmark-table {
+        min-width: 780px;
+      }
+
+      .benchmark-table th,
+      .benchmark-table td {
+        padding: 9px;
+      }
+
+      .bench-score {
+        min-height: 24px;
+        padding: 0 7px;
+        font-size: 10.5px;
       }
 
       .editorial-main,
@@ -1559,6 +1712,114 @@
       </div>
     </section>
 
+    <section class="section-band" aria-labelledby="benchmark-title">
+      <div class="section-heading">
+        <h2 id="benchmark-title">公開ベンチマーク比較</h2>
+        <p>公式資料で確認できる代表値です。実行環境、ツール有無、ハーネスが違うため、順位だけでなく用途との相性で見ます。</p>
+      </div>
+
+      <div class="benchmark-layout">
+        <aside class="benchmark-note">
+          <h3>読み方</h3>
+          <p>
+            コーディング系の公開値ではClaude Fable 5が強く、Codexを含むGPT-5.5もCLI実務ではかなり近い位置にいます。
+            Gemini 3.1 ProはGoogle DeepMindの公開表では科学知識、マルチモーダル、長文、Google系ツール連携を含む総合幅が強みです。
+          </p>
+          <p>
+            GensparkはLLM本体ではなく、複数モデルを使いやすくするワークスペースです。
+            そのため、SWE-benchやGPQAのようなモデル単体ベンチではなく、調査から資料化までの完成物で評価するのが自然です。
+          </p>
+
+          <div class="benchmark-bars" aria-label="代表的なコーディングベンチ比較">
+            <div class="bench-bar" style="--accent: var(--amber); --value: 100%;">
+              <span>Fable 5</span><div class="bench-track"><i></i></div><span>80.0</span>
+            </div>
+            <div class="bench-bar" style="--accent: var(--green); --value: 73%;">
+              <span>GPT-5.5</span><div class="bench-track"><i></i></div><span>58.6</span>
+            </div>
+            <div class="bench-bar" style="--accent: var(--blue); --value: 68%;">
+              <span>Gemini 3.1</span><div class="bench-track"><i></i></div><span>54.2</span>
+            </div>
+          </div>
+          <p class="bench-purpose">上のバーはSWE-bench Proの公開値。難しいコード修正タスクの目安です。</p>
+        </aside>
+
+        <div class="benchmark-table-wrap">
+          <table class="benchmark-table">
+            <thead>
+              <tr>
+                <th class="row-head">ベンチマーク</th>
+                <th>Claude Fable 5</th>
+                <th>GPT-5.5 / Codex</th>
+                <th>Gemini 3.1 Pro</th>
+                <th>読み方</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class="row-head">
+                  <div class="bench-metric">SWE-bench Pro</div>
+                  <div class="bench-purpose">難しい実コード修正</div>
+                </th>
+                <td><span class="bench-score" style="--accent: var(--amber);">80.0%</span></td>
+                <td><span class="bench-score" style="--accent: var(--green);">58.6%</span></td>
+                <td><span class="bench-score" style="--accent: var(--blue);">54.2%</span></td>
+                <td><p class="cell-text">長いコード修正や複数ファイルの修正ではClaudeがかなり強い。</p></td>
+              </tr>
+              <tr>
+                <th class="row-head">
+                  <div class="bench-metric">SWE-bench Verified</div>
+                  <div class="bench-purpose">実GitHub課題</div>
+                </th>
+                <td><span class="bench-score" style="--accent: var(--amber);">95.0%</span></td>
+                <td><span class="bench-score muted">横並び値なし</span></td>
+                <td><span class="bench-score" style="--accent: var(--blue);">80.6%</span></td>
+                <td><p class="cell-text">上位モデルでは高得点化が進んでいるため、ProやTerminal系の結果も一緒に見る。</p></td>
+              </tr>
+              <tr>
+                <th class="row-head">
+                  <div class="bench-metric">Terminal-Bench 2.1</div>
+                  <div class="bench-purpose">CLI・ターミナル作業</div>
+                </th>
+                <td><span class="bench-score" style="--accent: var(--amber);">84.3%</span></td>
+                <td><span class="bench-score" style="--accent: var(--green);">83.4%</span></td>
+                <td><span class="bench-score" style="--accent: var(--blue);">70.7%</span></td>
+                <td><p class="cell-text">CLI用途ではClaude CodeとCodexが強い。Codexは使いやすさ込みで評価しやすい。</p></td>
+              </tr>
+              <tr>
+                <th class="row-head">
+                  <div class="bench-metric">OSWorld-Verified</div>
+                  <div class="bench-purpose">画面操作・PC作業</div>
+                </th>
+                <td><span class="bench-score" style="--accent: var(--amber);">85.0%</span></td>
+                <td><span class="bench-score" style="--accent: var(--green);">78.7%</span></td>
+                <td><span class="bench-score" style="--accent: var(--blue);">76.2%</span></td>
+                <td><p class="cell-text">ブラウザやデスクトップ操作を含むエージェント作業でもClaudeが優勢。</p></td>
+              </tr>
+              <tr>
+                <th class="row-head">
+                  <div class="bench-metric">GPQA Diamond</div>
+                  <div class="bench-purpose">大学院級の科学知識</div>
+                </th>
+                <td><span class="bench-score muted">Fable単体値なし</span></td>
+                <td><span class="bench-score" style="--accent: var(--green);">92.4%*</span></td>
+                <td><span class="bench-score" style="--accent: var(--blue);">94.3%</span></td>
+                <td><p class="cell-text">科学知識ではGeminiも非常に強い。*GPT値はGoogle公開表のGPT-5.2 Thinking参考値。</p></td>
+              </tr>
+              <tr>
+                <th class="row-head">
+                  <div class="bench-metric">Genspark</div>
+                  <div class="bench-purpose">ワークスペース型</div>
+                </th>
+                <td colspan="3"><span class="bench-score muted">モデル単体ベンチでは直接比較しにくい</span></td>
+                <td><p class="cell-text">調査、要約、資料化、画像・動画生成までの完成物品質で見る。</p></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <section class="section-band" aria-labelledby="dossier-title">
       <div class="section-heading">
         <h2 id="dossier-title">4サービスの実務プロファイル</h2>
@@ -1916,6 +2177,7 @@
           <div class="source-group">
             <p>Anthropic</p>
             <a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noreferrer">Claude Fable 5 / Mythos 5</a>
+            <a href="https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf" target="_blank" rel="noreferrer">Fable 5 System Card</a>
             <a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noreferrer">Claude Models</a>
             <a href="https://claude.com/pricing" target="_blank" rel="noreferrer">Claude Pricing</a>
             <a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">Claude Code</a>
@@ -1925,6 +2187,8 @@
             <p>Google</p>
             <a href="https://gemini.google.com/advanced" target="_blank" rel="noreferrer">Google AI Pro</a>
             <a href="https://gemini.google.com/updates" target="_blank" rel="noreferrer">Gemini Updates</a>
+            <a href="https://deepmind.google/models/gemini/pro/" target="_blank" rel="noreferrer">Gemini 3.1 Benchmarks</a>
+            <a href="https://deepmind.google/models/model-cards/gemini-3-1-pro/" target="_blank" rel="noreferrer">Gemini 3.1 Model Card</a>
             <a href="https://gemini.google/subscriptions/" target="_blank" rel="noreferrer">Gemini Plans</a>
             <a href="https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli" target="_blank" rel="noreferrer">Gemini CLI</a>
             <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">Gemini Models</a>
