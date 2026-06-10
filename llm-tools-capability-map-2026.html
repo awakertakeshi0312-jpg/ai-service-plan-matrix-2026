@@ -1,0 +1,2236 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Tools Capability Map 2026 | LLMツール実力マップ</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --paper: #ffffff;
+      --ink: #111827;
+      --text: #374151;
+      --muted: #6b7280;
+      --line: #dfe4ea;
+      --line-soft: #edf0f4;
+      --navy: #1e3a5f;
+      --blue: #2563eb;
+      --teal: #0f766e;
+      --green: #16803c;
+      --amber: #b7791f;
+      --rose: #be123c;
+      --violet: #6d28d9;
+      --cyan: #0e7490;
+      --soft-blue: #eaf2ff;
+      --soft-teal: #e8f7f4;
+      --soft-green: #ecfdf3;
+      --soft-amber: #fff7e6;
+      --soft-rose: #fff1f3;
+      --soft-violet: #f4efff;
+      --soft-cyan: #e7f8fb;
+      --radius: 8px;
+      --shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
+      --shadow-soft: 0 4px 16px rgba(17, 24, 39, 0.06);
+      --font: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, #ffffff 0, #f7f8fa 360px, #f7f8fa 100%);
+      font-family: var(--font);
+      line-height: 1.72;
+      letter-spacing: 0;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: rgba(37, 99, 235, 0.35);
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--blue);
+      text-decoration-color: var(--blue);
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 52px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: conic-gradient(from 180deg, var(--blue), var(--teal), var(--amber), var(--rose), var(--blue));
+      box-shadow: inset 0 0 0 4px #ffffff;
+      border: 1px solid var(--line);
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 30px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr);
+      gap: 24px;
+      align-items: stretch;
+      padding: 42px 0 30px;
+    }
+
+    .hero-copy {
+      min-width: 0;
+      max-width: 100%;
+      padding: 10px 0 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      overflow-wrap: anywhere;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 68px);
+      line-height: 1.08;
+      letter-spacing: 0;
+      color: #0f172a;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 20px 0 0;
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.85;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--navy);
+      background: var(--navy);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .hero-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .brief-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 2px;
+    }
+
+    .brief-title h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .brief-title span {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .signal {
+      min-height: 118px;
+      padding: 14px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+    }
+
+    .signal strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .signal p {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .signal.blue {
+      border-color: #cfe0ff;
+      background: var(--soft-blue);
+    }
+
+    .signal.teal {
+      border-color: #c7e9e3;
+      background: var(--soft-teal);
+    }
+
+    .signal.amber {
+      border-color: #f3ddaf;
+      background: var(--soft-amber);
+    }
+
+    .signal.rose {
+      border-color: #ffd0d9;
+      background: var(--soft-rose);
+    }
+
+    section {
+      margin-top: 24px;
+      min-width: 0;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(280px, .7fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .executive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .takeaway {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .takeaway .kicker {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .takeaway h3 {
+      margin: 14px 0 8px;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .takeaway p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .ladder {
+      display: grid;
+      gap: 12px;
+    }
+
+    .rung {
+      display: grid;
+      grid-template-columns: 90px 1fr 240px;
+      gap: 14px;
+      align-items: stretch;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .level {
+      display: grid;
+      place-items: center;
+      min-height: 86px;
+      border-radius: var(--radius);
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .level small {
+      display: block;
+      margin-top: 5px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .rung:nth-child(1) .level { background: var(--cyan); }
+    .rung:nth-child(2) .level { background: var(--teal); }
+    .rung:nth-child(3) .level { background: var(--green); }
+    .rung:nth-child(4) .level { background: var(--amber); }
+    .rung:nth-child(5) .level { background: var(--rose); }
+
+    .rung h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .rung p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .human-role {
+      padding: 12px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .landscape {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .tool-card {
+      position: relative;
+      min-height: 228px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .tool-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      background: var(--accent, var(--blue));
+    }
+
+    .tool-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .tool-card p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .tool-card ul {
+      display: grid;
+      gap: 7px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tool-card li {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .tool-card li::before {
+      content: "";
+      flex: 0 0 7px;
+      width: 7px;
+      height: 7px;
+      margin-top: 8px;
+      border-radius: 50%;
+      background: var(--accent, var(--blue));
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: 150px repeat(4, minmax(0, 1fr));
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .matrix > div {
+      min-height: 76px;
+      padding: 12px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+      font-size: 13px;
+    }
+
+    .matrix > div:nth-child(5n) {
+      border-right: 0;
+    }
+
+    .matrix > div:nth-last-child(-n+5) {
+      border-bottom: 0;
+    }
+
+    .matrix .head,
+    .matrix .rowhead {
+      background: #f4f6f8;
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .matrix .score {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      margin-bottom: 6px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .score.high { background: var(--soft-green); color: var(--green); }
+    .score.mid { background: var(--soft-amber); color: var(--amber); }
+    .score.watch { background: var(--soft-rose); color: var(--rose); }
+
+    .tier-note {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .tier-note-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+    }
+
+    .tier-note-card strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 15px;
+    }
+
+    .tier-note-card p {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .tier-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .tier-panel {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .tier-panel h3 {
+      margin: 0 0 7px;
+      font-size: 20px;
+      line-height: 1.35;
+    }
+
+    .tier-panel > p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tier-table-wrap {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .tier-table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .tier-table th,
+    .tier-table td {
+      padding: 12px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .tier-table th:last-child,
+    .tier-table td:last-child {
+      border-right: 0;
+    }
+
+    .tier-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .tier-table th {
+      background: #f4f6f8;
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .tier-rank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 66px;
+      min-height: 30px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #111827;
+      color: #ffffff;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .tier-rank.t5 { background: var(--rose); }
+    .tier-rank.t4 { background: var(--blue); }
+    .tier-rank.t3 { background: var(--teal); }
+    .tier-rank.t2 { background: var(--amber); }
+    .tier-rank.t1 { background: var(--muted); }
+
+    .model-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .model-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 7px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fbfcfd;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .benchmark-brief {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .brief-panel {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .brief-panel h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .brief-panel p {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .benchmark-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .benchmark-stat {
+      min-height: 96px;
+      padding: 14px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+    }
+
+    .benchmark-stat strong {
+      display: block;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.15;
+    }
+
+    .benchmark-stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .benchmark-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 14px;
+      align-items: stretch;
+      margin-top: 14px;
+    }
+
+    .chart-panel {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .chart-panel h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .score-bars {
+      display: grid;
+      gap: 10px;
+    }
+
+    .score-bar {
+      display: grid;
+      grid-template-columns: minmax(136px, 0.72fr) minmax(170px, 1fr) 42px;
+      gap: 10px;
+      align-items: center;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .bar-track {
+      height: 14px;
+      border-radius: 999px;
+      background: #eef2f7;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      width: calc(var(--v) * 1%);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+    }
+
+    .score-bar.server .bar-fill {
+      background: linear-gradient(90deg, var(--rose), var(--violet));
+    }
+
+    .score-bar.desktop .bar-fill {
+      background: linear-gradient(90deg, var(--teal), var(--green));
+    }
+
+    .score-bar.edge .bar-fill {
+      background: linear-gradient(90deg, var(--amber), var(--teal));
+    }
+
+    .scatter-plot {
+      position: relative;
+      min-height: 360px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, rgba(223, 228, 234, 0.72) 1px, transparent 1px) 0 0 / 20% 100%,
+        linear-gradient(0deg, rgba(223, 228, 234, 0.72) 1px, transparent 1px) 0 0 / 100% 20%,
+        linear-gradient(135deg, #fbfcfd 0%, #ffffff 100%);
+      overflow: hidden;
+    }
+
+    .scatter-axis {
+      position: absolute;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      z-index: 1;
+    }
+
+    .scatter-axis.x {
+      right: 14px;
+      bottom: 10px;
+    }
+
+    .scatter-axis.y {
+      top: 12px;
+      left: 12px;
+    }
+
+    .scatter-dot {
+      position: absolute;
+      left: calc(var(--x) * 1%);
+      top: calc(var(--y) * 1%);
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      width: var(--s);
+      height: var(--s);
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      background: var(--c);
+      color: #ffffff;
+      box-shadow: 0 10px 22px rgba(17, 24, 39, 0.18);
+      font-size: 11px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .scatter-label {
+      position: absolute;
+      left: calc(var(--x) * 1%);
+      top: calc(var(--y) * 1% + var(--s) / 2 + 5px);
+      transform: translateX(-50%);
+      max-width: 112px;
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 1.2;
+      text-align: center;
+      text-shadow: 0 1px 0 #ffffff;
+    }
+
+    .benchmark-table-wrap {
+      margin-top: 14px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .benchmark-table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .benchmark-table th,
+    .benchmark-table td {
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--line-soft);
+      border-right: 1px solid var(--line-soft);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .benchmark-table th {
+      position: sticky;
+      top: 0;
+      background: #f4f6f8;
+      color: var(--ink);
+      font-weight: 950;
+      z-index: 1;
+    }
+
+    .benchmark-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .benchmark-table td:last-child,
+    .benchmark-table th:last-child {
+      border-right: 0;
+    }
+
+    .model-cell strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .model-cell span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .bench-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 24px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #edf2f7;
+      color: var(--ink);
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .bench-num.max { background: var(--soft-rose); color: var(--rose); }
+    .bench-num.high { background: var(--soft-green); color: var(--green); }
+    .bench-num.mid { background: var(--soft-blue); color: var(--blue); }
+    .bench-num.low { background: var(--soft-amber); color: var(--amber); }
+    .bench-num.na { background: #f4f6f8; color: var(--muted); }
+
+    .benchmark-note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .usecase-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .usecase-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .usecase-card p {
+      margin: 0;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .demo {
+      min-height: 190px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .demo .num {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 14px;
+      border-radius: 50%;
+      background: #111827;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .demo h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .demo p {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .arch-col {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .arch-col h3 {
+      margin: 0 0 12px;
+      font-size: 17px;
+    }
+
+    .arch-col p,
+    .arch-col li {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .arch-col ul {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding-left: 1.1em;
+    }
+
+    .arrow-band {
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      border: 1px dashed #b7c1cf;
+      border-radius: var(--radius);
+      background: #fbfcfd;
+      text-align: center;
+    }
+
+    .arrow-band strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .arrow-band p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .decision {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .decision strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 15px;
+    }
+
+    .decision p {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .source-list li {
+      padding: 12px 14px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .footer {
+      margin-top: 24px;
+      padding: 18px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .print-note {
+      display: none;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .section-head,
+      .executive-grid,
+      .landscape,
+      .tier-note,
+      .tier-grid,
+      .benchmark-brief,
+      .benchmark-layout,
+      .usecase-grid,
+      .architecture,
+      .decision-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .rung {
+        grid-template-columns: 74px 1fr;
+      }
+
+      .human-role {
+        grid-column: 1 / -1;
+      }
+
+      .demo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .matrix {
+        grid-template-columns: 130px repeat(4, minmax(170px, 1fr));
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+    }
+
+    @media (max-width: 680px) {
+      h1,
+      h2,
+      h3,
+      p,
+      li,
+      .button,
+      .signal,
+      .matrix > div {
+        overflow-wrap: anywhere;
+        word-break: break-all;
+        line-break: anywhere;
+      }
+
+      .page {
+        width: min(100% - 24px, 1180px);
+        padding-top: 18px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-bottom: 14px;
+      }
+
+      .top-meta {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 28px;
+      }
+
+      h1 {
+        font-size: 30px;
+        line-height: 1.18;
+      }
+
+      .lead {
+        font-size: 16px;
+        max-width: 100%;
+      }
+
+      section {
+        padding: 20px;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+
+      .hero-actions .button {
+        width: 100%;
+      }
+
+      .brief-title span {
+        display: none;
+      }
+
+      .signal-grid,
+      .demo-grid,
+      .benchmark-stat-grid,
+      .source-list {
+        grid-template-columns: 1fr;
+      }
+
+      .score-bar {
+        grid-template-columns: 1fr 46px;
+        gap: 6px 8px;
+      }
+
+      .score-bar > span:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .scatter-plot {
+        min-height: 410px;
+      }
+
+      .matrix {
+        display: block;
+        overflow: hidden;
+      }
+
+      .matrix > div {
+        min-height: 68px;
+        padding: 10px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .matrix > div:nth-last-child(-n+5) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .matrix > div:last-child {
+        border-bottom: 0;
+      }
+
+      .matrix .head {
+        display: none;
+      }
+
+      .matrix .rowhead {
+        margin-top: 12px;
+        border-top: 1px solid var(--line);
+      }
+
+      .tier-table {
+        display: block;
+        min-width: 0;
+      }
+
+      .tier-table thead {
+        display: none;
+      }
+
+      .tier-table tbody {
+        display: grid;
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .tier-table tr {
+        display: block;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: #ffffff;
+      }
+
+      .tier-table td {
+        display: block;
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .tier-table tr:last-child td {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .tier-table td:last-child {
+        border-bottom: 0;
+      }
+
+      .tier-table td::before {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .tier-table td:nth-child(1)::before { content: "Tier"; }
+      .tier-table td:nth-child(2)::before { content: "Models"; }
+      .tier-table td:nth-child(3)::before { content: "Strength"; }
+      .tier-table td:nth-child(4)::before { content: "Constraint"; }
+      .tier-table td:nth-child(5)::before { content: "Decision"; }
+
+      .tier-table-wrap {
+        overflow: visible;
+      }
+
+      .source-list li {
+        min-width: 0;
+      }
+
+      .rung {
+        grid-template-columns: 1fr;
+      }
+
+      .level {
+        min-height: 64px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      .topbar,
+      .hero-actions {
+        display: none;
+      }
+
+      .hero,
+      section {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+
+      .print-note {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="topbar" aria-label="Report metadata">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>AI Tools Capability Map</span>
+      </div>
+      <div class="top-meta">
+        <span>2026年5月版</span>
+        <span class="pill"><span class="dot" aria-hidden="true"></span>公開情報ベース</span>
+        <span class="pill">経営・現場向け</span>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Executive briefing</p>
+        <h1>LLMツールの実力を<br>「任せられる仕事」で見る</h1>
+        <p class="lead">
+          最新AIツールの差は、会話の自然さだけでは測れない。重要なのは、調査、判断補助、制作、コード修正、ローカル実行、自動化まで、どの仕事をどのリスクで委任できるかである。
+        </p>
+        <div class="hero-actions" aria-label="Report shortcuts">
+          <a class="button" href="#ladder">委任レベルを見る</a>
+          <a class="button secondary" href="#landscape">ツール分類を見る</a>
+          <a class="button secondary" href="#demo">実演シナリオを見る</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Three minute briefing">
+        <div class="brief-title">
+          <h2>3分で伝える要点</h2>
+          <span>Board memo</span>
+        </div>
+        <div class="signal-grid">
+          <div class="signal blue">
+            <strong>5段階</strong>
+            <p>チャットから小さな部署まで、AIを「道具」ではなく「委任単位」で評価する。</p>
+          </div>
+          <div class="signal teal">
+            <strong>3層</strong>
+            <p>クラウド上位モデル、開発/業務エージェント、ローカルLLMを使い分ける。</p>
+          </div>
+          <div class="signal amber">
+            <strong>16GB+</strong>
+            <p>ローカルLLMは小型高性能化が進み、個人PCでも実務補助が現実的になった。</p>
+          </div>
+          <div class="signal rose">
+            <strong>人間</strong>
+            <p>品質、責任、権限、機密データの境界は最後まで人間が設計する。</p>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <section aria-labelledby="summary-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Conclusion</p>
+          <h2 id="summary-title">モデル名の順位より、業務への接続度が価値を決める</h2>
+        </div>
+        <p>
+          2026年時点の勝ち筋は、すべてを単一モデルに任せることではない。目的別にツールを組み合わせ、重要判断だけ人間が握る設計である。
+        </p>
+      </div>
+      <div class="executive-grid">
+        <article class="takeaway">
+          <span class="kicker">Insight 01</span>
+          <h3>LLMは「答える」から「作業する」へ移った</h3>
+          <p>Deep Research、Coding Agent、ブラウザ操作、ファイル編集、RAGにより、成果物まで作る流れが標準化している。</p>
+        </article>
+        <article class="takeaway">
+          <span class="kicker" style="background: var(--soft-teal); color: var(--teal);">Insight 02</span>
+          <h3>ローカルLLMは秘密データと低コスト反復に強い</h3>
+          <p>Qwen、Gemma、gpt-oss、Phiなどにより、端末内要約、社内文書処理、開発補助の実用ラインが上がった。</p>
+        </article>
+        <article class="takeaway">
+          <span class="kicker" style="background: var(--soft-amber); color: var(--amber);">Insight 03</span>
+          <h3>エージェント化の核心は権限設計</h3>
+          <p>AIが実行できるほど価値は増えるが、誤実行の影響も大きくなる。承認、ログ、ロールバックが競争力になる。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="ladder" aria-labelledby="ladder-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Delegation ladder</p>
+          <h2 id="ladder-title">AIツールの実力は「委任レベル」で説明する</h2>
+        </div>
+        <p>
+          非エンジニアに伝えるときは、IQのような抽象指標ではなく「どの仕事を任せられるか」に翻訳する。
+        </p>
+      </div>
+
+      <div class="ladder">
+        <article class="rung">
+          <div class="level">Lv1<small>相談</small></div>
+          <div>
+            <h3>相談相手</h3>
+            <p>質問回答、翻訳、要約、文章案、壁打ち。最も安全で導入しやすいが、成果物の責任は人間に残る。</p>
+          </div>
+          <div class="human-role">人間の役割: 目的を伝える、内容を確認する</div>
+        </article>
+
+        <article class="rung">
+          <div class="level">Lv2<small>調査</small></div>
+          <div>
+            <h3>調査員</h3>
+            <p>公開情報、PDF、社内資料、会議ログを読み、論点・比較・出典つきメモにまとめる。</p>
+          </div>
+          <div class="human-role">人間の役割: 情報源、前提、結論の妥当性を見る</div>
+        </article>
+
+        <article class="rung">
+          <div class="level">Lv3<small>制作</small></div>
+          <div>
+            <h3>実務アシスタント</h3>
+            <p>企画書、提案書、スライド、HTML、表、画像案、コード案を作る。人間は編集長として品質を上げる。</p>
+          </div>
+          <div class="human-role">人間の役割: 採否判断、ブランド調整、最終表現</div>
+        </article>
+
+        <article class="rung">
+          <div class="level">Lv4<small>実行</small></div>
+          <div>
+            <h3>作業者</h3>
+            <p>ブラウザ、CLI、GitHub、ローカルファイル、テストを操作し、実際に修正・検証する。</p>
+          </div>
+          <div class="human-role">人間の役割: 権限管理、レビュー、戻せる状態の維持</div>
+        </article>
+
+        <article class="rung">
+          <div class="level">Lv5<small>運用</small></div>
+          <div>
+            <h3>小さな部署</h3>
+            <p>定期調査、レポート生成、問い合わせ処理、開発保守、ナレッジ更新を複数ツールで回す。</p>
+          </div>
+          <div class="human-role">人間の役割: 目的設定、KPI、例外処理、責任分界</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="landscape" aria-labelledby="landscape-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Tool landscape</p>
+          <h2 id="landscape-title">主要ツール群と、見せるべき実力</h2>
+        </div>
+        <p>
+          同じAIでも「会話」「調査」「開発」「ローカル」「生成」「自動化」で評価軸は変わる。
+        </p>
+      </div>
+
+      <div class="landscape">
+        <article class="tool-card" style="--accent: var(--blue);">
+          <h3>汎用LLM</h3>
+          <p>会話、分析、文章化、判断補助の中核。</p>
+          <ul>
+            <li>役員説明、顧客文面、企画の初稿</li>
+            <li>曖昧な相談を論点化</li>
+            <li>人間の思考速度を上げる</li>
+          </ul>
+        </article>
+
+        <article class="tool-card" style="--accent: var(--teal);">
+          <h3>調査AI</h3>
+          <p>Web、PDF、社内資料を読み、出典つきで要約する。</p>
+          <ul>
+            <li>市場調査、競合比較、技術調査</li>
+            <li>長文資料から意思決定メモ</li>
+            <li>情報の再利用性を高める</li>
+          </ul>
+        </article>
+
+        <article class="tool-card" style="--accent: var(--green);">
+          <h3>開発AI</h3>
+          <p>コードを読み、修正し、テストし、差分を説明する。</p>
+          <ul>
+            <li>バグ修正、UI改善、PR対応</li>
+            <li>レポジトリ全体の文脈理解</li>
+            <li>開発者の作業単位を拡張</li>
+          </ul>
+        </article>
+
+        <article class="tool-card" style="--accent: var(--amber);">
+          <h3>ローカルLLM</h3>
+          <p>PCや自前サーバーで動き、機密データと反復処理に強い。</p>
+          <ul>
+            <li>社内文書要約、ローカルRAG</li>
+            <li>Qwen、Gemma、gpt-oss、Phi系</li>
+            <li>コストとプライバシーの制御</li>
+          </ul>
+        </article>
+
+        <article class="tool-card" style="--accent: var(--rose);">
+          <h3>画像・動画AI</h3>
+          <p>広告、SNS、研修、説明素材を短時間で試作する。</p>
+          <ul>
+            <li>ビジュアルコンセプトの量産</li>
+            <li>ストーリーボード、素材案</li>
+            <li>ブランド監修が品質を決める</li>
+          </ul>
+        </article>
+
+        <article class="tool-card" style="--accent: var(--violet);">
+          <h3>自動化AI</h3>
+          <p>定期処理、通知、データ連携、ワークフローを動かす。</p>
+          <ul>
+            <li>毎朝レポート、問い合わせ整理</li>
+            <li>人間承認つきの実行フロー</li>
+            <li>ログと権限設計が必須</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="matrix-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Capability matrix</p>
+          <h2 id="matrix-title">実力比較は「性能 × 運用」で見る</h2>
+        </div>
+        <p>
+          商用導入では、モデル性能だけでなく、機密性、コスト、実行権限、再現性が同じくらい重要になる。
+        </p>
+      </div>
+
+      <div class="matrix" role="table" aria-label="AI tool capability matrix">
+        <div class="head" role="columnheader">分類</div>
+        <div class="head" role="columnheader">強い仕事</div>
+        <div class="head" role="columnheader">導入しやすさ</div>
+        <div class="head" role="columnheader">注意点</div>
+        <div class="head" role="columnheader">商用での勝ち筋</div>
+
+        <div class="rowhead" role="rowheader">クラウド上位LLM</div>
+        <div><span class="score high">高</span><br>複雑な推論、長文、汎用分析</div>
+        <div><span class="score high">高</span><br>すぐ使える。API/画面の成熟度が高い</div>
+        <div><span class="score mid">中</span><br>機密情報、利用規約、継続コスト</div>
+        <div>高度判断と外部向け成果物の最終品質に使う</div>
+
+        <div class="rowhead" role="rowheader">開発エージェント</div>
+        <div><span class="score high">高</span><br>コード修正、テスト、差分説明</div>
+        <div><span class="score mid">中</span><br>リポジトリ権限と環境整備が必要</div>
+        <div><span class="score watch">要管理</span><br>誤修正、依存関係、秘密情報</div>
+        <div>小さな修正から任せ、テストとレビューで拡張</div>
+
+        <div class="rowhead" role="rowheader">ローカルLLM</div>
+        <div><span class="score mid">中-高</span><br>要約、分類、RAG、コード補助</div>
+        <div><span class="score mid">中</span><br>PC/GPU/量子化の理解が必要</div>
+        <div><span class="score mid">中</span><br>最高性能はクラウド上位に劣る場面あり</div>
+        <div>機密データ、定型反復、低コスト大量処理に使う</div>
+
+        <div class="rowhead" role="rowheader">自動化基盤</div>
+        <div><span class="score high">高</span><br>定期処理、通知、連携、承認フロー</div>
+        <div><span class="score mid">中</span><br>業務設計と例外処理が必要</div>
+        <div><span class="score watch">要管理</span><br>誤送信、権限過多、ログ不足</div>
+        <div>人間承認つきで「毎日発生する仕事」から始める</div>
+      </div>
+    </section>
+
+    <section id="local-benchmark" aria-labelledby="local-benchmark-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Local LLM benchmark map</p>
+          <h2 id="local-benchmark-title">ローカルLLMモデル別 実力比較表 2026年6月版</h2>
+        </div>
+        <p>
+          公開ベンチマークは各社の測定条件が完全には揃わないため、ここでは「公式報告値」と「実運用のしやすさ」を分けて読む。最上位はサーバー級、日常のローカル実務はQwen3.6、Gemma 4、gpt-oss-20bが現実的な主戦場になる。
+        </p>
+      </div>
+
+      <div class="benchmark-brief">
+        <article class="brief-panel">
+          <h3>結論: 性能だけならKimi / DeepSeek / GLM、手元で使うならQwen / Gemma</h3>
+          <p>
+            Kimi K2.6、DeepSeek V4-Pro、GLM-5.1はクラウド最上位に近いエージェント性能を持つ一方、必要GPUはデータセンター寄り。個人や小規模チームのローカル運用では、Qwen3.6-27B、Qwen3.6-35B-A3B、Gemma 4 31B/26B A4B、gpt-oss-20bが費用対効果で強い。
+          </p>
+        </article>
+        <div class="benchmark-stat-grid">
+          <article class="benchmark-stat">
+            <strong>93.5</strong>
+            <span>DeepSeek V4-Pro Max<br>LiveCodeBench公式報告</span>
+          </article>
+          <article class="benchmark-stat">
+            <strong>80.2</strong>
+            <span>Kimi K2.6<br>SWE-bench Verified公式報告</span>
+          </article>
+          <article class="benchmark-stat">
+            <strong>94.1</strong>
+            <span>Qwen3.6-27B<br>AIME 2026公式報告</span>
+          </article>
+        </div>
+      </div>
+
+      <div class="benchmark-layout">
+        <article class="chart-panel">
+          <h3>統合実務スコア</h3>
+          <div class="score-bars" aria-label="Local model weighted practical score">
+            <div class="score-bar server"><span>Kimi K2.6</span><div class="bar-track"><div class="bar-fill" style="--v: 96;"></div></div><span>96</span></div>
+            <div class="score-bar server"><span>DeepSeek V4-Pro Max</span><div class="bar-track"><div class="bar-fill" style="--v: 95;"></div></div><span>95</span></div>
+            <div class="score-bar server"><span>GLM-5.1</span><div class="bar-track"><div class="bar-fill" style="--v: 93;"></div></div><span>93</span></div>
+            <div class="score-bar desktop"><span>Qwen3.6-27B</span><div class="bar-track"><div class="bar-fill" style="--v: 91;"></div></div><span>91</span></div>
+            <div class="score-bar desktop"><span>Qwen3.6-35B-A3B</span><div class="bar-track"><div class="bar-fill" style="--v: 88;"></div></div><span>88</span></div>
+            <div class="score-bar desktop"><span>Gemma 4 31B</span><div class="bar-track"><div class="bar-fill" style="--v: 87;"></div></div><span>87</span></div>
+            <div class="score-bar desktop"><span>Gemma 4 26B A4B</span><div class="bar-track"><div class="bar-fill" style="--v: 85;"></div></div><span>85</span></div>
+            <div class="score-bar desktop"><span>gpt-oss-120b</span><div class="bar-track"><div class="bar-fill" style="--v: 82;"></div></div><span>82</span></div>
+            <div class="score-bar desktop"><span>Llama 4 Maverick</span><div class="bar-track"><div class="bar-fill" style="--v: 78;"></div></div><span>78</span></div>
+            <div class="score-bar edge"><span>gpt-oss-20b</span><div class="bar-track"><div class="bar-fill" style="--v: 76;"></div></div><span>76</span></div>
+            <div class="score-bar edge"><span>Phi-4 mini reasoning</span><div class="bar-track"><div class="bar-fill" style="--v: 66;"></div></div><span>66</span></div>
+          </div>
+          <p class="benchmark-note">統合実務スコアは、公開ベンチマーク、コーディング/エージェント適性、長文処理、ローカル運用性、ライセンス/導入容易性を加味した本資料独自の整理。</p>
+        </article>
+
+        <article class="chart-panel">
+          <h3>性能とローカル運用性のズレ</h3>
+          <div class="scatter-plot" aria-label="Model strength versus local operability scatter chart">
+            <span class="scatter-axis y">Benchmark strength</span>
+            <span class="scatter-axis x">Local operability</span>
+
+            <span class="scatter-dot" style="--x: 17; --y: 9; --s: 44px; --c: var(--rose);">96</span>
+            <span class="scatter-label" style="--x: 17; --y: 9; --s: 44px;">Kimi K2.6</span>
+
+            <span class="scatter-dot" style="--x: 12; --y: 12; --s: 43px; --c: var(--rose);">95</span>
+            <span class="scatter-label" style="--x: 12; --y: 12; --s: 43px;">DeepSeek V4-Pro</span>
+
+            <span class="scatter-dot" style="--x: 21; --y: 17; --s: 42px; --c: var(--violet);">93</span>
+            <span class="scatter-label" style="--x: 21; --y: 17; --s: 42px;">GLM-5.1</span>
+
+            <span class="scatter-dot" style="--x: 70; --y: 24; --s: 40px; --c: var(--blue);">91</span>
+            <span class="scatter-label" style="--x: 70; --y: 24; --s: 40px;">Qwen3.6 27B</span>
+
+            <span class="scatter-dot" style="--x: 82; --y: 30; --s: 38px; --c: var(--teal);">88</span>
+            <span class="scatter-label" style="--x: 82; --y: 30; --s: 38px;">Qwen3.6 A3B</span>
+
+            <span class="scatter-dot" style="--x: 74; --y: 36; --s: 38px; --c: var(--green);">87</span>
+            <span class="scatter-label" style="--x: 74; --y: 36; --s: 38px;">Gemma 4 31B</span>
+
+            <span class="scatter-dot" style="--x: 84; --y: 42; --s: 36px; --c: var(--green);">85</span>
+            <span class="scatter-label" style="--x: 84; --y: 42; --s: 36px;">Gemma 4 26B</span>
+
+            <span class="scatter-dot" style="--x: 44; --y: 48; --s: 35px; --c: var(--cyan);">82</span>
+            <span class="scatter-label" style="--x: 44; --y: 48; --s: 35px;">gpt-oss 120b</span>
+
+            <span class="scatter-dot" style="--x: 33; --y: 56; --s: 34px; --c: var(--amber);">78</span>
+            <span class="scatter-label" style="--x: 33; --y: 56; --s: 34px;">Llama 4 Maverick</span>
+
+            <span class="scatter-dot" style="--x: 86; --y: 63; --s: 33px; --c: var(--amber);">76</span>
+            <span class="scatter-label" style="--x: 86; --y: 63; --s: 33px;">gpt-oss 20b</span>
+
+            <span class="scatter-dot" style="--x: 86; --y: 78; --s: 31px; --c: var(--muted);">66</span>
+            <span class="scatter-label" style="--x: 86; --y: 78; --s: 31px;">Phi-4 mini</span>
+          </div>
+          <p class="benchmark-note">右上に近いほど理想。ただし現実には「強いが重い」か「軽いが専門寄り」に分かれる。個人PCでは右側のQwen/Gemma/gpt-oss/Phiが候補。</p>
+        </article>
+      </div>
+
+      <div class="benchmark-table-wrap">
+        <table class="benchmark-table">
+          <thead>
+            <tr>
+              <th>モデル</th>
+              <th>運用クラス</th>
+              <th>規模 / 文脈長</th>
+              <th>MMLU-Pro</th>
+              <th>AIME 2026</th>
+              <th>GPQA Diamond</th>
+              <th>LiveCodeBench</th>
+              <th>SWE / Agent</th>
+              <th>採用判断</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="model-cell"><strong>Kimi K2.6</strong><span>Moonshot AI / open-weight</span></td>
+              <td>Server frontier</td>
+              <td>1T total / 32B active<br>256K context</td>
+              <td><span class="bench-num na">n/a</span></td>
+              <td><span class="bench-num max">96.4</span></td>
+              <td><span class="bench-num max">90.5</span></td>
+              <td><span class="bench-num max">89.6</span></td>
+              <td><span class="bench-num max">80.2 / 58.6</span><br>SWE Verified / Pro</td>
+              <td>長時間エージェント、調査、複数サブタスク分解が強い。自前運用は重い。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>DeepSeek V4-Pro Max</strong><span>DeepSeek / MIT</span></td>
+              <td>Server frontier</td>
+              <td>1.6T total / 49B active<br>1M context</td>
+              <td><span class="bench-num high">87.5</span></td>
+              <td><span class="bench-num na">n/a</span></td>
+              <td><span class="bench-num max">90.1</span></td>
+              <td><span class="bench-num max">93.5</span></td>
+              <td><span class="bench-num max">80.6 / 55.4</span><br>SWE Verified / Pro</td>
+              <td>コード、長文、オンプレRAGの最上位候補。個人PCではなくGPUサーバー向き。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>GLM-5.1</strong><span>Z.AI / open-weight</span></td>
+              <td>Server agent</td>
+              <td>754B class<br>200K context</td>
+              <td><span class="bench-num na">n/a</span></td>
+              <td><span class="bench-num max">95.3</span></td>
+              <td><span class="bench-num high">86.2</span></td>
+              <td><span class="bench-num na">n/a</span></td>
+              <td><span class="bench-num max">58.4</span><br>SWE-Bench Pro</td>
+              <td>長時間の開発・改善ループが売り。Agentic engineering用途で評価したい。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>Qwen3.6-27B</strong><span>Qwen / Apache 2.0</span></td>
+              <td>Pro workstation</td>
+              <td>27B dense<br>262K native, up to 1M</td>
+              <td><span class="bench-num high">86.2</span></td>
+              <td><span class="bench-num max">94.1</span></td>
+              <td><span class="bench-num high">87.8</span></td>
+              <td><span class="bench-num high">83.9</span></td>
+              <td><span class="bench-num high">77.2 / 53.5</span><br>SWE Verified / Pro</td>
+              <td>ローカル開発エージェントの本命。重さを許容できるなら最初に試す価値が高い。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>Qwen3.6-35B-A3B</strong><span>Qwen / Apache 2.0</span></td>
+              <td>Efficient workstation</td>
+              <td>35B total / 3B active<br>262K native, up to 1M</td>
+              <td><span class="bench-num high">85.2</span></td>
+              <td><span class="bench-num high">92.7</span></td>
+              <td><span class="bench-num high">86.0</span></td>
+              <td><span class="bench-num high">80.4</span></td>
+              <td><span class="bench-num high">73.4 / 49.5</span><br>SWE Verified / Pro</td>
+              <td>性能と軽さのバランスが良い。普段使いのローカルAIに向く。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>Gemma 4 31B</strong><span>Google DeepMind / Apache 2.0</span></td>
+              <td>Local multimodal</td>
+              <td>30.7B dense<br>256K context</td>
+              <td><span class="bench-num high">85.2</span></td>
+              <td><span class="bench-num high">89.2</span></td>
+              <td><span class="bench-num high">84.3</span></td>
+              <td><span class="bench-num high">80.0</span></td>
+              <td><span class="bench-num mid">52.0*</span><br>Qwen比較表のSWE Verified</td>
+              <td>商用ライセンス、マルチモーダル、安全性のバランスが良い。文書/画像理解に強い。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>Gemma 4 26B A4B</strong><span>Google DeepMind / Apache 2.0</span></td>
+              <td>Fast local MoE</td>
+              <td>25.2B total / 3.8B active<br>256K context</td>
+              <td><span class="bench-num mid">82.6</span></td>
+              <td><span class="bench-num high">88.3</span></td>
+              <td><span class="bench-num mid">82.3</span></td>
+              <td><span class="bench-num high">77.1</span></td>
+              <td><span class="bench-num low">17.4*</span><br>Qwen比較表のSWE Verified</td>
+              <td>高速なローカル推論向け。エージェント開発より、要約・RAG・文書処理で強い。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>gpt-oss-120b</strong><span>OpenAI / Apache 2.0</span></td>
+              <td>Single 80GB GPU</td>
+              <td>117B total / 5.1B active<br>128K context</td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td>OpenAI系の推論様式を自前環境に置ける。定量比較は自社タスクでの再測定が必要。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>Llama 4 Maverick</strong><span>Meta / Llama 4 license</span></td>
+              <td>Multimodal server</td>
+              <td>400B total / 17B active<br>1M context</td>
+              <td><span class="bench-num mid">80.5</span></td>
+              <td><span class="bench-num na">n/a</span></td>
+              <td><span class="bench-num low">69.8</span></td>
+              <td><span class="bench-num low">43.4</span></td>
+              <td><span class="bench-num na">n/a</span></td>
+              <td>巨大文脈とマルチモーダルが魅力。コードエージェント性能は最新勢に見劣りする。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>gpt-oss-20b</strong><span>OpenAI / Apache 2.0</span></td>
+              <td>Desktop / laptop</td>
+              <td>21B total / 3.6B active<br>128K context</td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td><span class="bench-num na">公式比較</span></td>
+              <td>16GB級で動かせる実務モデル。小規模RAG、下書き、ローカル秘匿処理に良い。</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><strong>Phi-4 mini reasoning</strong><span>Microsoft / MIT</span></td>
+              <td>Edge specialist</td>
+              <td>3.8B dense<br>128K context</td>
+              <td><span class="bench-num na">n/a</span></td>
+              <td><span class="bench-num low">57.5</span></td>
+              <td><span class="bench-num low">52.0</span></td>
+              <td><span class="bench-num na">n/a</span></td>
+              <td><span class="bench-num na">n/a</span></td>
+              <td>軽量な数学・論理特化。万能AIではなく、狭い用途の部品として使う。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="benchmark-note">
+        * 印は他社比較表または特定エージェント scaffold 上の値。ベンチマークは万能な順位ではなく、実運用では日本語、社内文書、RAG、ツール実行、失敗時の回復力を別途検証する。
+      </p>
+
+      <div class="usecase-grid">
+        <article class="usecase-card">
+          <strong>個人PCの第一候補</strong>
+          <p>Qwen3.6-35B-A3B、Gemma 4 26B A4B、gpt-oss-20b。速さ、秘匿性、導入しやすさのバランスが良い。</p>
+        </article>
+        <article class="usecase-card">
+          <strong>ローカル開発エージェント</strong>
+          <p>Qwen3.6-27Bを軸に、重い課題だけクラウド/サーバー級へ逃がす構成が現実的。</p>
+        </article>
+        <article class="usecase-card">
+          <strong>企業オンプレ</strong>
+          <p>DeepSeek V4-Pro、Kimi K2.6、GLM-5.1。GPUコストを払えるならクラウド依存を減らせる。</p>
+        </article>
+        <article class="usecase-card">
+          <strong>文書・画像・RAG</strong>
+          <p>Gemma 4 31B/26B、Qwen3.6、Llama 4。ベンチより自社PDF、画像、表の読み取りで検証する。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="llm-tier" aria-labelledby="tier-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Model tier framework</p>
+          <h2 id="tier-title">クラウドLLMとローカルLLMのTier評価表</h2>
+        </div>
+        <p>
+          Tierは「絶対的な頭の良さ」ではなく、商用利用でどこまで任せられるかの実務評価。Cloudは実行品質、Localは実行品質に加えてハード要件と機密性で見る。
+        </p>
+      </div>
+
+      <div class="tier-note">
+        <div class="tier-note-card">
+          <strong>表示は5段階、内部評価は10点</strong>
+          <p>読み手にはTier 1-5で直感的に見せ、実際の診断では品質、速度、コスト、再現性、リスク管理を10点満点で採点する。</p>
+        </div>
+        <div class="tier-note-card">
+          <strong>評価軸</strong>
+          <p>1. 成果物品質 2. 推論/コーディング 3. ツール実行 4. 速度/コスト 5. 長文/RAG 6. 機密性 7. 運用しやすさ。</p>
+        </div>
+      </div>
+
+      <div class="tier-grid">
+        <article class="tier-panel">
+          <h3>Cloud LLM Tier</h3>
+          <p>クラウドLLMは、最高品質の判断、エージェント実行、顧客向け成果物、長文推論に強い。機密性と継続コストは設計で管理する。</p>
+          <div class="tier-table-wrap">
+            <table class="tier-table">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>代表モデル例</th>
+                  <th>強い仕事</th>
+                  <th>注意点</th>
+                  <th>採用判断</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="tier-rank t5">Tier 5</span><br>Frontier Orchestrator</td>
+                  <td>
+                    最難関タスク用
+                    <div class="model-list">
+                      <span class="model-chip">GPT-5.5</span>
+                      <span class="model-chip">Claude Opus 4.7</span>
+                      <span class="model-chip">Gemini 3.1 Pro</span>
+                      <span class="model-chip">DeepSeek V4-Pro</span>
+                    </div>
+                  </td>
+                  <td>複雑な推論、agentic coding、役員向け資料、難しい仕様整理、品質が最優先の最終成果物。</td>
+                  <td>コスト、待ち時間、レート制限、クラウドへ出すデータの境界設計が必要。</td>
+                  <td>失敗コストが高い仕事、初回設計、最終レビュー、難問処理に使う。</td>
+                </tr>
+                <tr>
+                  <td><span class="tier-rank t4">Tier 4</span><br>Production Workhorse</td>
+                  <td>
+                    日常の主力
+                    <div class="model-list">
+                      <span class="model-chip">Claude Sonnet 4.6</span>
+                      <span class="model-chip">Gemini 3.5 Flash</span>
+                      <span class="model-chip">Mistral Medium 3.5</span>
+                      <span class="model-chip">DeepSeek V4-Flash</span>
+                    </div>
+                  </td>
+                  <td>日次レポート、コード修正、問い合わせ下書き、RAG応答、ワークフロー内の実行役。</td>
+                  <td>Tier 5ほどの難問耐性はない。評価セットで品質境界を把握する。</td>
+                  <td>本番運用の標準候補。品質とコストのバランスが最も取りやすい。</td>
+                </tr>
+                <tr>
+                  <td><span class="tier-rank t3">Tier 3</span><br>Fast / Economy</td>
+                  <td>
+                    高速・低コスト
+                    <div class="model-list">
+                      <span class="model-chip">Claude Haiku 4.5</span>
+                      <span class="model-chip">Gemini Flash-Lite</span>
+                      <span class="model-chip">小型GPT系</span>
+                    </div>
+                  </td>
+                  <td>分類、抽出、短文要約、ルーティング、FAQ下書き、低リスクな大量処理。</td>
+                  <td>深い推論や長い手順の保持は苦手な場面がある。</td>
+                  <td>件数が多い処理に最適。難しいケースだけTier 4/5へエスカレーションする。</td>
+                </tr>
+                <tr>
+                  <td><span class="tier-rank t2">Tier 2</span><br>Task Router</td>
+                  <td>
+                    補助モデル
+                    <div class="model-list">
+                      <span class="model-chip">Embedding</span>
+                      <span class="model-chip">Rerank</span>
+                      <span class="model-chip">Moderation</span>
+                      <span class="model-chip">OCR</span>
+                    </div>
+                  </td>
+                  <td>検索、並べ替え、危険検知、文書処理、LLMに渡す前処理。</td>
+                  <td>単体では高度な判断をしない。パイプライン部品として評価する。</td>
+                  <td>AIシステムの土台。派手ではないが、品質とコストを大きく左右する。</td>
+                </tr>
+                <tr>
+                  <td><span class="tier-rank t1">Tier 1</span><br>Legacy / Basic</td>
+                  <td>
+                    旧世代・簡易運用
+                    <div class="model-list">
+                      <span class="model-chip">旧モデル</span>
+                      <span class="model-chip">ルール処理</span>
+                      <span class="model-chip">テンプレ生成</span>
+                    </div>
+                  </td>
+                  <td>低リスクな整形、固定テンプレ、単純な言い換え。</td>
+                  <td>最新LLMとの差が大きい。高品質成果物には向かない。</td>
+                  <td>コスト削減目的のみ。判断や顧客向け品質には使わない。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="tier-panel">
+          <h3>Local / Open-weight LLM Tier</h3>
+          <p>ローカルLLMは、機密データ、低コスト反復、オフライン処理、自前運用が価値。最高Tierは家庭用PCではなく、自前GPUサーバーも含めて見る。</p>
+          <div class="tier-table-wrap">
+            <table class="tier-table">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>代表モデル例</th>
+                  <th>強い仕事</th>
+                  <th>必要環境</th>
+                  <th>採用判断</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="tier-rank t5">Tier 5</span><br>On-prem Frontier</td>
+                  <td>
+                    自前サーバー級
+                    <div class="model-list">
+                      <span class="model-chip">DeepSeek V4-Pro</span>
+                      <span class="model-chip">Kimi K2.6</span>
+                      <span class="model-chip">GLM-5.1</span>
+                      <span class="model-chip">Nemotron 3 Ultra</span>
+                    </div>
+                  </td>
+                  <td>社内データの高度RAG、オンプレagent、長文推論、クラウドに出せない重要業務。</td>
+                  <td>80GB級GPU、複数GPU、vLLM/SGLang、運用担当が必要。</td>
+                  <td>データ主権と大規模処理が必要な企業向け。個人PC用途では過剰。</td>
+                </tr>
+                <tr>
+                  <td><span class="tier-rank t4">Tier 4</span><br>Pro Workstation</td>
+                  <td>
+                    個人上級・小規模チーム
+                    <div class="model-list">
+                      <span class="model-chip">Qwen3.6-35B-A3B</span>
+                      <span class="model-chip">Qwen3.6-27B</span>
+                      <span class="model-chip">Gemma 4 31B</span>
+                      <span class="model-chip">Gemma 4 26B A4B</span>
+                      <span class="model-chip">gpt-oss-20b</span>
+                      <span class="model-chip">gpt-oss-120b</span>
+                    </div>
+                  </td>
+                  <td>ローカルcoding、秘密メモ要約、社内文書RAG、試作、反復レビュー。</td>
+                  <td>16-48GB VRAM、Apple Silicon大容量、量子化モデル、Ollama/LM Studio/llama.cpp。</td>
+                  <td>現実的なローカル主力。クラウドと併用すると最も強い。</td>
+                </tr>
+                <tr>
+                  <td><span class="tier-rank t3">Tier 3</span><br>Practical Desktop</td>
+                  <td>
+                    普段使いPC
+                    <div class="model-list">
+                      <span class="model-chip">Gemma 4 12B</span>
+                      <span class="model-chip">Qwen 7B-14B級</span>
+                      <span class="model-chip">Ministral 8B/14B</span>
+                    </div>
+                  </td>
+                  <td>要約、分類、下書き、軽いコード補助、個人ナレッジ検索。</td>
+                  <td>8-16GB VRAM、または高速CPUでも可。速度と品質は量子化設定に依存。</td>
+                  <td>ローカルLLM入門の実用ライン。機密性とコスト削減の効果が見えやすい。</td>
+                </tr>
+                <tr>
+                  <td><span class="tier-rank t2">Tier 2</span><br>Edge / Light</td>
+                  <td>
+                    軽量端末
+                    <div class="model-list">
+                      <span class="model-chip">Gemma 4 E2B/E4B</span>
+                      <span class="model-chip">Qwen小型</span>
+                      <span class="model-chip">Ministral 3B</span>
+                    </div>
+                  </td>
+                  <td>短文分類、入力補助、オフラインFAQ、ルール補完、低レイテンシ処理。</td>
+                  <td>CPU、4-8GBメモリ、モバイル/エッジ端末。</td>
+                  <td>精度より配置自由度を重視する場面で使う。</td>
+                </tr>
+                <tr>
+                  <td><span class="tier-rank t1">Tier 1</span><br>Tiny Helper</td>
+                  <td>
+                    部品として使う
+                    <div class="model-list">
+                      <span class="model-chip">小型Embedding</span>
+                      <span class="model-chip">分類器</span>
+                      <span class="model-chip">ルール併用</span>
+                    </div>
+                  </td>
+                  <td>検索前処理、タグ付け、重複検出、低リスク自動処理。</td>
+                  <td>ほぼ任意。PC常駐やバッチ処理に向く。</td>
+                  <td>単体ではなくワークフローの歯車。地味だが運用コストを下げる。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="demo" aria-labelledby="demo-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Commercial demos</p>
+          <h2 id="demo-title">実力を一瞬で伝えるデモ構成</h2>
+        </div>
+        <p>
+          プレゼンでは、モデル名より「入力から成果物までの時間差」を見せる。以下はそのまま実演台本にできる。
+        </p>
+      </div>
+
+      <div class="demo-grid">
+        <article class="demo">
+          <div class="num">01</div>
+          <h3>10本の記事から3分で市場レポート</h3>
+          <p>調査、要約、比較、出典整理を一連で見せる。調査AIと汎用LLMの価値が伝わる。</p>
+        </article>
+        <article class="demo">
+          <div class="num">02</div>
+          <h3>PDF資料を意思決定メモへ変換</h3>
+          <p>長文理解、構造化、要点抽出、次アクション化を見せる。管理職に刺さりやすい。</p>
+        </article>
+        <article class="demo">
+          <div class="num">03</div>
+          <h3>バグを見つけて修正、テストまで実行</h3>
+          <p>開発AIの本質は「説明」ではなく「差分と検証」であることを示せる。</p>
+        </article>
+        <article class="demo">
+          <div class="num">04</div>
+          <h3>秘密メモをローカルLLMで要約</h3>
+          <p>クラウドに出せない情報を処理する場面で、ローカル運用の価値が直感的に伝わる。</p>
+        </article>
+        <article class="demo">
+          <div class="num">05</div>
+          <h3>毎朝の定期レポートを自動生成</h3>
+          <p>AIを単発ツールではなく、反復業務を回す運用基盤として見せる。</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="architecture-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Operating model</p>
+          <h2 id="architecture-title">商用導入の実装モデル</h2>
+        </div>
+        <p>
+          安定した導入は、クラウドAI、ローカルAI、人間承認を分けて設計するところから始まる。
+        </p>
+      </div>
+
+      <div class="architecture">
+        <div class="arch-col">
+          <h3>Cloud AI</h3>
+          <ul>
+            <li>最高品質の推論と文章化</li>
+            <li>外部情報を含む深い調査</li>
+            <li>難しい判断のセカンドオピニオン</li>
+          </ul>
+        </div>
+        <div class="arrow-band">
+          <strong>Human Control Plane</strong>
+          <p>目的、権限、承認、ログ、評価指標を人間が握る。AIには作業単位を渡す。</p>
+        </div>
+        <div class="arch-col">
+          <h3>Local AI</h3>
+          <ul>
+            <li>機密文書の要約と分類</li>
+            <li>低コストな反復処理</li>
+            <li>社内ナレッジ検索とRAG</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="decision-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Decision guide</p>
+          <h2 id="decision-title">どのAIから始めるべきか</h2>
+        </div>
+        <p>
+          技術選定は「流行」ではなく、データの機密性、反復頻度、失敗時の影響で決める。
+        </p>
+      </div>
+
+      <div class="decision-grid">
+        <article class="decision">
+          <strong>外部向け品質が最優先</strong>
+          <p>クラウド上位LLMを主軸にし、人間が編集長として最終品質を担保する。</p>
+        </article>
+        <article class="decision">
+          <strong>機密データが多い</strong>
+          <p>ローカルLLMと社内RAGを先に整備し、外部APIへ出す情報を制限する。</p>
+        </article>
+        <article class="decision">
+          <strong>開発速度を上げたい</strong>
+          <p>開発AIに小さな修正、テスト、レビューコメント対応から任せる。</p>
+        </article>
+        <article class="decision">
+          <strong>毎日同じ作業がある</strong>
+          <p>自動化AIで定期レポート、通知、分類、下書き生成をワークフロー化する。</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="sources-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Reference signals</p>
+          <h2 id="sources-title">公開情報の確認先</h2>
+        </div>
+        <p>
+          本レポートは2026年5月26日時点の公開情報と主要ツール動向をもとに構成した。
+        </p>
+      </div>
+
+      <ul class="source-list">
+        <li><a href="https://developers.openai.com/api/docs/guides/latest-model">OpenAI GPT-5.5</a>: complex production workflows, agentic tasks, tool use, and reasoning controls.</li>
+        <li><a href="https://platform.claude.com/docs/en/about-claude/models/overview">Anthropic Claude models</a>: Opus, Sonnet, and Haiku positioning, context windows, and model selection.</li>
+        <li><a href="https://ai.google.dev/gemini-api/docs/models">Google Gemini models</a>: Gemini 3 family, Flash, Flash-Lite, and agent/coding model positioning.</li>
+        <li><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro">DeepSeek V4-Pro</a>: V4-Pro/Flash parameters, 1M context, reasoning modes, and benchmark tables.</li>
+        <li><a href="https://openai.com/index/introducing-gpt-oss/">OpenAI gpt-oss</a>: open-weight reasoning models, 120b/20b specifications, and local deployment signals.</li>
+        <li><a href="https://huggingface.co/Qwen/Qwen3.6-27B">Qwen3.6-27B</a> / <a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B">Qwen3.6-35B-A3B</a>: coding-agent, reasoning, vision-language benchmarks, and serving notes.</li>
+        <li><a href="https://ai.google.dev/gemma/docs/core/model_card_4">Google Gemma 4 model card</a>: Gemma 4 sizes, context windows, multimodal support, and benchmark results.</li>
+        <li><a href="https://huggingface.co/moonshotai/Kimi-K2.6">Kimi K2.6</a>: agentic, coding, reasoning, and vision benchmark results.</li>
+        <li><a href="https://huggingface.co/zai-org/GLM-5.1">GLM-5.1</a>: long-horizon agentic engineering positioning and benchmark table.</li>
+        <li><a href="https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct">Meta Llama 4 Maverick</a>: MoE, multimodal, context, and instruction benchmark results.</li>
+        <li><a href="https://huggingface.co/microsoft/Phi-4-mini-reasoning">Microsoft Phi-4 mini reasoning</a>: lightweight reasoning model quality and math benchmark results.</li>
+        <li><a href="https://docs.mistral.ai/models/overview">Mistral model overview</a>: Mistral Large 3, Medium 3.5, Small 4, Devstral 2, and Ministral 3 model families.</li>
+        <li><a href="https://artificialanalysis.ai/leaderboards/models">Artificial Analysis model leaderboard</a>: open-weight Intelligence Index signal and cross-model comparison context.</li>
+        <li><a href="https://www.swebench.com/">SWE-bench official leaderboards</a>: software engineering benchmark context for agentic coding claims.</li>
+        <li><a href="https://docs.ollama.com/windows">Ollama</a> / <a href="https://www.lmstudio.ai/docs/app/offline">LM Studio</a>: local LLM desktop operation.</li>
+        <li><a href="https://www.vllm.ai/">vLLM</a> / <a href="https://docs.sglang.ai/">SGLang</a>: self-hosted serving and OpenAI-compatible deployment.</li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <p>
+        AI Tools Capability Map 2026. Designed for executive briefing, internal education, and commercial demo planning. 作成日: 2026-06-10 JST.
+      </p>
+      <p class="print-note">印刷時は背景装飾を簡略化しています。</p>
+    </footer>
+  </main>
+</body>
+</html>
